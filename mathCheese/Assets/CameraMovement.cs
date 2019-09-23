@@ -3,7 +3,7 @@
 public class CameraMovement : MonoBehaviour
 {
     public float speed = 20f;
-    public float rotationSpeed = 1f;
+    public float rotationSpeed = 10f;
 
     // Update is called once per frame
     void Update()
