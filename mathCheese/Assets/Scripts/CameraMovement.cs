@@ -3,7 +3,7 @@
 public class CameraMovement : MonoBehaviour
 {
     public static float speed = 20f;
-    public static float rotationSpeed = 10f;
+    public static float rotationSpeed = 20f;
 
 
     void Start() {
@@ -17,6 +17,7 @@ public class CameraMovement : MonoBehaviour
         Quaternion rot = transform.rotation;
 
         //Moving the Camera
+        /*
         if(Input.GetKey("w"))
         {
             pos.z += speed * Time.deltaTime;
@@ -32,6 +33,23 @@ public class CameraMovement : MonoBehaviour
         if(Input.GetKey("d"))
         {
             pos.x += speed * Time.deltaTime;
+        }*/
+
+        if(Input.GetKey("w"))
+        {
+            Camera.main.transform.position += Vector3.ProjectOnPlane(transform.forward * speed * Time.deltaTime, Vector3.up);
+        }
+        if(Input.GetKey("s"))
+        {
+            Camera.main.transform.position -= Vector3.ProjectOnPlane(transform.forward * speed * Time.deltaTime, Vector3.up);
+        }
+        if(Input.GetKey("a"))
+        {
+            Camera.main.transform.position -= transform.right * speed * Time.deltaTime;
+        }
+        if(Input.GetKey("d"))
+        {
+            Camera.main.transform.position += transform.right * speed * Time.deltaTime;
         }
 
         //Rotating the Camera
@@ -47,7 +65,7 @@ public class CameraMovement : MonoBehaviour
         //Zooming the Camera
         Camera.main.fieldOfView += Input.GetAxis("Mouse ScrollWheel") * speed * Time.deltaTime;
 
-        Camera.main.transform.position = pos;
+        //Camera.main.transform.position = pos;
         Camera.main.transform.rotation = rot;
     }
 }
