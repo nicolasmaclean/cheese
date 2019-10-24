@@ -2,17 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Noise : MonoBehaviour
+public class Noise
 {
-    // Start is called before the first frame update
-    void Start()
+    public static int[,] GenerateNoiseMap(int width, int height, int choiceAmt)
     {
-        
-    }
+        int[,] noiseMap = new int[height, width];
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+        for(int y = 0; y < height; y++){
+            for(int x = 0; x < width; x++){
+               noiseMap[y,x] = Random.Range(0, choiceAmt);
+            }
+        }
+
+        return noiseMap;
+    } 
 }
