@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-private class MouseOver : MonoBehaviour
+public class MouseOver : MonoBehaviour
 {
 
-    public static Transform borderPrefab;
+    public Transform borderPrefab;
+    private Transform border;
 
     void Start() {
-        gameObject.GetComponent<MouseOver>().borderPrefab = Resources.Load("Meshes/tileBorder");
         border = Instantiate(borderPrefab, gameObject.transform.position, new Quaternion(-1,0,0,1));
     }
     // Update is called once per frame
