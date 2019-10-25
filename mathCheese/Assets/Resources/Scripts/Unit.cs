@@ -18,7 +18,7 @@ public class Unit : MonoBehaviour
         Quaternion up = new Quaternion(-1,0,0,1);
         unitMesh = Instantiate(unitMeshPrefab, unitPosition, up);
         unitMesh.parent = gameObject.transform;
-        unitMesh.gameObject.AddComponent<MouseOver>();
+        // unitMesh.gameObject.AddComponent<MouseOver>();
     }
 
     public void move()
