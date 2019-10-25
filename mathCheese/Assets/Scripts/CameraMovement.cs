@@ -7,8 +7,8 @@ public class CameraMovement : MonoBehaviour
 
 
     void Start() {
-        Camera.main.transform.position = new Vector3(0f,20f,0f);
-        Camera.main.transform.rotation = Quaternion.Euler(20f,0,0);
+        Camera.main.transform.position = new Vector3(0f,40f,0f);
+        Camera.main.transform.rotation = Quaternion.Euler(40f,0,0);
     }
     // Update is called once per frame
     void Update()
