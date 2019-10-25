@@ -28,6 +28,7 @@ public class TileMapGenerator : MonoBehaviour
         for(z = 0; z < mapHeight; z++){
             for(x = 0; x < mapWidth; x++){
                 tiles[z, x] = Instantiate(tilePrefabs[noiseMap[z, x]], new Vector3(x*tileSize, 0, z*tileSize), up);
+                tiles[z, x].parent = gameObject.transform;
             }
         }
     }
