@@ -6,6 +6,7 @@ public class TileMapGenerator : MonoBehaviour
 {
     public int mapWidth, mapHeight;
     public Transform[] tilePrefabs;
+    // public Transform tileBorder;
 
     private Transform[,] tiles;
     private float tileSize;
@@ -19,6 +20,16 @@ public class TileMapGenerator : MonoBehaviour
         buildMap();
     }
 
+    public void onHover()
+    {
+        gameObject.GetComponent<Renderer>().material.color = Color.green;
+    }
+
+    public void notHover()
+    {
+        gameObject.GetComponent<Renderer>().material.color = Color.blue;
+    }
+
     public void buildMap()
     {
         int z, x;
@@ -29,7 +40,8 @@ public class TileMapGenerator : MonoBehaviour
             for(x = 0; x < mapWidth; x++){
                 tiles[z, x] = Instantiate(tilePrefabs[noiseMap[z, x]], new Vector3(x*tileSize, 0, z*tileSize), up);
                 tiles[z, x].parent = gameObject.transform;
-                // tiles[z, x].gameObject.AddComponent<MouseOver>();
+                tiles[z, x].gameObject.AddComponent<MouseOver>();
+                gameObject.GetComponent<MouseOver>().instantiate(onHover, notHover);
             }
         }
     }

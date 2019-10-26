@@ -1,25 +1,45 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class MouseOver : MonoBehaviour
 {
+    public TileMapGenerator tileMapGen;
 
-    public Transform borderPrefab;
-    private Transform border;
+    Action onHover;
+    Action notHover;
+    Action onClick;
+    Action notClick;
 
-    void Start() {
-        border = Instantiate(borderPrefab, gameObject.transform.position, new Quaternion(-1,0,0,1));
-    }
-    // Update is called once per frame
-    void Update()
+    void Start() 
     {
-        Ray ray = Camera.main.ScreenPointToRay( Input.mousePosition);
+        
+    }
+
+    public void instantiate(Action onHov, Action notHov)
+    {
+        onHover = onHov;
+        notHover = notHov;
+    }
+
+    public bool checkCollision()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hitInfo;
 
-        if(GetComponent<Collider>().Raycast( ray, out hitInfo, 1000 )) 
-            border.GetComponent<Renderer>().enabled = true;
-        else
-            border.GetComponent<Renderer>().enabled = false;
+        if(GetComponent<Collider>().Raycast( ray, out hitInfo, 1000 )) {
+            return true;
+        }
+        return false;
+    }
+
+    void Update()
+    {
+        if(checkCollision()){
+            onHover();
+        } else {
+            notHover();
+        }
     }
 }
