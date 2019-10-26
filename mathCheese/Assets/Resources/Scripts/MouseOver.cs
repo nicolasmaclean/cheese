@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class MouseOver : MonoBehaviour
 {
+    public static GameObject lastClicked;
+
     Collider collideComponent;
     Action<GameObject> onHover;
     Action<GameObject> notHover;
@@ -14,10 +16,11 @@ public class MouseOver : MonoBehaviour
         collideComponent = GetComponent<Collider>();
     }
 
-    public void instantiate(Action<GameObject> onHov, Action<GameObject> notHov)
+    public void instantiate(Action<GameObject> onHov, Action<GameObject> notHov, Action<GameObject> onCl)
     {
         onHover = onHov;
         notHover = notHov;
+        onClick = onCl;
     }
 
     bool checkCollision()
@@ -33,9 +36,13 @@ public class MouseOver : MonoBehaviour
 
     void Update()
     {
-        if(checkCollision() && onHover != null) {
+        bool collision = checkCollision();
+        if(collision && Input.GetMouseButtonDown(0) && onClick != null){
+            onClick(gameObject);
+            lastClicked = gameObject;
+        } else if(collision && onHover != null && gameObject != lastClicked) {
             onHover(gameObject);
-        } else if(notHover != null) {
+        } else if(notHover != null && gameObject != lastClicked) {
             notHover(gameObject);
         }
     }
