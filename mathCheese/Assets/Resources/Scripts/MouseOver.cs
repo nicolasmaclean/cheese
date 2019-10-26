@@ -5,30 +5,29 @@ using UnityEngine;
 
 public class MouseOver : MonoBehaviour
 {
-    public TileMapGenerator tileMapGen;
-
-    Action onHover;
-    Action notHover;
-    Action onClick;
-    Action notClick;
+    Collider collideComponent;
+    Action<GameObject> onHover;
+    Action<GameObject> notHover;
+    Action<GameObject> onClick;
+    Action<GameObject> notClick;
 
     void Start() 
     {
-        
+        collideComponent = GetComponent<Collider>();
     }
 
-    public void instantiate(Action onHov, Action notHov)
+    public void instantiate(Action<GameObject> onHov, Action<GameObject> notHov)
     {
         onHover = onHov;
         notHover = notHov;
     }
 
-    public bool checkCollision()
+    bool checkCollision()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hitInfo;
 
-        if(GetComponent<Collider>().Raycast( ray, out hitInfo, 1000 )) {
+        if(collideComponent != null && collideComponent.Raycast( ray, out hitInfo, 1000 )) {
             return true;
         }
         return false;
@@ -36,10 +35,10 @@ public class MouseOver : MonoBehaviour
 
     void Update()
     {
-        if(checkCollision()){
-            onHover();
-        } else {
-            notHover();
+        if(checkCollision() && onHover != null) {
+            onHover(gameObject);
+        } else if(notHover != null) {
+            notHover(gameObject);
         }
     }
 }

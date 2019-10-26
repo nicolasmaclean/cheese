@@ -13,12 +13,22 @@ public class Unit : MonoBehaviour
         instantiateMesh();
     }
 
+    void onHover(GameObject go)
+    {
+        go.GetComponent<Renderer>().material.color = Color.green;
+    }
+
+    void notHover(GameObject go)
+    {
+        go.GetComponent<Renderer>().material.color = Color.blue;
+    }
     public void instantiateMesh()
     {
         Quaternion up = new Quaternion(-1,0,0,1);
         unitMesh = Instantiate(unitMeshPrefab, unitPosition, up);
         unitMesh.parent = gameObject.transform;
-        // unitMesh.gameObject.AddComponent<MouseOver>();
+        unitMesh.gameObject.AddComponent<MouseOver>();
+        unitMesh.gameObject.GetComponent<MouseOver>().instantiate(onHover, notHover);
     }
 
     public void move()
