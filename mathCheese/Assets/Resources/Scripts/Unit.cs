@@ -7,6 +7,7 @@ public class Unit : MonoBehaviour
     Material unitMeshMaterial;
 
     private Transform unitMesh;
+    
     void Start()
     {
         unitMeshMaterial = unitMeshPrefab.gameObject.GetComponent<Renderer>().sharedMaterial;
@@ -34,18 +35,11 @@ public class Unit : MonoBehaviour
         unitMesh = Instantiate(unitMeshPrefab, unitPosition, up);
         unitMesh.parent = gameObject.transform;
         unitMesh.gameObject.AddComponent<MouseOver>();
-        unitMesh.gameObject.GetComponent<MouseOver>().instantiate(onHover, notHover, onClick);
+        unitMesh.gameObject.GetComponent<MouseOver>().instantiate(onHover, notHover, onClick, MouseOver.GameObjectType.Unit);
     }
 
-    public void move()
+    public void move(Vector3 nPos)
     {
-        unitMesh.position = new Vector3(unitPosition.x, unitMesh.position.y, unitPosition.y);
-    }
-
-    void Update()
-    {
-        if(unitPosition != new Vector2(unitMesh.position.x, unitMesh.position.z)){
-            move();
-        }
+        unitMesh.position = nPos;
     }
 }

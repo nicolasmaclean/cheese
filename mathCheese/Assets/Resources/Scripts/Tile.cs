@@ -26,7 +26,7 @@ public class Tile
         //adds mouse over if specified
         if(mouse){
             tileMesh.gameObject.AddComponent<MouseOver>();
-            tileMesh.gameObject.GetComponent<MouseOver>().instantiate(onHover, notHover, onClick);
+            tileMesh.gameObject.GetComponent<MouseOver>().instantiate(onHover, notHover, onClick, MouseOver.GameObjectType.Tile);
         }
     }
 
