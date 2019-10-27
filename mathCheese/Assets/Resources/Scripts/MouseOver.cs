@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class MouseOver : MonoBehaviour
 {
-    public static GameObject lastClicked;
+    public static GameObject lastClicked; // update last clicked after tile.cs is done
 
     Collider collideComponent;
     Action<GameObject> onHover;
