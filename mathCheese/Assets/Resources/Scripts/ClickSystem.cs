@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class ClickSystem : MonoBehaviour
 {
@@ -15,7 +13,6 @@ public class ClickSystem : MonoBehaviour
                     cl0.transform.parent.GetComponent<Unit>().move(cl1.transform.position);
                     MouseOver.lastClicked = new System.Collections.Generic.List<GameObject>();
                     MouseOver.lastClicked.Add(null);
-                    Debug.Log("Click System " + MouseOver.lastClicked.Count);
                 }
             }
         }
