@@ -385,9 +385,9 @@ MonoBehaviour:
   mapWidth: 5
   mapHeight: 5
   tilePrefabs:
-  - {fileID: -4216859302048453862, guid: 82938045bf66b4f1c92268d15b6b66fa, type: 3}
-  - {fileID: -4216859302048453862, guid: 3b4715565ebfc4ea688ffdc56cac6ca4, type: 3}
-  - {fileID: -4216859302048453862, guid: cde193137e7bb45458c04b1616ce0b59, type: 3}
+  - {fileID: 7571780184241821909, guid: 9a838add64e4a425daf08ed5322acf13, type: 3}
+  - {fileID: 6470418834464017353, guid: 949100036b123402f970bac802738e6d, type: 3}
+  - {fileID: 3017790096949164906, guid: 93076333f0c854391a5a0c73f942bbb8, type: 3}
   tileBorderPrefab: {fileID: -4216859302048453862, guid: 7fdc2f03e44a8454fb0e6d8b295ddc9d,
     type: 3}
 --- !u!4 &1127609754

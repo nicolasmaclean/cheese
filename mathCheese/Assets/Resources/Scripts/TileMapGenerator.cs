@@ -12,14 +12,14 @@ public class TileMapGenerator : MonoBehaviour
     void Start()
     {
         tiles = new Tile[mapHeight, mapWidth];
-        tileSize = tilePrefabs[0].GetComponent<Renderer>().bounds.size.x;
+        tileSize = tilePrefabs[0].transform.Find("Ground").GetComponent<Renderer>().bounds.size.x;
 
         buildMap();
     }
 
     public void buildMap()
     {
-        Quaternion up = new Quaternion(-1,0,0,1);
+        Quaternion up = new Quaternion(0,0,0,1);
         int[,] noiseMap = Noise.GenerateNoiseMap(mapWidth, mapHeight, tilePrefabs.Length);
         
         for(int z = 0; z < mapHeight; z++){

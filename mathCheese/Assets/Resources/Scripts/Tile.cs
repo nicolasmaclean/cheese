@@ -16,35 +16,35 @@ public class Tile
         //makes the tile mesh and sets them up
         tileMesh = GameObject.Instantiate(tileM, position, rot);
         tileMesh.parent = parent;
-        groundMat = tileMesh.gameObject.GetComponent<Renderer>().sharedMaterial;
+        groundMat = tileMesh.Find("Ground").GetComponent<Renderer>().sharedMaterial;
 
-        tileBorderMesh = GameObject.Instantiate(tileBorderM, position, rot);
+        tileBorderMesh = GameObject.Instantiate(tileBorderM, position, new Quaternion(-1, 0, 0, 1));
         tileBorderMesh.parent = parent;
         tileBorderRenderer = tileBorderMesh.gameObject.GetComponent<Renderer>();
         tileBorderRenderer.enabled = false;
 
         //adds mouse over if specified
         if(mouse){
-            tileMesh.gameObject.AddComponent<MouseOver>();
-            tileMesh.gameObject.GetComponent<MouseOver>().instantiate(onHover, notHover, onClick, MouseOver.GameObjectType.Tile);
+            tileMesh.Find("Ground").gameObject.AddComponent<MouseOver>();
+            tileMesh.Find("Ground").GetComponent<MouseOver>().instantiate(onHover, notHover, onClick, MouseOver.GameObjectType.Tile);
         }
     }
 
     public void onHover(GameObject go)
     {
-            tileMesh.gameObject.GetComponent<Renderer>().material.color = Color.green;
+            tileMesh.Find("Ground").GetComponent<Renderer>().material.color = Color.green;
             tileBorderRenderer.enabled = true;
     }
 
     public void notHover(GameObject go)
     {
-            tileMesh.gameObject.GetComponent<Renderer>().sharedMaterial = groundMat;
+            tileMesh.Find("Ground").GetComponent<Renderer>().sharedMaterial = groundMat;
             tileBorderRenderer.enabled = false;
     }
     
     public void onClick(GameObject go)
     {
-        tileMesh.gameObject.GetComponent<Renderer>().material.color = Color.red;
+        tileMesh.Find("Ground").GetComponent<Renderer>().material.color = Color.red;
         tileBorderRenderer.enabled = true;
     }
 }
