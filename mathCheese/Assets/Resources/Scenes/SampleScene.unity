@@ -152,6 +152,8 @@ MonoBehaviour:
   unitPosition: {x: 0, y: 0}
   unitMeshPrefab: {fileID: -4216859302048453862, guid: 14bf3a7b5e22745c5b062c979f74a434,
     type: 3}
+  borderPrefab: {fileID: -4216859302048453862, guid: fb9b8c77273004374baec05aea2d1385,
+    type: 3}
 --- !u!4 &195124794
 Transform:
   m_ObjectHideFlags: 0
@@ -239,7 +241,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 0, z: 3.67343e-40, w: -3.11e-43}
+  m_BoundingSphereOverride: {x: 0.03125, y: 0.09765625, z: 0.03125, w: -0.03125}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0

@@ -5,14 +5,16 @@ public class TileMapGenerator : MonoBehaviour
     public int mapWidth, mapHeight;
     public Transform[] tilePrefabs;
     public Transform tileBorderPrefab;
-    public static float tileSize;
+    public static float tileSizeX;
+    public static float tileSizeZ;
 
     private Tile[,] tiles;
 
     void Start()
     {
         tiles = new Tile[mapHeight, mapWidth];
-        tileSize = tilePrefabs[0].transform.Find("Ground").GetComponent<Renderer>().bounds.size.x;
+        tileSizeX = tilePrefabs[0].transform.Find("Ground").GetComponent<Renderer>().bounds.size.x;
+        tileSizeZ = tilePrefabs[0].transform.Find("Ground").GetComponent<Renderer>().bounds.size.z;
 
         buildMap();
     }
@@ -24,7 +26,7 @@ public class TileMapGenerator : MonoBehaviour
         
         for(int z = 0; z < mapHeight; z++){
             for(int x = 0; x < mapWidth; x++){
-                tiles[z, x] = new Tile(tilePrefabs[noiseMap[z, x]], tileBorderPrefab, new Vector3(x*tileSize, 0, z*tileSize), up, gameObject.transform, true);
+                tiles[z, x] = new Tile(tilePrefabs[noiseMap[z, x]], tileBorderPrefab, new Vector3(x*tileSizeX, 0, z*tileSizeZ), up, gameObject.transform, true);
             }
         }
 
