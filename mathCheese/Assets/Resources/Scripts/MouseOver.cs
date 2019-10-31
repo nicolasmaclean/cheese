@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class MouseOver : MonoBehaviour
 {
-    public static List<GameObject> lastClicked = new List<GameObject>();
     public enum GameObjectType {Tile, Unit}
     public GameObjectType goType;
 
@@ -12,12 +10,9 @@ public class MouseOver : MonoBehaviour
     Action<GameObject> onHover;
     Action<GameObject> notHover;
     Action<GameObject> onClick;
-    Action<GameObject> notClick;
 
     void Start() 
     {
-        if(lastClicked.Count == 0)
-            lastClicked.Add(null);
         collideComponent = GetComponent<Collider>();
     }
 
@@ -44,18 +39,16 @@ public class MouseOver : MonoBehaviour
 
     void Update()
     {
-        //clears lastClicked
-        while(lastClicked.Count > 2){
-            lastClicked.RemoveAt(0);
-        }
-
         bool collision = checkCollision();
-        if(collision && Input.GetMouseButtonDown(0) && onClick != null && !lastClicked.Contains(gameObject)){
+        if(collision && Input.GetMouseButtonDown(0) && onClick != null && !ClickSystem.clickHistory.Contains(gameObject)){
             onClick(gameObject);
-            lastClicked.Add(gameObject);
-        } else if(collision && onHover != null && lastClicked.IndexOf(gameObject) != lastClicked.Count-1) {
+            ClickSystem.clickHistory.Add(gameObject);
+        } else if(collision && Input.GetMouseButtonDown(0) && onClick != null && ClickSystem.clickHistory.IndexOf(gameObject) == ClickSystem.clickHistory.Count-1) {
+            ClickSystem.clickHistory.Remove(gameObject);
+            notHover(gameObject);
+        } else if(collision && onHover != null && ClickSystem.clickHistory.IndexOf(gameObject) != ClickSystem.clickHistory.Count-1) {
             onHover(gameObject);
-        } else if(notHover != null && lastClicked.IndexOf(gameObject) != lastClicked.Count-1) {
+        } else if(notHover != null && ClickSystem.clickHistory.IndexOf(gameObject) != ClickSystem.clickHistory.Count-1) {
             notHover(gameObject);
         }
     }
