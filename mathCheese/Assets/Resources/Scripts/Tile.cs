@@ -3,12 +3,11 @@ using UnityEngine;
 public class Tile
 {
     public Transform tileMesh;
-    public Transform tileBorderMesh;
     public Vector3 position;
     public Material groundMat;
     Renderer tileBorderRenderer;
 
-    public Tile(Transform tileM, Transform tileBorderM, Vector3 pos, Quaternion rot, Transform parent, bool mouse)
+    public Tile(Transform tileM, Vector3 pos, Quaternion rot, Transform parent, bool mouse)
     {
         //position of tile
         position = pos;
@@ -18,9 +17,7 @@ public class Tile
         tileMesh.parent = parent;
         groundMat = tileMesh.Find("Ground").GetComponent<Renderer>().sharedMaterial;
 
-        tileBorderMesh = GameObject.Instantiate(tileBorderM, position, new Quaternion(-1, 0, 0, 1));
-        tileBorderMesh.parent = parent;
-        tileBorderRenderer = tileBorderMesh.gameObject.GetComponent<Renderer>();
+        tileBorderRenderer = tileMesh.Find("Border").gameObject.GetComponent<Renderer>();
         tileBorderRenderer.enabled = false;
 
         //adds mouse over if specified

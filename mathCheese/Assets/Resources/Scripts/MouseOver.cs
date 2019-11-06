@@ -37,6 +37,12 @@ public class MouseOver : MonoBehaviour
         return false;
     }
 
+    public void move(Vector3 nPos)
+    {
+        gameObject.transform.position = nPos;
+        // move the unit border
+    }
+
     void Update()
     {
         bool collision = checkCollision();
