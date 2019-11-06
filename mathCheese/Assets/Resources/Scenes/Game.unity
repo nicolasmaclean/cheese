@@ -25538,8 +25538,6 @@ MonoBehaviour:
   - {fileID: 7571780184241821909, guid: 9a838add64e4a425daf08ed5322acf13, type: 3}
   - {fileID: 6470418834464017353, guid: 949100036b123402f970bac802738e6d, type: 3}
   - {fileID: 3017790096949164906, guid: 93076333f0c854391a5a0c73f942bbb8, type: 3}
-  tileBorderPrefab: {fileID: 1472483444646876780, guid: 397e5aaee2e3944f0b5feea9108b4f8e,
-    type: 3}
   autoUpdate: 1
 --- !u!4 &454302298
 Transform:
@@ -54341,10 +54339,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 983976fb62cfa400cbe64ebb875a1742, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tempUnit: {fileID: 6228913713312923400, guid: a4e08e45772c64d2991c55196cf1350b,
-    type: 3}
-  tempBorder: {fileID: 8526530649166560103, guid: 9c75a4ab28e9e4d9b848ca56ea5528f1,
-    type: 3}
 --- !u!4 &954724754
 Transform:
   m_ObjectHideFlags: 0
@@ -56200,6 +56194,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c5b052fbf8af402fbec0a4d6bdf9e5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tempUnit: {fileID: 6228913713312923400, guid: a4e08e45772c64d2991c55196cf1350b,
+    type: 3}
 --- !u!4 &984110550
 Transform:
   m_ObjectHideFlags: 0

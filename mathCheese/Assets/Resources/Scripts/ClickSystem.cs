@@ -4,6 +4,7 @@ using System.Collections.Generic;
 public class ClickSystem : MonoBehaviour
 {
     public static List<GameObject> clickHistory;
+    public Transform tempUnit;
 
     void Start()
     {
@@ -31,8 +32,15 @@ public class ClickSystem : MonoBehaviour
         }
     }
 
+    void addUnit()
+    {
+        if(clickHistory[clickHistory.Count-1] != null && clickHistory[clickHistory.Count-1].GetComponent<MouseOver>().goType == MouseOver.GameObjectType.Tile && Input.GetKeyDown("p"))
+            TurnSystem.players[0].addUnit(new Unit(tempUnit, clickHistory[clickHistory.Count-1].transform.position));
+    }
+
     void Update()
     {
+        addUnit();
         checkClickMoveUnit();
     }
 }

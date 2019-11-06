@@ -2,16 +2,16 @@
 
 public class Unit
 {
-    public Vector2 gridPosition;
+    public Vector3 unitPosition;
 
     Material unitMeshMaterial;
 
     private Transform unitMesh;
 
-    public Unit(Transform uMesh, Vector2 gp)
+    public Unit(Transform uMesh, Vector3 up)
     {
         Debug.Log("making unit");
-        gridPosition = gp;
+        unitPosition = up;
         instantiateMesh(uMesh);
     }
     
@@ -37,7 +37,7 @@ public class Unit
         Quaternion up = new Quaternion(-1,0,0,1);
         unitMeshMaterial = uMesh.gameObject.GetComponent<Renderer>().sharedMaterial;
 
-        unitMesh = GameObject.Instantiate(uMesh, gridPosition * TileMapGenerator.tileSize, up);
+        unitMesh = GameObject.Instantiate(uMesh, unitPosition, up);
         unitMesh.parent = unitMesh.gameObject.transform;
         unitMesh.gameObject.AddComponent<MouseOver>();
         unitMesh.gameObject.GetComponent<MouseOver>().instantiate(onHover, notHover, onClick, MouseOver.GameObjectType.Unit);
@@ -45,9 +45,9 @@ public class Unit
         unitMesh.Find("Border").GetComponent<Renderer>().enabled = false;
     }
 
-    public void move(Vector2 nPos)
+    public void move(Vector3 nPos)
     {
-        gridPosition = nPos;
-        unitMesh.position = nPos * TileMapGenerator.tileSize;
+        unitPosition = nPos;
+        unitMesh.position = unitPosition;
     }
 }
