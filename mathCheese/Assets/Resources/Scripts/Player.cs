@@ -1,19 +1,24 @@
 ﻿using System.Collections.Generic;
+using UnityEngine;
 
-public class Player
+public class Player : MonoBehaviour
 {
-    public List<Unit> units;
-    public int larvae;
+    public List<Transform> units = new List<Transform>();
+    public int larvae = 0;
 
-    public Player()
-    {
-        units = new List<Unit>();
-        larvae = 0;
-    }
+    // void Start() {
+    //     units = new List<Transform>();
+    //     larvae = 0;    
+    // }
 
-    public void addUnit(Unit u)
+    public void log(){Debug.Log("logging");}
+
+    public void addUnit(Transform mesh, Vector2 pos, Quaternion up)
     {
-        units.Add(u);
+        Transform tempT = Instantiate(mesh, new Vector3(pos.x * TileMapGenerator.tileSize, 0, pos.y * TileMapGenerator.tileSize), up);
+        tempT.gameObject.AddComponent<Unit>();
+        tempT.gameObject.GetComponent<Unit>().instantiateUnit(pos, true);
+        units.Add(tempT);
     }
 
     public void EndTurn()

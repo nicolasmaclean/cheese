@@ -3,12 +3,12 @@ using UnityEngine;
 
 public class TurnSystem : MonoBehaviour
 {
-    public static List<Player> players = new List<Player>();
-    public static Player currentPlayer;
+    public static List<Transform> players;
+    public static int currentPlayer;
 
     void Start()
     {
         if(players.Count > 0)
-            currentPlayer = players[0];
+            currentPlayer = 0;
     }
 }

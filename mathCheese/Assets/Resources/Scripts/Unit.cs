@@ -1,53 +1,46 @@
 ﻿using UnityEngine;
 
-public class Unit
+public class Unit : MonoBehaviour
 {
-    public Vector3 unitPosition;
+    public Vector2 gridPosition;
 
     Material unitMeshMaterial;
+    Transform borderT;
 
-    private Transform unitMesh;
-
-    public Unit(Transform uMesh, Vector3 up)
+    public void instantiateUnit(Vector2 gPos, bool mouse)
     {
-        Debug.Log("making unit");
-        unitPosition = up;
-        instantiateMesh(uMesh);
+        gridPosition = gPos;
+        borderT = gameObject.transform.Find("Border");
+        unitMeshMaterial = gameObject.GetComponent<Renderer>().sharedMaterial;
+
+        borderT.GetComponent<Renderer>().enabled = false;
+
+        if(mouse){
+            gameObject.AddComponent<MouseOver>();
+            gameObject.GetComponent<MouseOver>().instantiate(onHover, notHover, onClick, MouseOver.GameObjectType.Unit);
+        }
     }
     
     void onHover(GameObject go)
     {
-        unitMesh.Find("Border").GetComponent<Renderer>().enabled = true;
+        borderT.GetComponent<Renderer>().enabled = true;
     }
 
     void notHover(GameObject go)
     {
         go.GetComponent<Renderer>().sharedMaterial = unitMeshMaterial;
-        unitMesh.Find("Border").GetComponent<Renderer>().enabled = false;
+        borderT.GetComponent<Renderer>().enabled = false;
     }
 
     void onClick(GameObject go)
     {
         go.GetComponent<Renderer>().material.color = Color.red;
-        unitMesh.Find("Border").GetComponent<Renderer>().enabled = true;
-    }
-
-    public void instantiateMesh(Transform uMesh)
-    {
-        Quaternion up = new Quaternion(-1,0,0,1);
-        unitMeshMaterial = uMesh.gameObject.GetComponent<Renderer>().sharedMaterial;
-
-        unitMesh = GameObject.Instantiate(uMesh, unitPosition, up);
-        unitMesh.parent = unitMesh.gameObject.transform;
-        unitMesh.gameObject.AddComponent<MouseOver>();
-        unitMesh.gameObject.GetComponent<MouseOver>().instantiate(onHover, notHover, onClick, MouseOver.GameObjectType.Unit);
-
-        unitMesh.Find("Border").GetComponent<Renderer>().enabled = false;
+        borderT.GetComponent<Renderer>().enabled = true;
     }
 
     public void move(Vector3 nPos)
     {
-        unitPosition = nPos;
-        unitMesh.position = unitPosition;
+        gridPosition = nPos;
+        gameObject.transform.position = new Vector3(gridPosition.x * TileMapGenerator.tileSize, 0, gridPosition.y * TileMapGenerator.tileSize);
     }
 }

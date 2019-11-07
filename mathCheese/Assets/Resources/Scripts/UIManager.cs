@@ -11,7 +11,12 @@ public class UIManager : MonoBehaviour
     }
 
     public void prepareGame() {
-        TurnSystem.players.Add(new Player());
+        TurnSystem.players = new List<Transform>();
+        GameObject player = new GameObject();
+        player.name = "playerEmpty";
+        player.AddComponent<Player>();
+        TurnSystem.players.Add(player.transform);
+        DontDestroyOnLoad(player);
     }
 
     public void playGame() {

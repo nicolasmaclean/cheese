@@ -7,7 +7,7 @@ public class TileMapGenerator : MonoBehaviour
     public static float tileSize;
     public bool autoUpdate;
 
-    private Tile[,] tiles;
+    private Transform[,] tiles;
 
     void Start()
     {
@@ -20,7 +20,7 @@ public class TileMapGenerator : MonoBehaviour
     public void buildMap()
     {
         if(mapHeight > 0 && mapWidth > 0){
-            tiles = new Tile[mapHeight, mapWidth];
+            tiles = new Transform[mapHeight, mapWidth];
             tileSize = tilePrefabs[0].transform.Find("Ground").GetComponent<Renderer>().bounds.size.x;
 
             Quaternion up = new Quaternion(0,0,0,1);
@@ -28,7 +28,10 @@ public class TileMapGenerator : MonoBehaviour
             
             for(int z = 0; z < mapHeight; z++){
                 for(int x = 0; x < mapWidth; x++){
-                    tiles[z, x] = new Tile(tilePrefabs[noiseMap[z, x]], new Vector3(x*tileSize, 0, z*tileSize), up, gameObject.transform, true);
+                    tiles[z, x] = Instantiate(tilePrefabs[noiseMap[z, x]], new Vector3(x*tileSize, 0, z*tileSize), up);
+                    tiles[z, x].gameObject.AddComponent<Tile>();
+                    tiles[z, x].GetComponent<Tile>().instantiateTile(new Vector2(x, z), true);
+                    tiles[z, x].parent = gameObject.transform;
                 }
             }
         }

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 public class ClickSystem : MonoBehaviour
 {
     public static List<GameObject> clickHistory;
-    public Transform tempUnit;
+    public Transform tempUnitTransform;
 
     void Start()
     {
@@ -34,8 +34,10 @@ public class ClickSystem : MonoBehaviour
 
     void addUnit()
     {
-        if(clickHistory[clickHistory.Count-1] != null && clickHistory[clickHistory.Count-1].GetComponent<MouseOver>().goType == MouseOver.GameObjectType.Tile && Input.GetKeyDown("p"))
-            TurnSystem.players[0].addUnit(new Unit(tempUnit, clickHistory[clickHistory.Count-1].transform.position));
+        GameObject lastClicked = clickHistory[clickHistory.Count-1];
+        if(lastClicked != null && lastClicked.name == "Ground" && lastClicked.gameObject.transform.parent.gameObject.GetComponent<Tile>() != null && Input.GetKeyDown("p")){
+            TurnSystem.players[0].gameObject.GetComponent<Player>().addUnit(tempUnitTransform, lastClicked.gameObject.transform.parent.gameObject.GetComponent<Tile>().gridPosition, new Quaternion(-1,0,0,1));
+        }
     }
 
     void Update()
