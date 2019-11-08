@@ -8,10 +8,12 @@ public class Player : MonoBehaviour
 
     public void addUnit(Transform mesh, Vector2 pos, Quaternion up)
     {
-        Transform tempT = Instantiate(mesh, new Vector3(pos.x * TileMapGenerator.tileSize, 0, pos.y * TileMapGenerator.tileSize), up);
-        tempT.gameObject.AddComponent<Unit>();
-        tempT.gameObject.GetComponent<Unit>().instantiateUnit(pos, true);
-        units.Add(tempT);
+        if(!Unit.isTileFilled(pos)){
+            Transform tempT = Instantiate(mesh, new Vector3(pos.x * TileMapGenerator.tileSize, 0, pos.y * TileMapGenerator.tileSize), up);
+            tempT.gameObject.AddComponent<Unit>();
+            tempT.gameObject.GetComponent<Unit>().instantiateUnit(pos, true);
+            units.Add(tempT);
+        }
     }
 
     public void EndTurn()

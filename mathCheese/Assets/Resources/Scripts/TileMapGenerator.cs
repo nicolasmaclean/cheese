@@ -2,7 +2,8 @@
 
 public class TileMapGenerator : MonoBehaviour
 {
-    public int mapWidth, mapHeight;
+    public static int mapWidth, mapHeight;
+    public int mapW, mapH;
     public Transform[] tilePrefabs;
     public static float tileSize;
     public bool autoUpdate;
@@ -19,6 +20,8 @@ public class TileMapGenerator : MonoBehaviour
 
     public void buildMap()
     {
+        mapWidth = mapW;
+        mapHeight = mapH;
         if(mapHeight > 0 && mapWidth > 0){
             tiles = new Transform[mapHeight, mapWidth];
             tileSize = tilePrefabs[0].transform.Find("Ground").GetComponent<Renderer>().bounds.size.x;

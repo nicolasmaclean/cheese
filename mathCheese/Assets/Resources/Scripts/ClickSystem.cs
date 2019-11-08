@@ -24,7 +24,7 @@ public class ClickSystem : MonoBehaviour
             GameObject cl1 = clickHistory[clickHistory.Count-1];
             if(cl0 != null && cl1 != null) {
                 if(cl0.GetComponent<MouseOver>().goType == MouseOver.GameObjectType.Unit && cl1.GetComponent<MouseOver>().goType == MouseOver.GameObjectType.Tile){
-                    cl0.GetComponent<MouseOver>().move(cl1.transform.position); //unit is no longer a component, its now a class
+                    cl0.GetComponent<Unit>().move(cl1.gameObject.transform.parent.gameObject.GetComponent<Tile>().gridPosition);
                     clickHistory = new System.Collections.Generic.List<GameObject>();
                     clickHistory.Add(null);
                 }
