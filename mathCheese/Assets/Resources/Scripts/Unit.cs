@@ -21,7 +21,6 @@ public class Unit : MonoBehaviour
         unitPositions[(int)gPos.x, (int)gPos.y] = true;
         gridPosition = gPos;
         borderT = gameObject.transform.Find("Border");
-        Debug.Log(borderT);
         unitMeshMaterial = gameObject.GetComponent<Renderer>().sharedMaterial;
 
         borderT.GetComponent<Renderer>().enabled = false;
