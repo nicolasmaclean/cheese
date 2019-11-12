@@ -7,20 +7,14 @@ public class MouseOver : MonoBehaviour
     public GameObjectType goType;
 
     Collider collideComponent;
-    Action<GameObject> onHover;
-    Action<GameObject> notHover;
-    Action<GameObject> onClick;
 
     void Start() 
     {
         collideComponent = GetComponent<Collider>();
     }
 
-    public void instantiate(Action<GameObject> onHov, Action<GameObject> notHov, Action<GameObject> onCl, GameObjectType goT)
+    public void instantiate(GameObjectType goT)
     {
-        onHover = onHov;
-        notHover = notHov;
-        onClick = onCl;
         goType = goT;
     }
 
@@ -44,18 +38,33 @@ public class MouseOver : MonoBehaviour
     }
 
     void Update()
-    {
+    { //add a check so that inmoverange will not be overridden or maybe make it seperate
         bool collision = checkCollision();
-        if(collision && Input.GetMouseButtonDown(0) && onClick != null && !ClickSystem.clickHistory.Contains(gameObject)){
-            onClick(gameObject);
+        if(collision && Input.GetMouseButtonDown(0) && !ClickSystem.clickHistory.Contains(gameObject)){ //clicked
+            if(goType == GameObjectType.Tile)
+                gameObject.transform.parent.gameObject.GetComponent<Tile>().clickState = ClickSystem.ClickState.click;
+            if(goType == GameObjectType.Unit)
+                gameObject.GetComponent<Unit>().clickState = ClickSystem.ClickState.click;
             ClickSystem.clickHistory.Add(gameObject);
-        } else if(collision && Input.GetMouseButtonDown(0) && onClick != null && ClickSystem.clickHistory.IndexOf(gameObject) == ClickSystem.clickHistory.Count-1) {
+
+        } else if(collision && Input.GetMouseButtonDown(0) && ClickSystem.clickHistory.IndexOf(gameObject) == ClickSystem.clickHistory.Count-1) { //clicked again to deselect
             ClickSystem.clickHistory.Remove(gameObject);
-            notHover(gameObject);
-        } else if(collision && onHover != null && ClickSystem.clickHistory.IndexOf(gameObject) != ClickSystem.clickHistory.Count-1) {
-            onHover(gameObject);
-        } else if(notHover != null && ClickSystem.clickHistory.IndexOf(gameObject) != ClickSystem.clickHistory.Count-1) {
-            notHover(gameObject);
+            if(goType == GameObjectType.Tile)
+                gameObject.transform.parent.gameObject.GetComponent<Tile>().clickState = ClickSystem.ClickState.none;
+            if(goType == GameObjectType.Unit)
+                gameObject.GetComponent<Unit>().clickState = ClickSystem.ClickState.none;
+
+        } else if(collision && ClickSystem.clickHistory.IndexOf(gameObject) != ClickSystem.clickHistory.Count-1) { //hover
+            if(goType == GameObjectType.Tile)
+                gameObject.transform.parent.gameObject.GetComponent<Tile>().clickState = ClickSystem.ClickState.hover;
+            if(goType == GameObjectType.Unit)
+                gameObject.GetComponent<Unit>().clickState = ClickSystem.ClickState.hover;
+                
+        } else if(ClickSystem.clickHistory.IndexOf(gameObject) != ClickSystem.clickHistory.Count-1) { //default
+            if(goType == GameObjectType.Tile)
+                gameObject.transform.parent.gameObject.GetComponent<Tile>().clickState = ClickSystem.ClickState.none;
+            if(goType == GameObjectType.Unit)
+                gameObject.GetComponent<Unit>().clickState = ClickSystem.ClickState.none;
         }
     }
 }

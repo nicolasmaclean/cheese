@@ -4,6 +4,7 @@ public class Tile : MonoBehaviour
 {
     public Vector2 gridPosition;
     public Material groundMat;
+    public ClickSystem.ClickState clickState = ClickSystem.ClickState.none;
     Renderer tileBorderRenderer;
     Transform groundT;
 
@@ -21,25 +22,41 @@ public class Tile : MonoBehaviour
         //adds mouse over if specified
         if(mouse){
             groundT.gameObject.AddComponent<MouseOver>();
-            groundT.GetComponent<MouseOver>().instantiate(onHover, notHover, onClick, MouseOver.GameObjectType.Tile);
+            groundT.GetComponent<MouseOver>().instantiate(MouseOver.GameObjectType.Tile);
         }
     }
 
-    public void onHover(GameObject go)
-    {
-            groundT.GetComponent<Renderer>().material.color = Color.green;
-            tileBorderRenderer.enabled = true;
+    void Update() {
+        if(clickState == ClickSystem.ClickState.none)
+            noClickState();
+        if(clickState == ClickSystem.ClickState.hover)
+            hoverClickState();
+        if(clickState == ClickSystem.ClickState.click)
+            clickClickState();
+        if(clickState == ClickSystem.ClickState.inMoveRange)
+            inMoveRangeClickState();
     }
 
-    public void notHover(GameObject go)
+    public void noClickState()
     {
-            groundT.GetComponent<Renderer>().sharedMaterial = groundMat;
-            tileBorderRenderer.enabled = false;
+        groundT.GetComponent<Renderer>().sharedMaterial = groundMat;
+        tileBorderRenderer.enabled = false;
+    }
+
+    public void hoverClickState()
+    {
+        groundT.GetComponent<Renderer>().material.color = Color.green;
+        tileBorderRenderer.enabled = true;
     }
     
-    public void onClick(GameObject go)
+    public void clickClickState()
     {
         groundT.GetComponent<Renderer>().material.color = Color.red;
         tileBorderRenderer.enabled = true;
+    }
+
+    public void inMoveRangeClickState()
+    {
+        groundT.GetComponent<Renderer>().material.color = Color.blue;
     }
 }

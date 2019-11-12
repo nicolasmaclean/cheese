@@ -8,7 +8,7 @@ public class TileMapGenerator : MonoBehaviour
     public static float tileSize;
     public bool autoUpdate;
 
-    private Transform[,] tiles;
+    public static Transform[,] tiles;
 
     void Start()
     {
