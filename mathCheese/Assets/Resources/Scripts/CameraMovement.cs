@@ -8,7 +8,8 @@ public class CameraMovement : MonoBehaviour
 
     void Start() {
         Camera.main.transform.position = new Vector3(0f,40f,0f);
-        Camera.main.transform.rotation = Quaternion.Euler(40f,0,0);
+        Camera.main.transform.rotation = Quaternion.Euler(60f,0,0);
+        Camera.main.fieldOfView = 70;
     }
     // Update is called once per frame
     void Update()
@@ -64,6 +65,10 @@ public class CameraMovement : MonoBehaviour
 
         //Zooming the Camera
         Camera.main.fieldOfView += Input.GetAxis("Mouse ScrollWheel") * speed * Time.deltaTime;
+        if(Camera.main.fieldOfView > 100)
+            Camera.main.fieldOfView = 100;
+            if(Camera.main.fieldOfView < 50)
+            Camera.main.fieldOfView = 50;
 
         //Camera.main.transform.position = pos;
         Camera.main.transform.rotation = rot;
