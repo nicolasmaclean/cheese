@@ -37,6 +37,8 @@ public class ClickSystem : MonoBehaviour
     {
         GameObject lastClicked = clickHistory[clickHistory.Count-1];
         if(lastClicked != null && lastClicked.name == "Ground" && lastClicked.gameObject.transform.parent.gameObject.GetComponent<Tile>() != null && Input.GetKeyDown("p")){
+            // lastClicked.gameObject.transform.parent.gameObject.GetComponent<Tile>().updated = false;
+            // lastClicked.gameObject.transform.parent.gameObject.GetComponent<Tile>().clickState = ClickState.none;
             TurnSystem.players[0].gameObject.GetComponent<Player>().addUnit(Species.getRandomUnitTransform(), lastClicked.gameObject.transform.parent.gameObject.GetComponent<Tile>().gridPosition, new Quaternion(-1,0,0,1));
         }
     }
