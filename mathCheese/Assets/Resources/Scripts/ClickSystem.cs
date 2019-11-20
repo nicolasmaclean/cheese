@@ -5,7 +5,7 @@ public class ClickSystem : MonoBehaviour
 {
     public static List<GameObject> clickHistory;
     public Transform tempUnitTransform;
-    public enum ClickState {none, hover, click, inMoveRange};
+    public enum ClickState {none, hover, click};
 
     void Start()
     {
