@@ -20,12 +20,7 @@ public class MouseOver : MonoBehaviour
 
     bool checkCollision()
     {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hitInfo;
-
-        Physics.Raycast(ray, out hitInfo, 1000);
-
-        if(collideComponent != null &&  hitInfo.collider == collideComponent) {//collideComponent.Raycast( ray, out hitInfo, 1000 ) && hitInfo.collider.Equals(collideComponent)) {
+        if(collideComponent != null &&  ClickSystem.hitInfo.collider == collideComponent) {//collideComponent.Raycast( ray, out hitInfo, 1000 ) && hitInfo.collider.Equals(collideComponent)) {
             return true;
         }
         return false;
