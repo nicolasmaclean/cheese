@@ -5,6 +5,8 @@ public class Tile : MonoBehaviour
     public Vector2 gridPosition;
     public Material groundMat;
     public ClickSystem.ClickState clickState = ClickSystem.ClickState.none;
+    public bool updated = false;
+    public bool inMoveRange = false;
     Renderer tileBorderRenderer;
     Transform groundT;
 
@@ -27,14 +29,16 @@ public class Tile : MonoBehaviour
     }
 
     void Update() {
-        if(clickState == ClickSystem.ClickState.none)
-            noClickState();
-        if(clickState == ClickSystem.ClickState.hover)
-            hoverClickState();
-        if(clickState == ClickSystem.ClickState.click)
-            clickClickState();
-        if(clickState == ClickSystem.ClickState.inMoveRange)
-            inMoveRangeClickState();
+        if(!updated){
+            if(clickState == ClickSystem.ClickState.none)
+                noClickState();
+            else if(clickState == ClickSystem.ClickState.hover)
+                hoverClickState();
+            else if(clickState == ClickSystem.ClickState.click)
+                clickClickState();
+            if(inMoveRange)
+                inMoveRangeClickState();
+        }
     }
 
     public void noClickState()
@@ -55,7 +59,7 @@ public class Tile : MonoBehaviour
         tileBorderRenderer.enabled = true;
     }
 
-    public void inMoveRangeClickState()
+    public void inMoveRange()
     {
         groundT.GetComponent<Renderer>().material.color = Color.blue;
     }
