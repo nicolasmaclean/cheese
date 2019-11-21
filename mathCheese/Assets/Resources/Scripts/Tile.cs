@@ -59,7 +59,7 @@ public class Tile : MonoBehaviour
         tileBorderRenderer.enabled = true;
     }
 
-    public void inMoveRangeClickState()
+    public void inMoveRange()
     {
         groundT.GetComponent<Renderer>().material.color = Color.blue;
     }
