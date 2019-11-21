@@ -48,7 +48,7 @@ public class MouseOver : MonoBehaviour
 
         } else if(collision && Input.GetMouseButtonDown(0) && ClickSystem.clickHistory.IndexOf(gameObject) == ClickSystem.clickHistory.Count-1) { //clicked again to deselect
             ClickSystem.clickHistory.Remove(gameObject);
-            if(goType == GameObjectType.Tile && gameObject.transform.parent.gameObject.GetComponent<Tile>().clickState != ClickSystem.ClickState.inMoveRange){
+            if(goType == GameObjectType.Tile){// && !gameObject.transform.parent.gameObject.GetComponent<Tile>().isInMoveRange){
                 gameObject.transform.parent.gameObject.GetComponent<Tile>().clickState = ClickSystem.ClickState.none;
                 gameObject.transform.parent.gameObject.GetComponent<Tile>().updated = false;
             } else if(goType == GameObjectType.Unit){
@@ -67,7 +67,7 @@ public class MouseOver : MonoBehaviour
             }
                 
         } else if(ClickSystem.clickHistory.IndexOf(gameObject) != ClickSystem.clickHistory.Count-1) { //default
-            if(goType == GameObjectType.Tile  && gameObject.transform.parent.gameObject.GetComponent<Tile>().clickState != ClickSystem.ClickState.inMoveRange){
+            if(goType == GameObjectType.Tile){//  && !gameObject.transform.parent.gameObject.GetComponent<Tile>().isInMoveRange){
                 gameObject.transform.parent.gameObject.GetComponent<Tile>().clickState = ClickSystem.ClickState.none;
                 gameObject.transform.parent.gameObject.GetComponent<Tile>().updated = false;
             } else if(goType == GameObjectType.Unit){

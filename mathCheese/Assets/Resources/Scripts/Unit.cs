@@ -42,8 +42,6 @@ public class Unit : MonoBehaviour
                 hoverClickState();
             else if(clickState == ClickSystem.ClickState.click)
                 clickClickState();
-            else if(clickState == ClickSystem.ClickState.inMoveRange)
-                clickState = ClickSystem.ClickState.none; //units should never be in this state, this state is only for tiles
         }
     }
     
@@ -67,7 +65,7 @@ public class Unit : MonoBehaviour
             for(int x = -moveRange; x <= moveRange; x++){
                 if((int)gridPosition.y + z > -1 && (int)gridPosition.y + z < TileMapGenerator.tiles.GetLength(0) && (int)gridPosition.x + x > -1 && (int)gridPosition.x + x < TileMapGenerator.tiles.GetLength(1)){
                     TileMapGenerator.tiles[(int)gridPosition.y + z, (int)gridPosition.x + x].GetComponent<Tile>().clickState = ClickSystem.ClickState.none;
-                    TileMapGenerator.tiles[(int)gridPosition.y + z, (int)gridPosition.x + x].GetComponent<Tile>().inMoveRange = true;
+                    TileMapGenerator.tiles[(int)gridPosition.y + z, (int)gridPosition.x + x].GetComponent<Tile>().isInMoveRange = true;
                     TileMapGenerator.tiles[(int)gridPosition.y + z, (int)gridPosition.x + x].GetComponent<Tile>().updated = false;
                 }
             }
@@ -92,7 +90,7 @@ public class Unit : MonoBehaviour
             for(int x = -moveRange; x <= moveRange; x++){
                 if((int)gridPosition.y + z > -1 && (int)gridPosition.y + z < TileMapGenerator.tiles.GetLength(0) && (int)gridPosition.x + x > -1 && (int)gridPosition.x + x < TileMapGenerator.tiles.GetLength(1)) {
                     TileMapGenerator.tiles[(int)gridPosition.y + z, (int)gridPosition.x + x].GetComponent<Tile>().clickState = ClickSystem.ClickState.none;
-                    TileMapGenerator.tiles[(int)gridPosition.y + z, (int)gridPosition.x + x].GetComponent<Tile>().inMoveRange = false; //if the unit is on the edge this gives an out of bounds error
+                    TileMapGenerator.tiles[(int)gridPosition.y + z, (int)gridPosition.x + x].GetComponent<Tile>().isInMoveRange = false; //if the unit is on the edge this gives an out of bounds error
                     TileMapGenerator.tiles[(int)gridPosition.y + z, (int)gridPosition.x + x].GetComponent<Tile>().updated = false;
                 }
             }

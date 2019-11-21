@@ -6,7 +6,7 @@ public class Tile : MonoBehaviour
     public Material groundMat;
     public ClickSystem.ClickState clickState = ClickSystem.ClickState.none;
     public bool updated = false;
-    public bool inMoveRange = false;
+    public bool isInMoveRange = false;
     Renderer tileBorderRenderer;
     Transform groundT;
 
@@ -36,8 +36,8 @@ public class Tile : MonoBehaviour
                 hoverClickState();
             else if(clickState == ClickSystem.ClickState.click)
                 clickClickState();
-            if(inMoveRange)
-                inMoveRangeClickState();
+            if(isInMoveRange)
+                inMoveRange();
         }
     }
 
