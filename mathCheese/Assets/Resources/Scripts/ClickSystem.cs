@@ -7,6 +7,7 @@ public class ClickSystem : MonoBehaviour
     public Transform tempUnitTransform;
     public enum ClickState {none, hover, click};
 
+    public static RaycastHit hitInfo;
     void Start()
     {
         clickHistory = new List<GameObject>();
@@ -47,5 +48,9 @@ public class ClickSystem : MonoBehaviour
     {
         addUnit();
         checkClickMoveUnit();
+
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+        Physics.Raycast(ray, out hitInfo, 100);
     }
 }
