@@ -1,14 +1,14 @@
 using UnityEngine;
 
-public class Queen : Unit
+public class UnitHarvester : Unit
 {
     public override void instantiateUnit(Vector2 gPos, bool mouse)
     {
         base.instantiateUnit(gPos, mouse);
-        moveRange = 3;
+        moveRange = 1;
     }
 
-    public void makeColony()
+    public void harvestTile()
     {
         
     }

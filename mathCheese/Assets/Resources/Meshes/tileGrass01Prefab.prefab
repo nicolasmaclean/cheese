@@ -3300,6 +3300,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7571780184241821909}
+  - component: {fileID: 5792259814112299306}
   m_Layer: 0
   m_Name: tileGrass01Prefab
   m_TagString: Untagged
@@ -3377,6 +3378,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5792259814112299306
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6867712548226312902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 880435fa5a8b54421aac8839f9ffa5bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gridPosition: {x: 0, y: 0}
+  groundMat: {fileID: 0}
+  clickState: 0
+  updated: 0
+  isInMoveRange: 0
 --- !u!1 &6908230287430148147
 GameObject:
   m_ObjectHideFlags: 0

@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3836974771892540372}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.4, z: 1.5}
+  m_LocalPosition: {x: 0, y: -0.4, z: 1.79}
   m_LocalScale: {x: 4.362725, y: 4.362725, z: 4.362725}
   m_Children: []
   m_Father: {fileID: 6228913713312923400}
@@ -87,12 +87,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6228913713312923400}
-  - component: {fileID: -4928862216074452416}
   - component: {fileID: 3110451024999761214}
   - component: {fileID: 8653107932245244359}
+  - component: {fileID: 6444482572082675997}
   - component: {fileID: 3036613011684732469}
   m_Layer: 0
-  m_Name: antHarvesterlPrefab
+  m_Name: antHarvesterPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -113,22 +113,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-4928862216074452416
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6929586125267111195}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76e2df13868e8401ab5d94403b65d236, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gridPosition: {x: 0, y: 0}
-  moveRange: 1
-  clickState: 0
-  updated: 0
 --- !u!33 &3110451024999761214
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -176,6 +160,22 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &6444482572082675997
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6929586125267111195}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 842f3ad7c2ed8479d87a41f52478adc1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gridPosition: {x: 0, y: 0}
+  moveRange: 1
+  clickState: 0
+  updated: 0
 --- !u!64 &3036613011684732469
 MeshCollider:
   m_ObjectHideFlags: 0
