@@ -13,6 +13,17 @@ public class UIManager : MonoBehaviour
     public Slider UISlider;
     public Dropdown UIDropdown;
 
+    public InputField name1;
+    public  InputField name2;
+    public  InputField name3;
+    public  InputField name4;
+
+    public InputField[] playerNames;
+    public  GameObject Player1;
+    public  GameObject Player2;
+    public  GameObject Player3;
+    public  GameObject Player4;
+
     public  float players = 1;
     public Text text;
     public  int size = 0;
@@ -25,7 +36,7 @@ public class UIManager : MonoBehaviour
         TurnSystem.players = new List<Transform>();
         for(int i = 0; i < players; i++) {
             GameObject player = new GameObject();
-            player.name = "playerEmpty";
+            player.name = playerNames[i].text;
             player.AddComponent<Player>();
             TurnSystem.players.Add(player.transform);
             DontDestroyOnLoad(player);
@@ -52,5 +63,15 @@ public class UIManager : MonoBehaviour
 
     public void drop() {
         size = UIDropdown.value;
+    }
+
+    public void play2() {
+        Options.SetActive(false);
+        GameObject[] Players = {Player1, Player2, Player3, Player4};
+        playerNames = new InputField[] {name1, name2, name3, name4};
+        for(int i = 0; i < players; i++)
+        {
+            Players[i].SetActive(true);
+        }
     }
 }
