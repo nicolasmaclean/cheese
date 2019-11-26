@@ -89,9 +89,9 @@ GameObject:
   - component: {fileID: 836668684692576602}
   - component: {fileID: 8558940473606300524}
   - component: {fileID: 2737060922191224725}
-  - component: {fileID: 3784982531044026852}
   - component: {fileID: -114770989015900918}
   - component: {fileID: 5361648715346636909}
+  - component: {fileID: 8643187007828825300}
   m_Layer: 0
   m_Name: antGodPrefab
   m_TagString: Untagged
@@ -161,20 +161,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!64 &3784982531044026852
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4451571169029368649}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 0
-  m_CookingOptions: 14
-  m_Mesh: {fileID: -6427917474867546475, guid: 8249d45f7d83c45b1b858b698f0f5944, type: 3}
 --- !u!114 &-114770989015900918
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -206,3 +192,16 @@ MonoBehaviour:
   damage: 1
   clickState: 0
   updated: 0
+--- !u!135 &8643187007828825300
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4451571169029368649}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 4.015044
+  m_Center: {x: -0.042320013, y: -0.40568376, z: 1.7756882}

@@ -90,8 +90,8 @@ GameObject:
   - component: {fileID: 3110451024999761214}
   - component: {fileID: 8653107932245244359}
   - component: {fileID: 6444482572082675997}
-  - component: {fileID: 3036613011684732469}
   - component: {fileID: 4877889147482342489}
+  - component: {fileID: 5797828400971374621}
   m_Layer: 0
   m_Name: antHarvesterPrefab
   m_TagString: Untagged
@@ -180,20 +180,6 @@ MonoBehaviour:
   damage: 1
   clickState: 0
   updated: 0
---- !u!64 &3036613011684732469
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6929586125267111195}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 0
-  m_CookingOptions: 14
-  m_Mesh: {fileID: -6427917474867546475, guid: 14bf3a7b5e22745c5b062c979f74a434, type: 3}
 --- !u!114 &4877889147482342489
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -206,3 +192,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0269a63280ef47309b3e7e37b4652cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!135 &5797828400971374621
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6929586125267111195}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 4.015044
+  m_Center: {x: -0.042320013, y: -0.40568376, z: 1.7756882}
