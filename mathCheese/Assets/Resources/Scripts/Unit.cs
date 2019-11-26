@@ -4,7 +4,10 @@ using UnityEngine;
 public class Unit : MonoBehaviour
 {
     public Vector2 gridPosition;
-    public int moveRange = 1;
+    public int moveRange = 0;
+    public int maxHealth = 1;
+    public int health;
+    public int damage = 1;
     public ClickSystem.ClickState clickState;
     public bool updated = false;
     public static bool[,] unitPositions;
@@ -19,19 +22,20 @@ public class Unit : MonoBehaviour
         return false;
     }
 
-    public virtual void instantiateUnit(Vector2 gPos, bool mouse)
+    public virtual void instantiateUnit(Vector2 gPos)
     {
         unitPositions[(int)gPos.y, (int)gPos.x] = true;
         gridPosition = gPos;
+        health = maxHealth;
         borderT = gameObject.transform.Find("Border").gameObject;
         unitMeshMaterial = gameObject.GetComponent<Renderer>().sharedMaterial;
 
         borderT.GetComponent<Renderer>().enabled = false;
+    }
 
-        if(mouse){
-            gameObject.AddComponent<MouseOver>();
-            gameObject.GetComponent<MouseOver>().instantiate(MouseOver.GameObjectType.Unit);
-        }
+    public Collider getCollider()
+    {
+        return gameObject.GetComponent<Collider>();
     }
 
     void Update() {
@@ -75,7 +79,7 @@ public class Unit : MonoBehaviour
 
     public void move(Vector2 nPos)
     {
-        moveTilesReset(nPos);
+        moveTilesReset();
         if(!unitPositions[(int)nPos.y, (int)nPos.x] && Mathf.Abs(nPos.x - gridPosition.x) <= moveRange && Mathf.Abs(nPos.y - gridPosition.y) <= moveRange){
             unitPositions[(int)gridPosition.y, (int)gridPosition.x] = false; // maybe add a message about move range if not in range
             gridPosition = nPos;
@@ -84,7 +88,7 @@ public class Unit : MonoBehaviour
         }
     }
 
-    public void moveTilesReset(Vector2 nPos)
+    public void moveTilesReset()
     {
         for(int z = -moveRange; z <= moveRange; z++){
             for(int x = -moveRange; x <= moveRange; x++){
@@ -95,5 +99,19 @@ public class Unit : MonoBehaviour
                 }
             }
         }
+    }
+
+    //deals damage and return new health
+    public int takeDamage(int damage)
+    {
+        health -= damage;
+        return health;
+    }
+
+    //increases health and return new health
+    public int heal(int healAmt)
+    {
+        health += healAmt;
+        return health;
     }
 }

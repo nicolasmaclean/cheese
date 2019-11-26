@@ -10,7 +10,7 @@ public class Tile : MonoBehaviour
     Renderer tileBorderRenderer;
     Transform groundT;
 
-    public void instantiateTile(Vector2 gPos, bool mouse)
+    public void instantiateTile(Vector2 gPos)
     {
         //position of tile
         gridPosition = gPos;
@@ -21,11 +21,11 @@ public class Tile : MonoBehaviour
         
         tileBorderRenderer.enabled = false;
 
-        //adds mouse over if specified
-        if(mouse){
-            groundT.gameObject.AddComponent<MouseOver>();
-            groundT.GetComponent<MouseOver>().instantiate(MouseOver.GameObjectType.Tile);
-        }
+    }
+
+    public Collider getCollider()
+    {
+        return gameObject.GetComponent<Collider>();
     }
 
     void Update() {
@@ -45,22 +45,26 @@ public class Tile : MonoBehaviour
     {
         groundT.GetComponent<Renderer>().sharedMaterial = groundMat;
         tileBorderRenderer.enabled = false;
+        updated = true;
     }
 
     public void hoverClickState()
     {
         groundT.GetComponent<Renderer>().material.color = Color.green;
         tileBorderRenderer.enabled = true;
+        updated = true;
     }
     
     public void clickClickState()
     {
         groundT.GetComponent<Renderer>().material.color = Color.red;
         tileBorderRenderer.enabled = true;
+        updated = true;
     }
 
     public void inMoveRange()
     {
         groundT.GetComponent<Renderer>().material.color = Color.blue;
+        updated = true;
     }
 }
