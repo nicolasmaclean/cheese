@@ -24,7 +24,6 @@ public class Tile : MonoBehaviour
         //adds mouse over if specified
         if(mouse){
             groundT.gameObject.AddComponent<MouseOver>();
-            groundT.GetComponent<MouseOver>().instantiate(MouseOver.GameObjectType.Tile);
         }
     }
 
@@ -45,22 +44,26 @@ public class Tile : MonoBehaviour
     {
         groundT.GetComponent<Renderer>().sharedMaterial = groundMat;
         tileBorderRenderer.enabled = false;
+        updated = true;
     }
 
     public void hoverClickState()
     {
         groundT.GetComponent<Renderer>().material.color = Color.green;
         tileBorderRenderer.enabled = true;
+        updated = true;
     }
     
     public void clickClickState()
     {
         groundT.GetComponent<Renderer>().material.color = Color.red;
         tileBorderRenderer.enabled = true;
+        updated = true;
     }
 
     public void inMoveRange()
     {
         groundT.GetComponent<Renderer>().material.color = Color.blue;
+        updated = true;
     }
 }

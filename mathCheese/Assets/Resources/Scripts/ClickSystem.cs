@@ -25,10 +25,23 @@ public class ClickSystem : MonoBehaviour
             GameObject cl0 = clickHistory[clickHistory.Count-2];
             GameObject cl1 = clickHistory[clickHistory.Count-1];
             if(cl0 != null && cl1 != null) {
-                if(cl0.GetComponent<MouseOver>().goType == MouseOver.GameObjectType.Unit && cl1.GetComponent<MouseOver>().goType == MouseOver.GameObjectType.Tile){
+                if(cl0.GetComponent<Unit>() != null && cl1.name == "Ground"){
                     cl0.GetComponent<Unit>().move(cl1.gameObject.transform.parent.gameObject.GetComponent<Tile>().gridPosition);
                     clickHistory = new System.Collections.Generic.List<GameObject>();
                     clickHistory.Add(null);
+                }
+            }
+        }
+    }
+
+    void checkUnitAttack()
+    {
+        if(clickHistory.Count >= 2){
+            GameObject cl0 = clickHistory[clickHistory.Count-2];
+            GameObject cl1 = clickHistory[clickHistory.Count-1];
+            if(cl0 != null && cl1 != null){
+                if(cl0.GetComponent<Unit>() != null && cl0.GetComponent<Unit>() != null && cl0.transform.parent != cl1.transform.parent){
+                    cl1.GetComponent<Unit>().takeDamage(cl0.GetComponent<Unit>().damage);
                 }
             }
         }
@@ -47,6 +60,7 @@ public class ClickSystem : MonoBehaviour
     {
         addUnit();
         checkClickMoveUnit();
+        checkUnitAttack();
 
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 

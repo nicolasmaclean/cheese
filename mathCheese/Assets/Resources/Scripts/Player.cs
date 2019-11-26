@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
             Transform tempT = Instantiate(mesh, new Vector3(pos.x * TileMapGenerator.tileSize, 0, pos.y * TileMapGenerator.tileSize), up);
             tempT.gameObject.AddComponent<Unit>();
             tempT.gameObject.GetComponent<Unit>().instantiateUnit(pos, true);
+            tempT.parent = gameObject.transform;
             units.Add(tempT);
         }
     }
