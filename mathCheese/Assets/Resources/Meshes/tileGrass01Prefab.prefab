@@ -1805,7 +1805,6 @@ GameObject:
   - component: {fileID: 8540309792699748782}
   - component: {fileID: 855191610511043480}
   - component: {fileID: 6404902992682440545}
-  - component: {fileID: 1384511766589140394}
   m_Layer: 0
   m_Name: Ground
   m_TagString: Untagged
@@ -1873,20 +1872,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!64 &1384511766589140394
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4674207938527519677}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 0
-  m_CookingOptions: 14
-  m_Mesh: {fileID: 1453043773871479701, guid: 3751b37bb84c24ae5a5de7ee503cf309, type: 3}
 --- !u!1 &4726943108784578916
 GameObject:
   m_ObjectHideFlags: 0
@@ -3301,6 +3286,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7571780184241821909}
   - component: {fileID: 5792259814112299306}
+  - component: {fileID: -4918926970072439622}
+  - component: {fileID: 9053066817470259212}
   m_Layer: 0
   m_Name: tileGrass01Prefab
   m_TagString: Untagged
@@ -3395,6 +3382,31 @@ MonoBehaviour:
   clickState: 0
   updated: 0
   isInMoveRange: 0
+--- !u!114 &-4918926970072439622
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6867712548226312902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0269a63280ef47309b3e7e37b4652cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!65 &9053066817470259212
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6867712548226312902}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 16.16, y: 1, z: 16.3}
+  m_Center: {x: 0, y: 0.25, z: 0}
 --- !u!1 &6908230287430148147
 GameObject:
   m_ObjectHideFlags: 0

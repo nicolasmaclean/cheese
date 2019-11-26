@@ -22,7 +22,7 @@ public class Unit : MonoBehaviour
         return false;
     }
 
-    public virtual void instantiateUnit(Vector2 gPos, bool mouse)
+    public virtual void instantiateUnit(Vector2 gPos)
     {
         unitPositions[(int)gPos.y, (int)gPos.x] = true;
         gridPosition = gPos;
@@ -31,10 +31,11 @@ public class Unit : MonoBehaviour
         unitMeshMaterial = gameObject.GetComponent<Renderer>().sharedMaterial;
 
         borderT.GetComponent<Renderer>().enabled = false;
+    }
 
-        if(mouse){
-            gameObject.AddComponent<MouseOver>();
-        }
+    public Collider getCollider()
+    {
+        return gameObject.GetComponent<Collider>();
     }
 
     void Update() {

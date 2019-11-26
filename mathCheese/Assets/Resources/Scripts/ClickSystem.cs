@@ -25,8 +25,8 @@ public class ClickSystem : MonoBehaviour
             GameObject cl0 = clickHistory[clickHistory.Count-2];
             GameObject cl1 = clickHistory[clickHistory.Count-1];
             if(cl0 != null && cl1 != null) {
-                if(cl0.GetComponent<Unit>() != null && cl1.name == "Ground"){
-                    cl0.GetComponent<Unit>().move(cl1.gameObject.transform.parent.gameObject.GetComponent<Tile>().gridPosition);
+                if(cl0.GetComponent<Unit>() != null && cl1.GetComponent<Tile>() != null){
+                    cl0.GetComponent<Unit>().move(cl1.GetComponent<Tile>().gridPosition);
                     clickHistory = new System.Collections.Generic.List<GameObject>();
                     clickHistory.Add(null);
                 }
@@ -50,9 +50,9 @@ public class ClickSystem : MonoBehaviour
     void addUnit()
     {
         GameObject lastClicked = clickHistory[clickHistory.Count-1];
-        if(lastClicked != null && lastClicked.name == "Ground" && lastClicked.gameObject.transform.parent.gameObject.GetComponent<Tile>() != null && Input.GetKeyDown("p")){
+        if(lastClicked != null && lastClicked.GetComponent<Tile>() && Input.GetKeyDown("p")){
             // lastClicked.gameObject.transform.parent.gameObject.GetComponent<Tile>().updated = false;
-            TurnSystem.players[0].gameObject.GetComponent<Player>().addUnit(Species.getRandomUnitTransform(), lastClicked.gameObject.transform.parent.gameObject.GetComponent<Tile>().gridPosition, new Quaternion(-1,0,0,1));
+            TurnSystem.players[0].gameObject.GetComponent<Player>().addUnit(Species.getRandomUnitTransform(), lastClicked.GetComponent<Tile>().gridPosition, new Quaternion(-1,0,0,1));
         }
     }
 

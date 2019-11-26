@@ -10,7 +10,7 @@ public class Tile : MonoBehaviour
     Renderer tileBorderRenderer;
     Transform groundT;
 
-    public void instantiateTile(Vector2 gPos, bool mouse)
+    public void instantiateTile(Vector2 gPos)
     {
         //position of tile
         gridPosition = gPos;
@@ -21,10 +21,11 @@ public class Tile : MonoBehaviour
         
         tileBorderRenderer.enabled = false;
 
-        //adds mouse over if specified
-        if(mouse){
-            groundT.gameObject.AddComponent<MouseOver>();
-        }
+    }
+
+    public Collider getCollider()
+    {
+        return gameObject.GetComponent<Collider>();
     }
 
     void Update() {

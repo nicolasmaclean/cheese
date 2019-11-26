@@ -7,7 +7,10 @@ public class MouseOver : MonoBehaviour
 
     void Start() 
     {
-        collideComponent = GetComponent<Collider>();
+        if(gameObject.GetComponent<Unit>() != null)
+            collideComponent = gameObject.GetComponent<Unit>().getCollider();
+        else if(gameObject.GetComponent<Tile>() != null)
+            collideComponent = gameObject.GetComponent<Tile>().getCollider();
     }
 
     bool checkCollision()
@@ -24,9 +27,9 @@ public class MouseOver : MonoBehaviour
         bool collision = checkCollision();
         if(collision){
             if(Input.GetMouseButtonDown(0) && !ClickSystem.clickHistory.Contains(gameObject)){ //clicked
-                if(gameObject.name == "Ground"){
-                    gameObject.transform.parent.gameObject.GetComponent<Tile>().clickState = ClickSystem.ClickState.click;
-                    gameObject.transform.parent.gameObject.GetComponent<Tile>().updated = false;
+                if(gameObject.GetComponent<Tile>() != null){
+                    gameObject.GetComponent<Tile>().clickState = ClickSystem.ClickState.click;
+                    gameObject.GetComponent<Tile>().updated = false;
                 } else if(gameObject.GetComponent<Unit>() != null){
                     ClickSystem.clickHistory.Clear();
                     gameObject.GetComponent<Unit>().clickState = ClickSystem.ClickState.click;
@@ -37,9 +40,9 @@ public class MouseOver : MonoBehaviour
             } else if(Input.GetMouseButtonDown(0) && ClickSystem.clickHistory.IndexOf(gameObject) == ClickSystem.clickHistory.Count-1) { //clicked again to deselect
                 ClickSystem.clickHistory.Remove(gameObject);
                 ClickSystem.clickHistory.Add(null);
-                if(gameObject.name == "Ground"){
-                    gameObject.transform.parent.gameObject.GetComponent<Tile>().clickState = ClickSystem.ClickState.none;
-                    gameObject.transform.parent.gameObject.GetComponent<Tile>().updated = false;
+                if(gameObject.GetComponent<Tile>() != null){
+                    gameObject.GetComponent<Tile>().clickState = ClickSystem.ClickState.none;
+                    gameObject.GetComponent<Tile>().updated = false;
                 } else if(gameObject.GetComponent<Unit>() != null){
                     gameObject.GetComponent<Unit>().clickState = ClickSystem.ClickState.none;
                     gameObject.GetComponent<Unit>().updated = false;
@@ -48,9 +51,9 @@ public class MouseOver : MonoBehaviour
 
             } else if(ClickSystem.clickHistory.IndexOf(gameObject) != ClickSystem.clickHistory.Count-1) { //hover
                 ClickSystem.clickHistory.Remove(gameObject);
-                if(gameObject.name == "Ground"){
-                    gameObject.transform.parent.gameObject.GetComponent<Tile>().clickState = ClickSystem.ClickState.hover;
-                    gameObject.transform.parent.gameObject.GetComponent<Tile>().updated = false;
+                if(gameObject.GetComponent<Tile>() != null){
+                    gameObject.GetComponent<Tile>().clickState = ClickSystem.ClickState.hover;
+                    gameObject.GetComponent<Tile>().updated = false;
                 } else if(gameObject.GetComponent<Unit>() != null){
                     gameObject.GetComponent<Unit>().clickState = ClickSystem.ClickState.hover;
                     gameObject.GetComponent<Unit>().updated = false;
@@ -58,9 +61,9 @@ public class MouseOver : MonoBehaviour
             }
 
         } else if(ClickSystem.clickHistory.IndexOf(gameObject) != ClickSystem.clickHistory.Count-1) { //default
-            if(gameObject.name == "Ground"){
-                gameObject.transform.parent.gameObject.GetComponent<Tile>().clickState = ClickSystem.ClickState.none;
-                gameObject.transform.parent.gameObject.GetComponent<Tile>().updated = false;
+            if(gameObject.GetComponent<Tile>() != null){
+                gameObject.GetComponent<Tile>().clickState = ClickSystem.ClickState.none;
+                gameObject.GetComponent<Tile>().updated = false;
             } else if(gameObject.GetComponent<Unit>() != null){
                 gameObject.GetComponent<Unit>().clickState = ClickSystem.ClickState.none;
                 gameObject.GetComponent<Unit>().updated = false;
