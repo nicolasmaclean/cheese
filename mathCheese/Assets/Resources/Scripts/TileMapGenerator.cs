@@ -2,7 +2,7 @@
 
 public class TileMapGenerator : MonoBehaviour
 {
-    public static int mapWidth, mapHeight;
+    public static int mapWidth = 25, mapHeight = 25;
     public Transform[] tilePrefabs;
     public static float tileSize;
     public bool autoUpdate;

@@ -8,7 +8,19 @@ public class TurnSystem : MonoBehaviour
 
     void Start()
     {
+        if(players == null) // initializes stuff if not done by main menu
+            devStart();
         if(players.Count > 0)
             currentPlayer = 0;
+    }
+
+    void devStart()
+    {
+        TurnSystem.players = new List<Transform>();
+        GameObject player = new GameObject();
+        player.name = "dev";
+        player.AddComponent<Player>();
+        players.Add(player.transform);
+        DontDestroyOnLoad(player);
     }
 }
