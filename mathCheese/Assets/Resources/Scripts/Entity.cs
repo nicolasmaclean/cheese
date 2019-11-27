@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
 
 public class Entity : MonoBehaviour
 {
@@ -40,6 +41,24 @@ public class Entity : MonoBehaviour
         if(borderRenderer != null)
             borderRenderer.enabled = true;
         updated = true;
+    }
+
+    public virtual void clicked(System.Collections.Generic.List<GameObject> clickHistory)
+    {
+        
+        if(!clickHistory.Contains(gameObject)){
+
+            clickState = ClickSystem.ClickState.click;
+            clickHistory.Add(gameObject);
+
+        } else if(clickHistory.Count > 0 && clickHistory.IndexOf(gameObject) == clickHistory.Count-1) {
+            clickHistory.Remove(gameObject);
+            clickHistory.Add(null);
+
+            clickState = ClickSystem.ClickState.none;
+        }
+
+        updated = false;
     }
 
     public virtual void Update() {

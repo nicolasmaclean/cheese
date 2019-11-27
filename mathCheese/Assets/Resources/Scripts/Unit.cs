@@ -37,6 +37,33 @@ public class Unit : Entity
         }
     }
 
+    public override void clicked(System.Collections.Generic.List<GameObject> clickHistory)
+    {
+        if(!clickHistory.Contains(gameObject)){
+            if(gameObject.GetComponent<Unit>() != null){
+                if(clickHistory.Count > 0 && clickHistory[clickHistory.Count-1] != null && clickHistory[clickHistory.Count-1].GetComponent<Unit>() != null && gameObject.GetComponent<Unit>() != null) // resets move tiles when switching selection between units
+                    clickHistory[clickHistory.Count-1].GetComponent<Unit>().moveTilesReset();
+                clickHistory.Clear();
+            }
+
+            clickState = ClickSystem.ClickState.click;
+
+            clickHistory.Add(gameObject);
+
+            } else if(clickHistory.Count > 0 && clickHistory.IndexOf(gameObject) == clickHistory.Count-1) {
+                clickHistory.Remove(gameObject);
+                clickHistory.Add(null);
+
+                clickState = ClickSystem.ClickState.none;
+
+                if(gameObject.GetComponent<Unit>() != null)
+                    moveTilesReset();
+
+            }
+
+            updated = false;
+    }
+
     public static bool isTileFilled(Vector2 gPos)
     {
         if(unitPositions[(int)gPos.y, (int)gPos.x])
