@@ -1,36 +1,19 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class Unit : MonoBehaviour
+public class Unit : Entity
 {
-    public Vector2 gridPosition;
     public int moveRange = 0;
     public int maxHealth = 1;
     public int health;
     public int damage = 1;
-    public ClickSystem.ClickState clickState;
-    public bool updated = false;
     public static bool[,] unitPositions;
 
-    Material unitMeshMaterial;
-    GameObject borderT;
-
-    public static bool isTileFilled(Vector2 gPos)
-    {
-        if(unitPositions[(int)gPos.y, (int)gPos.x])
-            return true;
-        return false;
-    }
-
-    public virtual void instantiateUnit(Vector2 gPos)
+    public override void initialize(Vector2 gPos)
     {
         unitPositions[(int)gPos.y, (int)gPos.x] = true;
-        gridPosition = gPos;
         health = maxHealth;
-        borderT = gameObject.transform.Find("Border").gameObject;
-        unitMeshMaterial = gameObject.GetComponent<Renderer>().sharedMaterial;
 
-        borderT.GetComponent<Renderer>().enabled = false;
+        base.initialize(gPos);
     }
 
     public Collider getCollider()
@@ -38,35 +21,15 @@ public class Unit : MonoBehaviour
         return gameObject.GetComponent<Collider>();
     }
 
-    void Update() {
+    public override void Update() {
         // checkDeath();
-        if(borderT != null && !updated){
-            if(clickState == ClickSystem.ClickState.none)
-                noClickState();
-            else if(clickState == ClickSystem.ClickState.hover)
-                hoverClickState();
-            else if(clickState == ClickSystem.ClickState.click)
-                clickClickState();
-        }
-    }
-    
-    void hoverClickState()
-    {
-        borderT.GetComponent<Renderer>().enabled = true;
-        updated = true;
+        base.Update();
     }
 
-    void noClickState()
+    public override void clickClickState()
     {
-        // go.GetComponent<Renderer>().sharedMaterial = unitMeshMaterial;
-        borderT.GetComponent<Renderer>().enabled = false;
-    }
-
-    void clickClickState()
-    {
-        // go.GetComponent<Renderer>().material.color = Color.red;
-        borderT.GetComponent<Renderer>().enabled = true;
-        if(gameObject.transform.parent == TurnSystem.players[TurnSystem.currentPlayer]){ //add a player check
+        base.clickClickState();
+        if(gameObject.transform.parent == TurnSystem.players[TurnSystem.currentPlayer]){ // player check
             for(int z = -moveRange; z <= moveRange; z++){
                 for(int x = -moveRange; x <= moveRange; x++){
                     if((int)gridPosition.y + z > -1 && (int)gridPosition.y + z < TileMapGenerator.tiles.GetLength(0) && (int)gridPosition.x + x > -1 && (int)gridPosition.x + x < TileMapGenerator.tiles.GetLength(1)){
@@ -77,7 +40,13 @@ public class Unit : MonoBehaviour
                 }
             }
         }
-        updated = true;
+    }
+
+    public static bool isTileFilled(Vector2 gPos)
+    {
+        if(unitPositions[(int)gPos.y, (int)gPos.x])
+            return true;
+        return false;
     }
 
     public void move(Vector2 nPos)
@@ -104,21 +73,18 @@ public class Unit : MonoBehaviour
         }
     }
 
-    //deals damage and return new health
     public int takeDamage(int damage)
     {
         health -= damage;
         return health;
     }
 
-    //increases health and return new health
     public int heal(int healAmt)
     {
         health += healAmt;
         return health;
     }
 
-    //checks/kills unit
     public void checkDeath()
     {
         if(health <= 0 ){

@@ -1,26 +1,18 @@
 using UnityEngine;
 
-public class Tile : MonoBehaviour
+public class Tile : Entity
 {
-    public Vector2 gridPosition;
-    public Material groundMat;
-    public ClickSystem.ClickState clickState = ClickSystem.ClickState.none;
-    public bool updated = false;
     public bool isInMoveRange = false;
-    Renderer tileBorderRenderer;
+    public Material defaultMaterial;
+
     Transform groundT;
 
-    public void instantiateTile(Vector2 gPos)
+    public override void initialize(Vector2 gPos)
     {
-        //position of tile
-        gridPosition = gPos;
-
         groundT = gameObject.transform.Find("Ground");
-        groundMat = groundT.GetComponent<Renderer>().sharedMaterial;
-        tileBorderRenderer = gameObject.transform.Find("Border").gameObject.GetComponent<Renderer>();
-        
-        tileBorderRenderer.enabled = false;
+        defaultMaterial = groundT.GetComponent<Renderer>().sharedMaterial;
 
+        base.initialize(gPos);
     }
 
     public Collider getCollider()
@@ -28,38 +20,30 @@ public class Tile : MonoBehaviour
         return gameObject.GetComponent<Collider>();
     }
 
-    void Update() {
+    public override void Update() {
         if(!updated){
-            if(clickState == ClickSystem.ClickState.none)
-                noClickState();
-            else if(clickState == ClickSystem.ClickState.hover)
-                hoverClickState();
-            else if(clickState == ClickSystem.ClickState.click)
-                clickClickState();
+            base.Update();
             if(isInMoveRange)
                 inMoveRange();
         }
     }
 
-    public void noClickState()
+    public override void noClickState()
     {
-        groundT.GetComponent<Renderer>().sharedMaterial = groundMat;
-        tileBorderRenderer.enabled = false;
-        updated = true;
+        groundT.GetComponent<Renderer>().sharedMaterial = defaultMaterial;
+        base.noClickState();
     }
 
-    public void hoverClickState()
+    public override void hoverClickState()
     {
         groundT.GetComponent<Renderer>().material.color = Color.green;
-        tileBorderRenderer.enabled = true;
-        updated = true;
+        base.hoverClickState();
     }
     
-    public void clickClickState()
+    public override void clickClickState()
     {
         groundT.GetComponent<Renderer>().material.color = Color.red;
-        tileBorderRenderer.enabled = true;
-        updated = true;
+        base.clickClickState();
     }
 
     public void inMoveRange()
