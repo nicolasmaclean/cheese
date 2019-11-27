@@ -25,7 +25,7 @@ public class ClickSystem : MonoBehaviour
             GameObject cl0 = clickHistory[clickHistory.Count-2];
             GameObject cl1 = clickHistory[clickHistory.Count-1];
             if(cl0 != null && cl1 != null) {
-                if(cl0.GetComponent<Unit>() != null && cl1.GetComponent<Tile>() != null){
+                if(cl0.GetComponent<Unit>() != null && cl1.GetComponent<Tile>() != null && cl0.transform.parent == TurnSystem.players[TurnSystem.currentPlayer]){
                     cl0.GetComponent<Unit>().move(cl1.GetComponent<Tile>().gridPosition);
                     clickHistory = new System.Collections.Generic.List<GameObject>();
                     clickHistory.Add(null);
@@ -40,7 +40,7 @@ public class ClickSystem : MonoBehaviour
             GameObject cl0 = clickHistory[clickHistory.Count-2];
             GameObject cl1 = clickHistory[clickHistory.Count-1];
             if(cl0 != null && cl1 != null){
-                if(cl0.GetComponent<Unit>() != null && cl0.GetComponent<Unit>() != null && cl0.transform.parent != cl1.transform.parent){
+                if(cl0.GetComponent<Unit>() != null && cl0.GetComponent<Unit>() != null && cl0.transform.parent != cl1.transform.parent && cl0.transform.parent == TurnSystem.players[TurnSystem.currentPlayer]){
                     cl1.GetComponent<Unit>().takeDamage(cl0.GetComponent<Unit>().damage);
                 }
             }

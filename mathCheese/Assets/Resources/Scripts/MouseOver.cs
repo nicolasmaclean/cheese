@@ -21,16 +21,18 @@ public class MouseOver : MonoBehaviour
         return false;
     }
 
-    void Update() //bug if a tile is clicked, then the ant, the tile border is still enabled
+    void Update()
     { //move as much of this to the click system so there is one big check instead of hundreds of small ones
-    //maybe move chunks of if statements to imrove readibility
+    //maybe move chunks of if statements into external functions to imrove readibility
         bool collision = checkCollision();
         if(collision){
             if(Input.GetMouseButtonDown(0) && !ClickSystem.clickHistory.Contains(gameObject)){ //clicked
-                if(gameObject.GetComponent<Tile>() != null){
+                if(gameObject.GetComponent<Tile>() != null && gameObject.GetComponent<Tile>().clickState != ClickSystem.ClickState.click){
                     gameObject.GetComponent<Tile>().clickState = ClickSystem.ClickState.click;
                     gameObject.GetComponent<Tile>().updated = false;
-                } else if(gameObject.GetComponent<Unit>() != null){
+                } else if(gameObject.GetComponent<Unit>() != null && gameObject.GetComponent<Unit>().clickState != ClickSystem.ClickState.click){
+                    if(ClickSystem.clickHistory[ClickSystem.clickHistory.Count-1] != null && ClickSystem.clickHistory[ClickSystem.clickHistory.Count-1].GetComponent<Unit>() != null && gameObject != ClickSystem.clickHistory[ClickSystem.clickHistory.Count-1])
+                        ClickSystem.clickHistory[ClickSystem.clickHistory.Count-1].GetComponent<Unit>().moveTilesReset();
                     ClickSystem.clickHistory.Clear();
                     gameObject.GetComponent<Unit>().clickState = ClickSystem.ClickState.click;
                     gameObject.GetComponent<Unit>().updated = false;
@@ -49,22 +51,22 @@ public class MouseOver : MonoBehaviour
                     gameObject.GetComponent<Unit>().moveTilesReset();
                 }
 
-            } else if(ClickSystem.clickHistory.IndexOf(gameObject) != ClickSystem.clickHistory.Count-1) { //hover
+            } else if(!ClickSystem.clickHistory.Contains(gameObject)) { //hover
                 ClickSystem.clickHistory.Remove(gameObject);
-                if(gameObject.GetComponent<Tile>() != null){
+                if(gameObject.GetComponent<Tile>() != null && gameObject.GetComponent<Tile>().clickState != ClickSystem.ClickState.hover){
                     gameObject.GetComponent<Tile>().clickState = ClickSystem.ClickState.hover;
                     gameObject.GetComponent<Tile>().updated = false;
-                } else if(gameObject.GetComponent<Unit>() != null){
+                } else if(gameObject.GetComponent<Unit>() != null && gameObject.GetComponent<Unit>().clickState != ClickSystem.ClickState.hover){
                     gameObject.GetComponent<Unit>().clickState = ClickSystem.ClickState.hover;
                     gameObject.GetComponent<Unit>().updated = false;
                 }
             }
 
         } else if(ClickSystem.clickHistory.IndexOf(gameObject) != ClickSystem.clickHistory.Count-1) { //default
-            if(gameObject.GetComponent<Tile>() != null){
+            if(gameObject.GetComponent<Tile>() != null && gameObject.GetComponent<Tile>().clickState != ClickSystem.ClickState.none){
                 gameObject.GetComponent<Tile>().clickState = ClickSystem.ClickState.none;
                 gameObject.GetComponent<Tile>().updated = false;
-            } else if(gameObject.GetComponent<Unit>() != null){
+            } else if(gameObject.GetComponent<Unit>() != null && gameObject.GetComponent<Unit>().clickState != ClickSystem.ClickState.none){
                 gameObject.GetComponent<Unit>().clickState = ClickSystem.ClickState.none;
                 gameObject.GetComponent<Unit>().updated = false;
             }

@@ -10,11 +10,15 @@ public class Player : MonoBehaviour
     {
         if(!Unit.isTileFilled(pos)){
             Transform tempT = Instantiate(mesh, new Vector3(pos.x * TileMapGenerator.tileSize, 0, pos.y * TileMapGenerator.tileSize), up);
-            tempT.gameObject.AddComponent<Unit>();
             tempT.gameObject.GetComponent<Unit>().instantiateUnit(pos);
             tempT.parent = gameObject.transform;
             units.Add(tempT);
         }
+    }
+
+    public void removeUnit(Transform transfrom)
+    {
+        units.Remove(transform);
     }
 
     public void EndTurn()
