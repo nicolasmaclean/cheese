@@ -16,11 +16,6 @@ public class Unit : Entity
         base.initialize(gPos);
     }
 
-    public Collider getCollider()
-    {
-        return gameObject.GetComponent<Collider>();
-    }
-
     public override void Update() {
         // checkDeath();
         base.Update();

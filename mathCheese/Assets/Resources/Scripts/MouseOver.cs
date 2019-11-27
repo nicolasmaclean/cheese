@@ -1,21 +1,23 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class MouseOver : MonoBehaviour
 {
     Collider collideComponent;
+    Entity entityScript;
+    bool collision;
+    List<GameObject> clickHistory;
 
     void Start() 
     {
-        if(gameObject.GetComponent<Unit>() != null)
-            collideComponent = gameObject.GetComponent<Unit>().getCollider();
-        else if(gameObject.GetComponent<Tile>() != null)
-            collideComponent = gameObject.GetComponent<Tile>().getCollider();
+        entityScript = gameObject.GetComponent<Entity>();
+        collideComponent = entityScript.getCollider();
+        clickHistory = ClickSystem.clickHistory;
     }
 
     bool checkCollision()
     {
-        if(collideComponent != null &&  ClickSystem.hitInfo.collider == collideComponent) {//collideComponent.Raycast( ray, out hitInfo, 1000 ) && hitInfo.collider.Equals(collideComponent)) {
+        if(collideComponent != null &&  ClickSystem.hitInfo.collider == collideComponent) {
             return true;
         }
         return false;
@@ -24,52 +26,47 @@ public class MouseOver : MonoBehaviour
     void Update()
     { //move as much of this to the click system so there is one big check instead of hundreds of small ones
     //maybe move chunks of if statements into external functions to imrove readibility
-        bool collision = checkCollision();
-        if(collision){
-            if(Input.GetMouseButtonDown(0) && !ClickSystem.clickHistory.Contains(gameObject)){ //clicked
-                if(gameObject.GetComponent<Tile>() != null && gameObject.GetComponent<Tile>().clickState != ClickSystem.ClickState.click){
-                    gameObject.GetComponent<Tile>().clickState = ClickSystem.ClickState.click;
-                    gameObject.GetComponent<Tile>().updated = false;
-                } else if(gameObject.GetComponent<Unit>() != null && gameObject.GetComponent<Unit>().clickState != ClickSystem.ClickState.click){
-                    if(ClickSystem.clickHistory[ClickSystem.clickHistory.Count-1] != null && ClickSystem.clickHistory[ClickSystem.clickHistory.Count-1].GetComponent<Unit>() != null && gameObject != ClickSystem.clickHistory[ClickSystem.clickHistory.Count-1])
-                        ClickSystem.clickHistory[ClickSystem.clickHistory.Count-1].GetComponent<Unit>().moveTilesReset();
-                    ClickSystem.clickHistory.Clear();
-                    gameObject.GetComponent<Unit>().clickState = ClickSystem.ClickState.click;
-                    gameObject.GetComponent<Unit>().updated = false;
-                }
-                ClickSystem.clickHistory.Add(gameObject);
+        collision = checkCollision();
+        if(entityScript != null && collision){
 
-            } else if(Input.GetMouseButtonDown(0) && ClickSystem.clickHistory.IndexOf(gameObject) == ClickSystem.clickHistory.Count-1) { //clicked again to deselect
-                ClickSystem.clickHistory.Remove(gameObject);
-                ClickSystem.clickHistory.Add(null);
-                if(gameObject.GetComponent<Tile>() != null){
-                    gameObject.GetComponent<Tile>().clickState = ClickSystem.ClickState.none;
-                    gameObject.GetComponent<Tile>().updated = false;
-                } else if(gameObject.GetComponent<Unit>() != null){
-                    gameObject.GetComponent<Unit>().clickState = ClickSystem.ClickState.none;
-                    gameObject.GetComponent<Unit>().updated = false;
+            if(Input.GetMouseButtonDown(0) && !clickHistory.Contains(gameObject)){ //clicked
+                if(gameObject.GetComponent<Unit>() != null){
+                    if(clickHistory.Count > 0 && clickHistory[clickHistory.Count-1] != null && clickHistory[clickHistory.Count-1].GetComponent<Unit>() != null && gameObject.GetComponent<Unit>() != null) // resets move tiles when switching selection between units
+                        clickHistory[clickHistory.Count-1].GetComponent<Unit>().moveTilesReset();
+                    clickHistory.Clear();
+                }
+
+                entityScript.clickState = ClickSystem.ClickState.click;
+                entityScript.updated = false;
+
+                clickHistory.Add(gameObject);
+
+            } else if(Input.GetMouseButtonDown(0) && clickHistory.Count > 0 && clickHistory.IndexOf(gameObject) == clickHistory.Count-1) { //clicked again to deselect
+                clickHistory.Remove(gameObject);
+                clickHistory.Add(null);
+
+                entityScript.clickState = ClickSystem.ClickState.none;
+                entityScript.updated = false;
+
+                if(gameObject.GetComponent<Unit>() != null)
                     gameObject.GetComponent<Unit>().moveTilesReset();
+
+            } else if(!clickHistory.Contains(gameObject)) { //hover
+                if(entityScript.clickState != ClickSystem.ClickState.hover){
+                    // clickHistory.Remove(gameObject);
+
+                    entityScript.clickState = ClickSystem.ClickState.hover;
+                    entityScript.updated = false;
                 }
 
-            } else if(!ClickSystem.clickHistory.Contains(gameObject)) { //hover
-                ClickSystem.clickHistory.Remove(gameObject);
-                if(gameObject.GetComponent<Tile>() != null && gameObject.GetComponent<Tile>().clickState != ClickSystem.ClickState.hover){
-                    gameObject.GetComponent<Tile>().clickState = ClickSystem.ClickState.hover;
-                    gameObject.GetComponent<Tile>().updated = false;
-                } else if(gameObject.GetComponent<Unit>() != null && gameObject.GetComponent<Unit>().clickState != ClickSystem.ClickState.hover){
-                    gameObject.GetComponent<Unit>().clickState = ClickSystem.ClickState.hover;
-                    gameObject.GetComponent<Unit>().updated = false;
-                }
             }
 
-        } else if(ClickSystem.clickHistory.IndexOf(gameObject) != ClickSystem.clickHistory.Count-1) { //default
-            if(gameObject.GetComponent<Tile>() != null && gameObject.GetComponent<Tile>().clickState != ClickSystem.ClickState.none){
-                gameObject.GetComponent<Tile>().clickState = ClickSystem.ClickState.none;
-                gameObject.GetComponent<Tile>().updated = false;
-            } else if(gameObject.GetComponent<Unit>() != null && gameObject.GetComponent<Unit>().clickState != ClickSystem.ClickState.none){
-                gameObject.GetComponent<Unit>().clickState = ClickSystem.ClickState.none;
-                gameObject.GetComponent<Unit>().updated = false;
+        } else if(clickHistory.Count == 0 || (clickHistory.Count > 0 && clickHistory.IndexOf(gameObject) != clickHistory.Count-1)) { //default
+            if(entityScript.clickState != ClickSystem.ClickState.none){
+                entityScript.clickState = ClickSystem.ClickState.none;
+                entityScript.updated = false;
             }
+
         }
     }
 }

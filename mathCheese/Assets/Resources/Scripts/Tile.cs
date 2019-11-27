@@ -15,11 +15,6 @@ public class Tile : Entity
         base.initialize(gPos);
     }
 
-    public Collider getCollider()
-    {
-        return gameObject.GetComponent<Collider>();
-    }
-
     public override void Update() {
         if(!updated){
             base.Update();

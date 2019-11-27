@@ -16,6 +16,11 @@ public class Entity : MonoBehaviour
         borderRenderer.enabled = false;
     }
 
+    public Collider getCollider()
+    {
+        return gameObject.GetComponent<Collider>();
+    }
+
     public virtual void noClickState()
     {
         if(borderRenderer != null)
