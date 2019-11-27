@@ -61,6 +61,22 @@ public class Entity : MonoBehaviour
         updated = false;
     }
 
+    public virtual void hovered(System.Collections.Generic.List<GameObject> clickHistory)
+    {
+        if(clickState != ClickSystem.ClickState.hover){
+            clickState = ClickSystem.ClickState.hover;
+            updated = false;
+        }
+    }
+
+    public virtual void inactive(System.Collections.Generic.List<GameObject> clickHistory)
+    {
+        if(clickState != ClickSystem.ClickState.none){
+            clickState = ClickSystem.ClickState.none;
+            updated = false;
+        }
+    }
+
     public virtual void Update() {
         if(!updated){
             if(clickState == ClickSystem.ClickState.none)

@@ -24,24 +24,17 @@ public class MouseOver : MonoBehaviour
     }
 
     void Update()
-    { //move as much of this to the click system so there is one big check instead of hundreds of small ones
-    //maybe move chunks of if statements into external functions to imrove readibility
+    {
         collision = checkCollision();
-        if(entityScript != null && clickHistory != null && collision){
+        if(entityScript != null && collision){
             if(Input.GetMouseButtonDown(0)){ // clicked
                 entityScript.clicked(clickHistory);
 
             }else if(!clickHistory.Contains(gameObject)) { // hover
-                if(entityScript.clickState != ClickSystem.ClickState.hover){
-                    entityScript.clickState = ClickSystem.ClickState.hover;
-                    entityScript.updated = false;
-                }
+                entityScript.hovered(clickHistory);
             }
         } else if(clickHistory.Count == 0 || (clickHistory.Count > 0 && clickHistory.IndexOf(gameObject) != clickHistory.Count-1)) { // default
-            if(entityScript.clickState != ClickSystem.ClickState.none){
-                entityScript.clickState = ClickSystem.ClickState.none;
-                entityScript.updated = false;
-            }
+            entityScript.inactive(clickHistory);
         }
     }
 }
