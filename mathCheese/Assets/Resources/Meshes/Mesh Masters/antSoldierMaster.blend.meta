@@ -1,19 +1,9 @@
 fileFormatVersion: 2
-guid: 031b07cd9151948fb88804d3448f55dc
+guid: cccf0d48576f94a849d9317684dfebec
 ModelImporter:
   serializedVersion: 26
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Fuzzy Metal
-    second: {fileID: 2100000, guid: dd42b74184a23441f9d43347e5cc099f, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Metal
-    second: {fileID: 2100000, guid: dd42b74184a23441f9d43347e5cc099f, type: 2}
+  externalObjects: {}
   materials:
     importMaterials: 1
     materialName: 0
@@ -97,7 +87,7 @@ ModelImporter:
     hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 0
+  animationType: 2
   humanoidOversampling: 1
   additionalBone: 0
   userData: 

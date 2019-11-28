@@ -318,6 +318,7 @@ MonoBehaviour:
   unitTypeTemp:
   - {fileID: 6228913713312923400, guid: a4e08e45772c64d2991c55196cf1350b, type: 3}
   - {fileID: 2366066490851211789, guid: f058d2748606e4989b47c81d33f38a2f, type: 3}
+  - {fileID: 1710671769119762760, guid: df43a58c1edf541808ee92deb431412e, type: 3}
   - {fileID: 836668684692576602, guid: 4cdb5c57c6eb342afb6bbb9b109cb867, type: 3}
 --- !u!1 &963194225
 GameObject:
