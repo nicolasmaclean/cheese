@@ -77,6 +77,7 @@ public class Unit : Entity
         if(!unitPositions[(int)nPos.y, (int)nPos.x] && Mathf.Abs(nPos.x - gridPosition.x) <= moveRange && Mathf.Abs(nPos.y - gridPosition.y) <= moveRange){
             unitPositions[(int)gridPosition.y, (int)gridPosition.x] = false;
             unitPositions[(int)nPos.y, (int)nPos.x] = true;
+            gridPosition = nPos;
             gameObject.transform.position = new Vector3(gridPosition.x * TileMapGenerator.tileSize, 0, gridPosition.y * TileMapGenerator.tileSize);
         }
     }
