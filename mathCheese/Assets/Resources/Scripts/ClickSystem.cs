@@ -8,21 +8,27 @@ public class ClickSystem : MonoBehaviour
     public static RaycastHit hitInfo;
     public Transform tempUnitTransform;
     public enum ClickState {none, hover, click};
-    public GameObject UIPanelPublic;
+    public GameObject infoPanelPublic;
+    public GameObject messagePanelPublic;
     public Text activeSelectionTextPublic;
     public Text healthHeaderPublic;
     public Text healthTextPublic;
 
-    static RectTransform UIPanel;
+    static RectTransform infoPanel;
+    static GameObject messagePanel;
     static Text activeSelectionText;
     static Text healthHeader;
     static Text healthText;
     GameObject lastClicked;
+    static ClickSystem clickSystemRef;
+
     void Start()
     {
         clickHistory = new List<GameObject>();
+        clickSystemRef = this;
 
-        UIPanel = UIPanelPublic.GetComponent<RectTransform>();
+        infoPanel = infoPanelPublic.GetComponent<RectTransform>();
+        messagePanel = messagePanelPublic;
         activeSelectionText = activeSelectionTextPublic;
         healthHeader = healthHeaderPublic;
         healthText = healthTextPublic;
@@ -38,10 +44,18 @@ public class ClickSystem : MonoBehaviour
                 if(cl0.transform.parent == TurnSystem.players[TurnSystem.currentPlayer].gameObject.transform) {
                     cl0.GetComponent<Unit>().move(cl1.GetComponent<Tile>().gridPosition);
                 } else {
-                    Debug.Log("That's not your unit.");
+                    if(!messagePanel.activeInHierarchy) {
+                        messagePanel.SetActive(true);
+                        clickSystemRef.disappearCoroutine(3);
+                    }
                 }
             }
         }
+    }
+
+    void disappearCoroutine(int time)
+    {
+        StartCoroutine(UIManager.timedDisappear(messagePanel, time));
     }
 
     public static void checkUnitAttack()
@@ -70,12 +84,12 @@ public class ClickSystem : MonoBehaviour
     {
         activeSelectionText.text = go.GetComponent<Entity>().entityName;
         if(go.GetComponent<Unit>() != null){
-            UIPanel.sizeDelta = new Vector2(UIPanel.sizeDelta.x, (float)144.2);
+            infoPanel.sizeDelta = new Vector2(infoPanel.sizeDelta.x, (float)144.2);
             healthHeader.enabled = true;
             healthText.enabled = true;
             healthText.text = "" + go.GetComponent<Unit>().health;
         } else {
-            UIPanel.sizeDelta = new Vector2(UIPanel.sizeDelta.x, (float)100);
+            infoPanel.sizeDelta = new Vector2(infoPanel.sizeDelta.x, (float)100);
             healthHeader.enabled = false;
             healthText.enabled = false;
         }

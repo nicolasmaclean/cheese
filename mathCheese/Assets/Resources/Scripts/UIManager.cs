@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -78,5 +79,12 @@ public class UIManager : MonoBehaviour
         {
             Players[i].SetActive(true);
         }
+    }
+
+    public static IEnumerator timedDisappear(GameObject go, int time)
+    {
+        yield return new WaitForSeconds(time);
+
+        go.SetActive(false);
     }
 }
