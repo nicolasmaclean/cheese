@@ -108,6 +108,8 @@ public class Unit : Entity
     {
         if(health <= 0 ){
             gameObject.transform.parent.GetComponent<Player>().removeUnit(gameObject.transform);
+            ClickSystem.clickHistory.RemoveAll(x => x == gameObject);
+            unitPositions[(int)gridPosition.y, (int)gridPosition.x] = false;
             Destroy(gameObject);
         }
     }

@@ -31,7 +31,7 @@ public class MouseOver : MonoBehaviour
                 entityScript.clicked(clickHistory);
                 ClickSystem.updateSelectionText(gameObject); // move this into clicked
 
-            } else if(clickHistory.Count == 0 ||  gameObject != clickHistory[clickHistory.Count-1]) { // hover
+            } else if(clickHistory.Count == 0 || entityScript.clickState == ClickSystem.ClickState.none) { // hover
                 entityScript.hovered(clickHistory); //hover doesn't work if a tile is selected
                 ClickSystem.updateSelectionText(gameObject);
             }

@@ -416,7 +416,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &701284283
 RectTransform:
   m_ObjectHideFlags: 0
@@ -443,7 +443,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 701284282}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
   m_Name: 
@@ -866,10 +866,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tempUnitTransform: {fileID: 6228913713312923400, guid: a4e08e45772c64d2991c55196cf1350b,
     type: 3}
-  UIPanelPublic: {fileID: 0}
+  UIPanelPublic: {fileID: 1906576082}
   activeSelectionTextPublic: {fileID: 591612282}
-  healthHeaderPublic: {fileID: 0}
-  healthTextPublic: {fileID: 0}
+  healthHeaderPublic: {fileID: 701284284}
+  healthTextPublic: {fileID: 1773069752}
 --- !u!4 &984110550
 Transform:
   m_ObjectHideFlags: 0
@@ -1400,7 +1400,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1773069751
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1427,7 +1427,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1773069750}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
   m_Name: 
