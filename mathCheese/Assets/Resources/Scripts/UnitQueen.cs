@@ -7,6 +7,7 @@ public class UnitQueen : Unit
         maxHealth = 75;
         moveRange = 3;
         damage = 20;
+        entityName = "Queen Ant";
         
         base.initialize(gPos);
     }

@@ -7,6 +7,7 @@ public class UnitHarvester : Unit
         maxHealth = 100;
         moveRange = 1;
         damage = 40;
+        entityName = "Harvester Ant";
         
         base.initialize(gPos);
     }

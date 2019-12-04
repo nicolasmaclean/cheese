@@ -1,4 +1,9 @@
 public class TileGrass : Tile
 {
-    //add specifc stats or abilities;
+    public override void initialize(UnityEngine.Vector2 gPos)
+    {
+        entityName = "Grass Tile";
+
+        base.initialize(gPos);
+    }
 }

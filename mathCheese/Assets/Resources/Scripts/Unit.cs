@@ -50,18 +50,18 @@ public class Unit : Entity
 
             clickHistory.Add(gameObject);
 
-            } else if(clickHistory.Count > 0 && clickHistory.IndexOf(gameObject) == clickHistory.Count-1) {
-                clickHistory.Remove(gameObject);
-                clickHistory.Add(null);
+        } else if(clickHistory.Count > 0 && clickHistory.IndexOf(gameObject) == clickHistory.Count-1) {
+            clickHistory.Remove(gameObject);
+            clickHistory.Add(null);
 
-                clickState = ClickSystem.ClickState.none;
+            clickState = ClickSystem.ClickState.none;
 
-                if(gameObject.GetComponent<Unit>() != null)
-                    moveTilesReset();
+            if(gameObject.GetComponent<Unit>() != null)
+                moveTilesReset();
 
-            }
+        }
 
-            updated = false;
+        updated = false;
     }
 
     public static bool isTileFilled(Vector2 gPos)
@@ -75,8 +75,7 @@ public class Unit : Entity
     {
         moveTilesReset();
         if(!unitPositions[(int)nPos.y, (int)nPos.x] && Mathf.Abs(nPos.x - gridPosition.x) <= moveRange && Mathf.Abs(nPos.y - gridPosition.y) <= moveRange){
-            unitPositions[(int)gridPosition.y, (int)gridPosition.x] = false; // maybe add a message about move range if not in range
-            gridPosition = nPos;
+            unitPositions[(int)gridPosition.y, (int)gridPosition.x] = false;
             unitPositions[(int)nPos.y, (int)nPos.x] = true;
             gameObject.transform.position = new Vector3(gridPosition.x * TileMapGenerator.tileSize, 0, gridPosition.y * TileMapGenerator.tileSize);
         }

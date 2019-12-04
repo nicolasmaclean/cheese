@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -28,11 +27,13 @@ public class UIManager : MonoBehaviour
     public Text text;
     public  int size = 0;
 
-    public void quitQame() {
+    public void quitQame()
+    {
         Application.Quit();
     }
 
-    public void prepareGame() {
+    public void prepareGame()
+    {
         TurnSystem.players = new List<Transform>();
         for(int i = 0; i < players; i++) {
             GameObject player = new GameObject();
@@ -43,29 +44,33 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void startGame() {
+    public void startGame()
+    {
         SceneManager.LoadScene("Game");
         TileMapGenerator.mapHeight = (int)(Mathf.Pow(2,size) * 25);
         TileMapGenerator.mapWidth = (int)(Mathf.Pow(2,size) * 25);
         prepareGame();
     }
 
-    public void play() {
+    public void play()
+    {
         Main.gameObject.SetActive(false);
         Options.gameObject.SetActive(true);
-        
     }
 
-    public void slide() {
+    public void slide()
+    {
         players = UISlider.value;
-        text.text = ""+ UISlider.value;
+        text.text = "" + UISlider.value;
     }
 
-    public void drop() {
+    public void drop()
+    {
         size = UIDropdown.value;
     }
 
-    public void play2() {
+    public void play2()
+    {
         Options.SetActive(false);
         GameObject[] Players = {Player1, Player2, Player3, Player4};
         playerNames = new InputField[] {name1, name2, name3, name4};

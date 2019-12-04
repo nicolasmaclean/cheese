@@ -7,6 +7,7 @@ public class Entity : MonoBehaviour
     public ClickSystem.ClickState clickState;
     public bool updated;
     public Renderer borderRenderer; 
+    public string entityName = "Entity";
 
     public virtual void initialize(Vector2 gPos)
     {

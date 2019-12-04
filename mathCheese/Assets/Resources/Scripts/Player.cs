@@ -20,9 +20,4 @@ public class Player : MonoBehaviour
     {
         units.Remove(transform);
     }
-
-    public void EndTurn()
-    {
-
-    }
 }

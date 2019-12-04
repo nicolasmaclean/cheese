@@ -8,6 +8,7 @@ public class UnitSoldier : Unit
         maxHealth = 150;
         moveRange = 2;
         damage = 50;
+        entityName = "Soldier Ant";
         
         base.initialize(gPos);
     }

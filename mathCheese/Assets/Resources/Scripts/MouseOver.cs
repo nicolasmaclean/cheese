@@ -29,9 +29,11 @@ public class MouseOver : MonoBehaviour
         if(entityScript != null && collision){
             if(Input.GetMouseButtonDown(0)){ // clicked
                 entityScript.clicked(clickHistory);
+                ClickSystem.updateSelectionText(gameObject);
 
             }else if(!clickHistory.Contains(gameObject)) { // hover
                 entityScript.hovered(clickHistory);
+                ClickSystem.updateSelectionText(gameObject);
             }
         } else if(clickHistory.Count == 0 || (clickHistory.Count > 0 && clickHistory.IndexOf(gameObject) != clickHistory.Count-1)) { // default
             entityScript.inactive(clickHistory);

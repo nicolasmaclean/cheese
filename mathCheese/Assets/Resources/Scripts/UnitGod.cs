@@ -7,6 +7,7 @@ public class UnitGod : Unit
         maxHealth = 10000;
         moveRange = 100;
         damage = 500;
+        entityName = "God Ant";
         
         base.initialize(gPos);
     }
