@@ -46,4 +46,10 @@ public class Tile : Entity
         groundT.GetComponent<Renderer>().material.color = Color.blue;
         updated = true;
     }
+
+    public override void clicked(System.Collections.Generic.List<GameObject> clickHistory)
+    {
+        base.clicked(clickHistory);
+        ClickSystem.checkClickMoveUnit();
+    }
 }

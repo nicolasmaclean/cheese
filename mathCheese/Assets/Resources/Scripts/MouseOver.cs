@@ -29,13 +29,13 @@ public class MouseOver : MonoBehaviour
         if(entityScript != null && collision){
             if(Input.GetMouseButtonDown(0)){ // clicked
                 entityScript.clicked(clickHistory);
-                ClickSystem.updateSelectionText(gameObject);
+                ClickSystem.updateSelectionText(gameObject); // move this into clicked
 
-            }else if(!clickHistory.Contains(gameObject)) { // hover
-                entityScript.hovered(clickHistory);
+            } else if(clickHistory.Count == 0 ||  gameObject != clickHistory[clickHistory.Count-1]) { // hover
+                entityScript.hovered(clickHistory); //hover doesn't work if a tile is selected
                 ClickSystem.updateSelectionText(gameObject);
             }
-        } else if(clickHistory.Count == 0 || (clickHistory.Count > 0 && clickHistory.IndexOf(gameObject) != clickHistory.Count-1)) { // default
+        } else if(clickHistory.Count == 0 || clickHistory.IndexOf(gameObject) != clickHistory.Count-1) { // default
             entityScript.inactive(clickHistory);
         }
     }

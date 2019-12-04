@@ -39,21 +39,15 @@ public class Unit : Entity
 
     public override void clicked(System.Collections.Generic.List<GameObject> clickHistory)
     {
-        if(!clickHistory.Contains(gameObject)){
-            if(gameObject.GetComponent<Unit>() != null){
-                if(clickHistory.Count > 0 && clickHistory[clickHistory.Count-1] != null && clickHistory[clickHistory.Count-1].GetComponent<Unit>() != null && gameObject.GetComponent<Unit>() != null) // resets move tiles when switching selection between units
-                    clickHistory[clickHistory.Count-1].GetComponent<Unit>().moveTilesReset();
-                clickHistory.Clear();
-            }
+        if(clickHistory.Count == 0 || clickHistory.IndexOf(gameObject) != clickHistory.Count-1){
+            if(clickHistory.Count > 0 && clickHistory[clickHistory.Count-1].GetComponent<Unit>() != null) // resets move tiles when switching selection between units
+                clickHistory[clickHistory.Count-1].GetComponent<Unit>().moveTilesReset();
 
             clickState = ClickSystem.ClickState.click;
 
             clickHistory.Add(gameObject);
 
         } else if(clickHistory.Count > 0 && clickHistory.IndexOf(gameObject) == clickHistory.Count-1) {
-            clickHistory.Remove(gameObject);
-            clickHistory.Add(null);
-
             clickState = ClickSystem.ClickState.none;
 
             if(gameObject.GetComponent<Unit>() != null)
@@ -62,6 +56,8 @@ public class Unit : Entity
         }
 
         updated = false;
+
+        ClickSystem.checkUnitAttack();
     }
 
     public static bool isTileFilled(Vector2 gPos)
@@ -98,6 +94,7 @@ public class Unit : Entity
     public int takeDamage(int damage)
     {
         health -= damage;
+        checkDeath();
         return health;
     }
 

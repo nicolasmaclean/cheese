@@ -46,16 +46,11 @@ public class Entity : MonoBehaviour
 
     public virtual void clicked(System.Collections.Generic.List<GameObject> clickHistory)
     {
-        
-        if(!clickHistory.Contains(gameObject)){
-
+        if(clickHistory.Count == 0 || clickHistory.IndexOf(gameObject) != clickHistory.Count-1){
             clickState = ClickSystem.ClickState.click;
             clickHistory.Add(gameObject);
 
-        } else if(clickHistory.Count > 0 && clickHistory.IndexOf(gameObject) == clickHistory.Count-1) {
-            clickHistory.Remove(gameObject);
-            clickHistory.Add(null);
-
+        } else if(clickHistory.IndexOf(gameObject) == clickHistory.Count-1) {
             clickState = ClickSystem.ClickState.none;
         }
 

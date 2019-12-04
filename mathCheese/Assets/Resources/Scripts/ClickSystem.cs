@@ -21,7 +21,6 @@ public class ClickSystem : MonoBehaviour
     void Start()
     {
         clickHistory = new List<GameObject>();
-        clickHistory.Add(null);
 
         UIPanel = UIPanelPublic.GetComponent<RectTransform>();
         activeSelectionText = activeSelectionTextPublic;
@@ -30,30 +29,28 @@ public class ClickSystem : MonoBehaviour
     }
 
     //checks the the last 2 clicked items and moves the unit if applicable
-    void checkClickMoveUnit()
+    public static void checkClickMoveUnit()
     {
         if(clickHistory.Count >= 2) {
             GameObject cl0 = clickHistory[clickHistory.Count-2];
             GameObject cl1 = clickHistory[clickHistory.Count-1];
-            if(cl0 != null && cl1 != null) {
-                if(cl0.GetComponent<Unit>() != null && cl1.GetComponent<Tile>() != null){
-                    if(cl0.transform.parent == TurnSystem.players[TurnSystem.currentPlayer].gameObject.transform)
-                        cl0.GetComponent<Unit>().move(cl1.GetComponent<Tile>().gridPosition);
-                    else
-                        Debug.Log("That's not your unit.");
+            if(cl0.GetComponent<Unit>() != null && cl1.GetComponent<Tile>() != null){
+                if(cl0.transform.parent == TurnSystem.players[TurnSystem.currentPlayer].gameObject.transform) {
+                    cl0.GetComponent<Unit>().move(cl1.GetComponent<Tile>().gridPosition);
+                } else {
+                    Debug.Log("That's not your unit.");
                 }
-                clickHistory.Clear();
             }
         }
     }
 
-    void checkUnitAttack()
+    public static void checkUnitAttack()
     {
         if(clickHistory.Count >= 2){
             GameObject cl0 = clickHistory[clickHistory.Count-2];
             GameObject cl1 = clickHistory[clickHistory.Count-1];
             if(cl0 != null && cl1 != null){ // add another if the tile under an enemy unit is selected
-                if(cl0.GetComponent<Unit>() != null && cl0.GetComponent<Unit>() != null && cl0.transform.parent != cl1.transform.parent && cl0.transform.parent == TurnSystem.players[TurnSystem.currentPlayer]){
+                if(cl0.GetComponent<Unit>() != null && cl1.GetComponent<Unit>() != null && cl0.transform.parent != cl1.transform.parent && cl0.transform.parent == TurnSystem.players[TurnSystem.currentPlayer]){
                     cl1.GetComponent<Unit>().takeDamage(cl0.GetComponent<Unit>().damage);
                 }
             }
@@ -87,15 +84,9 @@ public class ClickSystem : MonoBehaviour
     void Update()
     {
         addUnit();
-        checkClickMoveUnit();
-        checkUnitAttack();
 
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
         Physics.Raycast(ray, out hitInfo, 100);
-
-        while(clickHistory.Count > 2){
-            clickHistory.RemoveAt(0);
-        }
     }
 }
