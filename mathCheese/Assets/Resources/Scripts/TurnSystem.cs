@@ -32,6 +32,11 @@ public class TurnSystem : MonoBehaviour
         currentPlayerText.text = players[currentPlayer].name;
     }
 
+    public void reset()
+    {
+        currentPlayer = 0;
+    }
+
     #if UNITY_EDITOR
     void devStart()
     {

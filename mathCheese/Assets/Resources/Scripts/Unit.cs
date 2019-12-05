@@ -96,7 +96,7 @@ public class Unit : Entity
     public virtual void promoteToVeteran()
     {
         veteran = true;
-        maxHealth *= (int) (maxHealth * 1.5);
+        maxHealth = (int) (maxHealth * 1.5);
         damage = (int) (damage * 1.5);
         health = maxHealth;
     }
@@ -116,10 +116,9 @@ public class Unit : Entity
     public bool checkDeath()
     {
         if(health <= 0 ){
-            gameObject.transform.parent.GetComponent<Player>().removeUnit(gameObject.transform);
+            gameObject.transform.parent.GetComponent<Player>().removeUnit(gameObject);
             ClickSystem.clickHistory.RemoveAll(x => x == gameObject);
             unitPositions[(int)gridPosition.y, (int)gridPosition.x] = false;
-            Destroy(gameObject);
             return true;
         }
         return false;

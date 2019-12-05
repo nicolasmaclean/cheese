@@ -101,10 +101,12 @@ public class ClickSystem : MonoBehaviour
 
     void Update()
     {
-        addUnit();
+        if(!UIPauseManager.paused){
+            addUnit();
 
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-        Physics.Raycast(ray, out hitInfo, 100);
+            Physics.Raycast(ray, out hitInfo, 100);
+        }
     }
 }

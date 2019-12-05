@@ -16,8 +16,17 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void removeUnit(Transform transfrom)
+    public void removeUnit(GameObject go)
     {
-        units.Remove(transform);
+        units.Remove(go.transform);
+        Destroy(go);
+    }
+
+    public void reset()
+    {
+        larvae = 0;
+        foreach(Transform unit in units){
+            removeUnit(unit.gameObject);
+        }
     }
 }

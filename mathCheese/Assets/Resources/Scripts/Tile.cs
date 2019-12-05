@@ -16,11 +16,18 @@ public class Tile : Entity
     }
 
     public override void Update() {
-        if(!updated){
+        if(!UIPauseManager.paused && !updated){
             base.Update();
             if(isInMoveRange)
                 inMoveRange();
         }
+    }
+
+    public void reset()
+    {
+        clickState = ClickSystem.ClickState.none;
+        updated = false;
+        isInMoveRange = false;
     }
 
     public override void noClickState()

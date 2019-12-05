@@ -25,18 +25,20 @@ public class MouseOver : MonoBehaviour
 
     void Update()
     {
-        collision = checkCollision();
-        if(entityScript != null && collision){
-            if(Input.GetMouseButtonDown(0)){ // clicked
-                entityScript.clicked(clickHistory);
-                ClickSystem.updateSelectionText(gameObject); // move this into clicked
+        if(!UIPauseManager.paused){
+            collision = checkCollision();
+            if(entityScript != null && collision){
+                if(Input.GetMouseButtonDown(0)){ // clicked
+                    entityScript.clicked(clickHistory);
+                    ClickSystem.updateSelectionText(gameObject); // move this into clicked
 
-            } else if(clickHistory.Count == 0 || entityScript.clickState == ClickSystem.ClickState.none) { // hover
-                entityScript.hovered(clickHistory); //hover doesn't work if a tile is selected
-                ClickSystem.updateSelectionText(gameObject);
+                } else if(clickHistory.Count == 0 || entityScript.clickState == ClickSystem.ClickState.none) { // hover
+                    entityScript.hovered(clickHistory); //hover doesn't work if a tile is selected
+                    ClickSystem.updateSelectionText(gameObject);
+                }
+            } else if(clickHistory.Count == 0 || clickHistory.IndexOf(gameObject) != clickHistory.Count-1) { // default
+                entityScript.inactive(clickHistory);
             }
-        } else if(clickHistory.Count == 0 || clickHistory.IndexOf(gameObject) != clickHistory.Count-1) { // default
-            entityScript.inactive(clickHistory);
         }
     }
 }

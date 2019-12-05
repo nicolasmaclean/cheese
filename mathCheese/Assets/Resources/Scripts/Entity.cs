@@ -74,7 +74,7 @@ public class Entity : MonoBehaviour
     }
 
     public virtual void Update() {
-        if(!updated){
+        if(!UIPauseManager.paused && !updated){
             if(clickState == ClickSystem.ClickState.none)
                 noClickState();
             else if(clickState == ClickSystem.ClickState.hover)
