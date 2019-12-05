@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class UnitSoldier : Unit
 {
-    public bool veteran = false;
     public override void initialize(Vector2 gPos)
     {
         maxHealth = 150;
@@ -13,11 +12,10 @@ public class UnitSoldier : Unit
         base.initialize(gPos);
     }
 
-    public void promoteToVeteran()
+    public override void promoteToVeteran()
     {
-        maxHealth = 200;
-        damage = 75;
         gameObject.GetComponent<Renderer>().sharedMaterial = Resources.Load<Material>("Materials/SkinGod");
-        veteran = true;
+
+        base.promoteToVeteran();
     }
 }

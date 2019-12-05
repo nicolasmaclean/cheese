@@ -2,16 +2,18 @@
 
 public class Unit : Entity
 {
+    public static bool[,] unitPositions;
     public int moveRange = 0;
     public int maxHealth = 1;
     public int health;
     public int damage = 1;
-    public static bool[,] unitPositions;
+    public bool veteran;
 
     public override void initialize(Vector2 gPos)
     {
         unitPositions[(int)gPos.y, (int)gPos.x] = true;
         health = maxHealth;
+        veteran = false;
 
         base.initialize(gPos);
     }
@@ -91,11 +93,18 @@ public class Unit : Entity
         }
     }
 
-    public int takeDamage(int damage)
+    public virtual void promoteToVeteran()
+    {
+        veteran = true;
+        maxHealth *= (int) (maxHealth * 1.5);
+        damage = (int) (damage * 1.5);
+        health = maxHealth;
+    }
+
+    public bool takeDamage(int damage)
     {
         health -= damage;
-        checkDeath();
-        return health;
+        return checkDeath();;
     }
 
     public int heal(int healAmt)
@@ -104,13 +113,15 @@ public class Unit : Entity
         return health;
     }
 
-    public void checkDeath()
+    public bool checkDeath()
     {
         if(health <= 0 ){
             gameObject.transform.parent.GetComponent<Player>().removeUnit(gameObject.transform);
             ClickSystem.clickHistory.RemoveAll(x => x == gameObject);
             unitPositions[(int)gridPosition.y, (int)gridPosition.x] = false;
             Destroy(gameObject);
+            return true;
         }
+        return false;
     }
 }

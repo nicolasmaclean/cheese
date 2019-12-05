@@ -65,7 +65,11 @@ public class ClickSystem : MonoBehaviour
             GameObject cl1 = clickHistory[clickHistory.Count-1];
             if(cl0 != null && cl1 != null){ // add another if the tile under an enemy unit is selected
                 if(cl0.GetComponent<Unit>() != null && cl1.GetComponent<Unit>() != null && cl0.transform.parent != cl1.transform.parent && cl0.transform.parent == TurnSystem.players[TurnSystem.currentPlayer]){
-                    cl1.GetComponent<Unit>().takeDamage(cl0.GetComponent<Unit>().damage);
+                    Vector2 tPos = cl1.GetComponent<Unit>().gridPosition;
+                    if(cl1.GetComponent<Unit>().takeDamage(cl0.GetComponent<Unit>().damage)){
+                        cl0.GetComponent<Unit>().promoteToVeteran();
+                        cl0.GetComponent<Unit>().move(tPos);
+                    }
                 }
             }
         }
