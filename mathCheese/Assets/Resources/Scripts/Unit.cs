@@ -5,15 +5,15 @@ public class Unit : Entity
     public static bool[,] unitPositions;
     public int moveRange = 0;
     public int maxHealth = 1;
-    public int health;
+    public int health = 1;
     public int damage = 1;
-    public bool veteran;
+    public int level = 1;
+    public double levelMult = 1.1;
 
     public override void initialize(Vector2 gPos)
     {
         unitPositions[(int)gPos.y, (int)gPos.x] = true;
         health = maxHealth;
-        veteran = false;
 
         base.initialize(gPos);
     }
@@ -93,12 +93,20 @@ public class Unit : Entity
         }
     }
 
+    public virtual void levelUp()
+    {
+        level++;
+        maxHealth = (int) (maxHealth * levelMult);
+        damage = (int) (damage * levelMult);
+        health = maxHealth;
+
+        if(level == 3)
+            promoteToVeteran();
+    }
+
     public virtual void promoteToVeteran()
     {
-        veteran = true;
-        maxHealth = (int) (maxHealth * 1.5);
-        damage = (int) (damage * 1.5);
-        health = maxHealth;
+        Debug.Log("veteran has no changes");
     }
 
     public bool takeDamage(int damage)
