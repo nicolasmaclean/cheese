@@ -57,7 +57,7 @@ public class UIPauseManager : MonoBehaviour
 
     public void exitToMenu()
     {
-
+        SceneManager.LoadScene(0);
     }
 
     public void exitToDesktop()
