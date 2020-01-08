@@ -7,6 +7,7 @@ public class TurnSystem : MonoBehaviour
     public static List<Transform> players;
     public static int currentPlayer;
     public Text currentPlayerText;
+    public Text currentLarvaeText;
 
     void Start()
     {
@@ -16,20 +17,22 @@ public class TurnSystem : MonoBehaviour
         #endif
         if(players.Count > 0)
             currentPlayer = 0;
-        updatePlayerText();
+        updateText();
     }
 
     public void nextTurn()
     {
+        players[currentPlayer].GetComponent<Player>().updateLarvae();
         currentPlayer++;
         if(currentPlayer >= players.Count)
             currentPlayer = 0;
-        updatePlayerText();
+        updateText();
     }
 
-    public void updatePlayerText()
+    public void updateText()
     {
         currentPlayerText.text = players[currentPlayer].name;
+        currentLarvaeText.text = "" + players[currentPlayer].GetComponent<Player>().larvae;
     }
 
     public void reset()

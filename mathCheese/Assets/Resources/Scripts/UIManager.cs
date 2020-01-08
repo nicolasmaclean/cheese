@@ -24,9 +24,9 @@ public class UIManager : MonoBehaviour
     public  GameObject Player3;
     public  GameObject Player4;
 
-    public  float players = 1;
+    public float players = 1;
     public Text text;
-    public  int size = 0;
+    public int size = 0;
 
     public void quitQame()
     {

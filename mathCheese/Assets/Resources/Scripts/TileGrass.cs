@@ -5,5 +5,6 @@ public class TileGrass : Tile
         entityName = "Grass Tile";
 
         base.initialize(gPos);
+        resources = 3;
     }
 }
