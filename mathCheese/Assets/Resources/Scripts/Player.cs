@@ -6,6 +6,15 @@ public class Player : MonoBehaviour
     public List<Transform> units = new List<Transform>();
     public int larvae = 0;
 
+    public void updateLarvae()
+    {
+        foreach(Transform unit in units) {
+            if(unit.GetComponent<UnitHarvester>() != null) {
+                larvae += unit.GetComponent<UnitHarvester>().harvestTile();
+            }
+        }
+    }
+
     public void addUnit(Transform mesh, Vector2 pos, Quaternion up)
     {
         if(!Unit.isTileFilled(pos)){

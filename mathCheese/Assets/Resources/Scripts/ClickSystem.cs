@@ -88,12 +88,12 @@ public class ClickSystem : MonoBehaviour
     {
         activeSelectionText.text = go.GetComponent<Entity>().entityName;
         if(go.GetComponent<Unit>() != null){
-            infoPanel.sizeDelta = new Vector2(infoPanel.sizeDelta.x, (float)144.2);
+            infoPanel.sizeDelta = new Vector2(infoPanel.sizeDelta.x, (float)182);
             healthHeader.enabled = true;
             healthText.enabled = true;
             healthText.text = "" + go.GetComponent<Unit>().health;
         } else {
-            infoPanel.sizeDelta = new Vector2(infoPanel.sizeDelta.x, (float)100);
+            infoPanel.sizeDelta = new Vector2(infoPanel.sizeDelta.x, (float)141);
             healthHeader.enabled = false;
             healthText.enabled = false;
         }

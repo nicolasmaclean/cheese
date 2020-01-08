@@ -5,5 +5,6 @@ public class TileRock : Tile
         entityName = "Rock Tile";
 
         base.initialize(gPos);
+        resources = 2;
     }
 }

@@ -12,8 +12,15 @@ public class UnitHarvester : Unit
         base.initialize(gPos);
     }
 
-    public void harvestTile()
+    public int harvestTile()
     {
+        int harvest = 0;
+
+        Tile temp = TileMapGenerator.tiles[(int)gridPosition.y, (int)gridPosition.x].GetComponent<Tile>();
+        if(temp != null) {
+            harvest += temp.resources;
+        }
         
+        return harvest;
     }
 }

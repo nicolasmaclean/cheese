@@ -4,6 +4,7 @@ public class Tile : Entity
 {
     public bool isInMoveRange = false;
     public Material defaultMaterial;
+    public int resources;
 
     Transform groundT;
 
@@ -11,6 +12,7 @@ public class Tile : Entity
     {
         groundT = gameObject.transform.Find("Ground");
         defaultMaterial = groundT.GetComponent<Renderer>().sharedMaterial;
+        resources = 1;
 
         base.initialize(gPos);
     }
