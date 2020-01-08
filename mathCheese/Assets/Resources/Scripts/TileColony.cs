@@ -1,10 +1,11 @@
-public class TileRock : Tile
+public class TileColony : Tile
 {
+    public int queens = 1;
+
     public override void initialize(UnityEngine.Vector2 gPos)
     {
-        entityName = "Rock Tile";
+        entityName = "Colony Tile";
 
         base.initialize(gPos);
-        resources = 2;
     }
 }
