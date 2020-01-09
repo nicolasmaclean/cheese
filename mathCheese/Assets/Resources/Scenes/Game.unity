@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657838, g: 0.49641234, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.4465782, g: 0.49641252, b: 0.5748167, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -634,6 +634,8 @@ MonoBehaviour:
   - {fileID: 7571780184241821909, guid: 9a838add64e4a425daf08ed5322acf13, type: 3}
   - {fileID: 6470418834464017353, guid: 949100036b123402f970bac802738e6d, type: 3}
   - {fileID: 3017790096949164906, guid: 93076333f0c854391a5a0c73f942bbb8, type: 3}
+  tileColonyPrefab: {fileID: 1840526381334793214, guid: fbd97cc0780e69b4793826da049b2c03,
+    type: 3}
   autoUpdate: 0
 --- !u!4 &454302298
 Transform:
