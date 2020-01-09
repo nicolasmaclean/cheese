@@ -5,6 +5,7 @@ public class Player : MonoBehaviour
 {
     public List<Transform> units = new List<Transform>();
     public int larvae = 0;
+    public List<Tile> colonies = new List<Tile>();
 
     public void updateLarvae()
     {
