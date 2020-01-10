@@ -106,7 +106,7 @@ public class ClickSystem : MonoBehaviour
 
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-            Physics.Raycast(ray, out hitInfo, 100);
+            Physics.Raycast(ray, out hitInfo, 200);
         }
     }
 }
