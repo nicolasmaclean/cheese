@@ -4,6 +4,7 @@ public class TileMapGenerator : MonoBehaviour
 {
     public static int mapWidth = 25, mapHeight = 25;
     public Transform[] tilePrefabs;
+    public Transform tileColonyPrefab;
     public static float tileSize;
     public bool autoUpdate;
 
@@ -27,14 +28,22 @@ public class TileMapGenerator : MonoBehaviour
             Quaternion up = new Quaternion(0,0,0,1);
             int[,] noiseMap = Noise.GenerateNoiseMap(mapWidth, mapHeight, tilePrefabs.Length);
             
-            for(int z = 0; z < mapHeight; z++){
-                for(int x = 0; x < mapWidth; x++){
+            for(int z = 0; z < mapHeight; z++) {
+                for(int x = 0; x < mapWidth; x++) {
                     tiles[z, x] = Instantiate(tilePrefabs[noiseMap[z, x]], new Vector3(x*tileSize, 0, z*tileSize), up); //move this into the tile instantiation
                     tiles[z, x].GetComponent<Tile>().initialize(new Vector2(x, z));
                     tiles[z, x].parent = gameObject.transform;
                 }
             }
         }
+    }
 
+    public static void createColony(int y, int x)
+    {
+        if(tiles[y, x] != null)
+            Destroy(tiles[y, x].gameObject);
+        
+        tiles[y, x] = Instantiate(Resources.Load<Transform>("Meshes/tileColonyPrefab"), new Vector3(x*tileSize, 0, y*tileSize), new Quaternion(0,0,0,1));
+        tiles[y, x].GetComponent<Tile>().initialize(new Vector2(x, y));
     }
 }

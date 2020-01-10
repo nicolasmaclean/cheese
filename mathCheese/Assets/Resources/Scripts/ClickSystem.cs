@@ -68,7 +68,7 @@ public class ClickSystem : MonoBehaviour
                 if(cl0.GetComponent<Unit>() != null && cl1.GetComponent<Unit>() != null && cl0.transform.parent != cl1.transform.parent && cl0.transform.parent == TurnSystem.players[TurnSystem.currentPlayer]){
                     Vector2 tPos = cl1.GetComponent<Unit>().gridPosition;
                     if(cl1.GetComponent<Unit>().takeDamage(cl0.GetComponent<Unit>().damage)){
-                        cl0.GetComponent<Unit>().promoteToVeteran();
+                        cl0.GetComponent<Unit>().levelUp();
                         cl0.GetComponent<Unit>().move(tPos);
                     }
                 }

@@ -2,55 +2,34 @@
 
 public class CameraMovement : MonoBehaviour
 {
-    public static float speed = 20f;
-    public static float rotationSpeed = 20f;
+    public int speed, rotationSpeed, zoomSpeed, yMax, yMin, zoom;
+
+    private Vector3 velocity;
+    private Quaternion smoothRot, rot;
+    private float smoothZoom;
 
 
     void Start() {
-        Camera.main.transform.position = new Vector3(0f,40f,0f);
-        Camera.main.transform.rotation = Quaternion.Euler(60f,0,0);
-        Camera.main.fieldOfView = 70;
+        Camera.main.transform.position = new Vector3(0f, zoom, 0f);
+        smoothZoom = zoom;
+        rot = Quaternion.Euler(60f,0,0);
+        smoothRot = rot;
     }
-    // Update is called once per frame
-    void Update()
+
+    void handleInput()
     {
-        Vector3 pos = transform.position;
-        Quaternion rot = transform.rotation;
+        //moves camera
+        if(Input.GetKey(KeyCode.W)) {
+            velocity += new Vector3(0, 0, speed * Time.deltaTime);
 
-        //Moving the Camera
-        /*
-        if(Input.GetKey("w"))
-        {
-            pos.z += speed * Time.deltaTime;
-        }
-        if(Input.GetKey("s"))
-        {
-            pos.z -= speed * Time.deltaTime;
-        }
-        if(Input.GetKey("a"))
-        {
-            pos.x -= speed * Time.deltaTime;
-        }
-        if(Input.GetKey("d"))
-        {
-            pos.x += speed * Time.deltaTime;
-        }*/
+        } if(Input.GetKey(KeyCode.S)) {
+            velocity -= new Vector3(0, 0, speed * Time.deltaTime);
 
-        if(Input.GetKey("w"))
-        {
-            Camera.main.transform.position += Vector3.ProjectOnPlane(transform.forward * speed * Time.deltaTime, Vector3.up);
-        }
-        if(Input.GetKey("s"))
-        {
-            Camera.main.transform.position -= Vector3.ProjectOnPlane(transform.forward * speed * Time.deltaTime, Vector3.up);
-        }
-        if(Input.GetKey("a"))
-        {
-            Camera.main.transform.position -= transform.right * speed * Time.deltaTime;
-        }
-        if(Input.GetKey("d"))
-        {
-            Camera.main.transform.position += transform.right * speed * Time.deltaTime;
+        } if(Input.GetKey(KeyCode.A)) {
+            velocity -= new Vector3(speed * Time.deltaTime, 0, 0);
+
+        } if(Input.GetKey(KeyCode.D)) {
+            velocity += new Vector3(speed * Time.deltaTime, 0, 0);
         }
 
         //Rotating the Camera
@@ -64,13 +43,34 @@ public class CameraMovement : MonoBehaviour
         }
 
         //Zooming the Camera
-        Camera.main.fieldOfView += Input.GetAxis("Mouse ScrollWheel") * speed * Time.deltaTime;
-        if(Camera.main.fieldOfView > 100)
-            Camera.main.fieldOfView = 100;
-            if(Camera.main.fieldOfView < 50)
-            Camera.main.fieldOfView = 50;
+        if(Input.GetAxis("Mouse ScrollWheel") != 0)
+            zoom += (int) (Input.GetAxis("Mouse ScrollWheel") * zoomSpeed * Time.deltaTime);
 
-        //Camera.main.transform.position = pos;
-        Camera.main.transform.rotation = rot;
+        if(zoom > yMax)
+            zoom = yMax;
+        else if(zoom < yMin)
+           zoom = yMin;
+    }
+
+    void updateTransfrom()
+    {
+        //lerps for smooth movements
+        velocity = Vector3.Lerp(velocity, Vector3.zero, .1f);
+        smoothRot = Quaternion.Lerp(smoothRot, rot, .1f);
+        smoothZoom = Mathf.Lerp(smoothZoom, zoom, .1f);
+
+        //assinments
+        Vector3 tempPos = Camera.main.transform.position;
+        Camera.main.transform.Translate(velocity);
+        tempPos = new Vector3(Camera.main.transform.position.x, smoothZoom, Camera.main.transform.position.z);
+        Camera.main.transform.position = tempPos;
+
+        Camera.main.transform.rotation = smoothRot;
+    }
+    
+    void FixedUpdate()
+    {
+        handleInput();
+        updateTransfrom();
     }
 }
