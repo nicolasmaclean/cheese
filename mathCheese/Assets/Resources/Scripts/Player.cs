@@ -29,7 +29,6 @@ public class Player : MonoBehaviour
     public void removeUnit(GameObject go)
     {
         units.Remove(go.transform);
-        Destroy(go);
     }
 
     public void reset()

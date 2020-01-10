@@ -3,6 +3,7 @@
 public class Unit : Entity
 {
     public static bool[,] unitPositions;
+    public static Unit[,] units; // the 4 refs are just to init, if it stays at 4 remove it later
     public int moveRange = 0;
     public int maxHealth = 1;
     public int health = 1;
@@ -13,6 +14,7 @@ public class Unit : Entity
     public override void initialize(Vector2 gPos)
     {
         unitPositions[(int)gPos.y, (int)gPos.x] = true;
+        units[(int)gPos.y, (int)gPos.x] = this;
         health = maxHealth;
 
         base.initialize(gPos);
@@ -75,6 +77,9 @@ public class Unit : Entity
         if(!unitPositions[(int)nPos.y, (int)nPos.x] && Mathf.Abs(nPos.x - gridPosition.x) <= moveRange && Mathf.Abs(nPos.y - gridPosition.y) <= moveRange){
             unitPositions[(int)gridPosition.y, (int)gridPosition.x] = false;
             unitPositions[(int)nPos.y, (int)nPos.x] = true;
+            units[(int)gridPosition.y, (int)gridPosition.x] = null;
+            units[(int)nPos.y, (int)nPos.x] = this;
+
             gridPosition = nPos;
             gameObject.transform.position = new Vector3(gridPosition.x * TileMapGenerator.tileSize, 0, gridPosition.y * TileMapGenerator.tileSize);
         }
@@ -121,14 +126,41 @@ public class Unit : Entity
         return health;
     }
 
+    public void delete(bool block)
+    {
+        gameObject.transform.parent.GetComponent<Player>().removeUnit(gameObject);
+
+        if(!block)
+            unitPositions[(int)gridPosition.y, (int)gridPosition.x] = false;
+
+        base.delete();
+    }
+
     public bool checkDeath()
     {
         if(health <= 0 ){
-            gameObject.transform.parent.GetComponent<Player>().removeUnit(gameObject);
-            ClickSystem.clickHistory.RemoveAll(x => x == gameObject);
-            unitPositions[(int)gridPosition.y, (int)gridPosition.x] = false;
+            delete(false);
             return true;
         }
         return false;
+    }
+
+    public void moveToRandomAdjTile()
+    {
+        int y = (int) gridPosition.y;
+        int x = (int) gridPosition.x;
+        System.Collections.Generic.List<Tile> adjTiles = TileMapGenerator.tiles[y, x].GetComponent<Tile>().getAdjacentTiles();
+        bool moved = false;
+
+        while(!moved && adjTiles.Count > 0) {
+            int r = Random.Range(0, adjTiles.Count);
+
+            if(!Unit.unitPositions[(int)adjTiles[r].gridPosition.y, (int)adjTiles[r].gridPosition.x]) {
+                moved = true;
+                move(adjTiles[r].gridPosition);
+            } else {
+                adjTiles.RemoveAt(r);
+            }
+        }
     }
 }

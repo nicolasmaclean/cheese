@@ -24,6 +24,7 @@ public class TileMapGenerator : MonoBehaviour
             tiles = new Transform[mapHeight, mapWidth];
             tileSize = tilePrefabs[0].transform.Find("Ground").GetComponent<Renderer>().bounds.size.x;
             Unit.unitPositions = new bool[mapHeight, mapWidth];
+            Unit.units = new Unit[mapHeight, mapWidth];
 
             Quaternion up = new Quaternion(0,0,0,1);
             int[,] noiseMap = Noise.GenerateNoiseMap(mapWidth, mapHeight, tilePrefabs.Length);
@@ -38,12 +39,18 @@ public class TileMapGenerator : MonoBehaviour
         }
     }
 
-    public static void createColony(int y, int x)
+    public static bool createColony(int y, int x, int player)
     {
-        if(tiles[y, x] != null)
-            Destroy(tiles[y, x].gameObject);
-        
-        tiles[y, x] = Instantiate(Resources.Load<Transform>("Meshes/tileColonyPrefab"), new Vector3(x*tileSize, 0, y*tileSize), new Quaternion(0,0,0,1));
-        tiles[y, x].GetComponent<Tile>().initialize(new Vector2(x, y));
+        if(tiles[y, x].GetComponent<TileColony>() == null) { // if its not already a colony
+            if(tiles[y, x] != null)
+                tiles[y, x].GetComponent<Tile>().delete();
+            
+            tiles[y, x] = Instantiate(Resources.Load<Transform>("Meshes/tileColonyPrefab"), new Vector3(x*tileSize, 0, y*tileSize), new Quaternion(0,0,0,1));
+            tiles[y, x].GetComponent<Tile>().initialize(new Vector2(x, y));
+            TurnSystem.players[player].GetComponent<Player>().colonies.Add(tiles[y, x].GetComponent<Tile>());
+            Unit.unitPositions[y, x] = true;
+            return true;
+        }
+        return false;
     }
 }

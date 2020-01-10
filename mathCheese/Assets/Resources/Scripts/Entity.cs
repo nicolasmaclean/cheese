@@ -83,4 +83,11 @@ public class Entity : MonoBehaviour
                 clickClickState();
         }    
     }
+
+    public virtual void delete()
+    {
+        ClickSystem.clickHistory.RemoveAll(x => x == gameObject);
+
+        Destroy(gameObject);
+    }
 }

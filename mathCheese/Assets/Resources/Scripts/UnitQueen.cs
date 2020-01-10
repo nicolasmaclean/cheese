@@ -14,6 +14,9 @@ public class UnitQueen : Unit
 
     public void makeColony()
     {
-        
+        if(TileMapGenerator.createColony((int)gridPosition.y, (int)gridPosition.x, TurnSystem.currentPlayer)) { // makes sure that a colony is made before deleting the queen
+            moveTilesReset();
+            delete(true);
+        }
     }
 }
