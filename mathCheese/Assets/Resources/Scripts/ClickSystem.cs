@@ -84,6 +84,13 @@ public class ClickSystem : MonoBehaviour
         }
     }
 
+    void checkBuildColony()
+    {
+        if(lastClicked != null && lastClicked.GetComponent<UnitQueen>() && Input.GetKey(KeyCode.B)) {
+            lastClicked.GetComponent<UnitQueen>().makeColony();
+        }
+    }
+
     public static void updateSelectionText(GameObject go)
     {
         activeSelectionText.text = go.GetComponent<Entity>().entityName;
@@ -103,6 +110,7 @@ public class ClickSystem : MonoBehaviour
     {
         if(!UIPauseManager.paused){
             addUnit();
+            checkBuildColony();
 
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 

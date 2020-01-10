@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Tile : Entity
@@ -15,6 +16,7 @@ public class Tile : Entity
         resources = 1;
 
         base.initialize(gPos);
+        gameObject.name = entityName + ": (" + (int)gridPosition.x + ", " + (int)gridPosition.y + ")";
     }
 
     public override void Update() {
@@ -60,5 +62,19 @@ public class Tile : Entity
     {
         base.clicked(clickHistory);
         ClickSystem.checkClickMoveUnit();
+    }
+
+    public List<Tile> getAdjacentTiles()
+    {
+        List<Tile> adjTiles = new List<Tile>();
+
+        int width = TileMapGenerator.mapWidth;
+        int height = TileMapGenerator.mapHeight;
+        for(int y = -1; y < 2; y++)
+            for(int x = -1; x < 2; x++)
+                if(x != 0 && y != 0 & gridPosition.x + x < width && gridPosition.x + x > -1 && gridPosition.y + y < height && gridPosition.y + y > -1)
+                    adjTiles.Add(TileMapGenerator.tiles[y, x].GetComponent<Tile>());
+
+        return adjTiles;
     }
 }
