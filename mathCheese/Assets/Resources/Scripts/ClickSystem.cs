@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class ClickSystem : MonoBehaviour
 {
@@ -103,9 +104,7 @@ public class ClickSystem : MonoBehaviour
     {
         if(!UIPauseManager.paused){
             addUnit();
-
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
             Physics.Raycast(ray, out hitInfo, 100);
         }
     }

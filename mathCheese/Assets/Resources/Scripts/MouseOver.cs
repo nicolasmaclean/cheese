@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class MouseOver : MonoBehaviour
 {
@@ -25,7 +26,7 @@ public class MouseOver : MonoBehaviour
 
     void Update()
     {
-        if(!UIPauseManager.paused){
+        if(!UIPauseManager.paused && !EventSystem.current.IsPointerOverGameObject()){
             collision = checkCollision();
             if(entityScript != null && collision){
                 if(Input.GetMouseButtonDown(0)){ // clicked
