@@ -8,7 +8,6 @@ public class CameraMovement : MonoBehaviour
     private Quaternion smoothRot, rot;
     private float smoothZoom;
 
-
     void Start() {
         Camera.main.transform.position = new Vector3(0f, zoom, 0f);
         smoothZoom = zoom;
@@ -33,11 +32,11 @@ public class CameraMovement : MonoBehaviour
         }
 
         //Rotating the Camera
-        if(Input.GetKey(KeyCode.LeftArrow)){
+        if(Input.GetKey(KeyCode.Q)){
             float angle = rotationSpeed * Time.deltaTime;
             rot = Quaternion.AngleAxis(angle, Vector3.down) * rot;
         }
-        if(Input.GetKey(KeyCode.RightArrow)){
+        if(Input.GetKey(KeyCode.E)){
             float angle = rotationSpeed * Time.deltaTime;
             rot = Quaternion.AngleAxis(angle, Vector3.up) * rot;
         }
@@ -68,7 +67,7 @@ public class CameraMovement : MonoBehaviour
         Camera.main.transform.rotation = smoothRot;
     }
     
-    void FixedUpdate()
+    void LateUpdate()
     {
         handleInput();
         updateTransfrom();
