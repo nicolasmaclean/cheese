@@ -31,7 +31,6 @@ public class TileMapGenerator : MonoBehaviour
             tiles = new Tile[mapHeight, mapWidth];
             tileSize = tilePrefabs[0].transform.Find("Ground").GetComponent<Renderer>().bounds.size.x;
             Unit.unitPositions = new bool[mapHeight, mapWidth];
-            Unit.units = new Unit[mapHeight, mapWidth];
 
             Quaternion up = new Quaternion(0,0,0,1);
             int[,] noiseMap = Noise.GenerateNoiseMap(mapWidth, mapHeight, tilePrefabs.Length);

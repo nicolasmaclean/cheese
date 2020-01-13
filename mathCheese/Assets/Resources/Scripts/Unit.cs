@@ -3,7 +3,6 @@
 public class Unit : Entity
 {
     public static bool[,] unitPositions;
-    public static Unit[,] units; // the 4 refs are just to init, if it stays at 4 remove it later
     public int moveRange = 0;
     public int maxHealth = 1;
     public int health = 1;
@@ -14,7 +13,6 @@ public class Unit : Entity
     public override void initialize(Vector2 gPos)
     {
         unitPositions[(int)gPos.y, (int)gPos.x] = true;
-        units[(int)gPos.y, (int)gPos.x] = this;
         health = maxHealth;
 
         base.initialize(gPos);
@@ -77,8 +75,6 @@ public class Unit : Entity
         if(!unitPositions[(int)nPos.y, (int)nPos.x] && Mathf.Abs(nPos.x - gridPosition.x) <= moveRange && Mathf.Abs(nPos.y - gridPosition.y) <= moveRange){
             unitPositions[(int)gridPosition.y, (int)gridPosition.x] = false;
             unitPositions[(int)nPos.y, (int)nPos.x] = true;
-            units[(int)gridPosition.y, (int)gridPosition.x] = null;
-            units[(int)nPos.y, (int)nPos.x] = this;
 
             gridPosition = nPos;
             gameObject.transform.position = new Vector3(gridPosition.x * TileMapGenerator.tileSize, 0, gridPosition.y * TileMapGenerator.tileSize);
