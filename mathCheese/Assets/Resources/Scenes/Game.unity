@@ -1468,7 +1468,7 @@ MonoBehaviour:
   zoomSpeed: 7000
   yMax: 100
   yMin: 10
-  zoom: 70
+  zoom: 50
 --- !u!45 &963194230
 Skybox:
   m_ObjectHideFlags: 0
