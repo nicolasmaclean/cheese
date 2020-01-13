@@ -48,12 +48,15 @@ public class TurnSystem : MonoBehaviour
 
     public void nextTurn()
     {
-        Debug.Log(players.Count);
         players[currentPlayer].GetComponent<Player>().updateLarvae();
         currentPlayer++;
+
         if(currentPlayer >= players.Count)
             currentPlayer = 0;
         updateText();
+
+        if(ClickSystem.clickHistory[ClickSystem.clickHistory.Count-1].GetComponent<Unit>())
+            ClickSystem.clickHistory[ClickSystem.clickHistory.Count-1].GetComponent<Unit>().moveTilesReset();
     }
 
     public void updateText()

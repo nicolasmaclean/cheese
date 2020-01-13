@@ -32,9 +32,9 @@ public class Unit : Entity
             for(int z = -moveRange; z <= moveRange; z++){
                 for(int x = -moveRange; x <= moveRange; x++){
                     if((int)gridPosition.y + z > -1 && (int)gridPosition.y + z < TileMapGenerator.tiles.GetLength(0) && (int)gridPosition.x + x > -1 && (int)gridPosition.x + x < TileMapGenerator.tiles.GetLength(1)){
-                        TileMapGenerator.tiles[(int)gridPosition.y + z, (int)gridPosition.x + x].GetComponent<Tile>().clickState = ClickSystem.ClickState.none;
-                        TileMapGenerator.tiles[(int)gridPosition.y + z, (int)gridPosition.x + x].GetComponent<Tile>().isInMoveRange = true;
-                        TileMapGenerator.tiles[(int)gridPosition.y + z, (int)gridPosition.x + x].GetComponent<Tile>().updated = false;
+                        TileMapGenerator.tiles[(int)gridPosition.y + z, (int)gridPosition.x + x].clickState = ClickSystem.ClickState.none;
+                        TileMapGenerator.tiles[(int)gridPosition.y + z, (int)gridPosition.x + x].isInMoveRange = true;
+                        TileMapGenerator.tiles[(int)gridPosition.y + z, (int)gridPosition.x + x].updated = false;
                     }
                 }
             }
@@ -90,9 +90,9 @@ public class Unit : Entity
         for(int z = -moveRange; z <= moveRange; z++){
             for(int x = -moveRange; x <= moveRange; x++){
                 if((int)gridPosition.y + z > -1 && (int)gridPosition.y + z < TileMapGenerator.tiles.GetLength(0) && (int)gridPosition.x + x > -1 && (int)gridPosition.x + x < TileMapGenerator.tiles.GetLength(1)) {
-                    TileMapGenerator.tiles[(int)gridPosition.y + z, (int)gridPosition.x + x].GetComponent<Tile>().clickState = ClickSystem.ClickState.none;
-                    TileMapGenerator.tiles[(int)gridPosition.y + z, (int)gridPosition.x + x].GetComponent<Tile>().isInMoveRange = false;
-                    TileMapGenerator.tiles[(int)gridPosition.y + z, (int)gridPosition.x + x].GetComponent<Tile>().updated = false;
+                    TileMapGenerator.tiles[(int)gridPosition.y + z, (int)gridPosition.x + x].clickState = ClickSystem.ClickState.none;
+                    TileMapGenerator.tiles[(int)gridPosition.y + z, (int)gridPosition.x + x].isInMoveRange = false;
+                    TileMapGenerator.tiles[(int)gridPosition.y + z, (int)gridPosition.x + x].updated = false;
                 }
             }
         }
@@ -149,7 +149,7 @@ public class Unit : Entity
     {
         int y = (int) gridPosition.y;
         int x = (int) gridPosition.x;
-        System.Collections.Generic.List<Tile> adjTiles = TileMapGenerator.tiles[y, x].GetComponent<Tile>().getAdjacentTiles();
+        System.Collections.Generic.List<Tile> adjTiles = TileMapGenerator.tiles[y, x].getAdjacentTiles();
         bool moved = false;
 
         while(!moved && adjTiles.Count > 0) {
