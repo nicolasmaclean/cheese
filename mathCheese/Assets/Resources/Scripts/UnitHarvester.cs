@@ -16,7 +16,7 @@ public class UnitHarvester : Unit
     {
         int harvest = 0;
 
-        Tile temp = TileMapGenerator.tiles[(int)gridPosition.y, (int)gridPosition.x].GetComponent<Tile>();
+        Tile temp = TileMapGenerator.tiles[(int)gridPosition.y, (int)gridPosition.x];
         if(temp != null) {
             harvest += temp.resources;
         }

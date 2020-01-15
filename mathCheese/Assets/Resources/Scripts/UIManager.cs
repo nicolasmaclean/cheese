@@ -3,12 +3,14 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class UIManager : MonoBehaviour
 {
-    
     public GameObject Main;
     public GameObject Options;
+    public GameObject PlayButton1;
+    public GameObject PlayButton2;
 
     public Slider UISlider;
     public Dropdown UIDropdown;
@@ -57,6 +59,8 @@ public class UIManager : MonoBehaviour
     {
         Main.gameObject.SetActive(false);
         Options.gameObject.SetActive(true);
+        EventSystem.current.SetSelectedGameObject(PlayButton1);
+        
     }
 
     public void slide()
@@ -79,6 +83,7 @@ public class UIManager : MonoBehaviour
         {
             Players[i].SetActive(true);
         }
+        EventSystem.current.SetSelectedGameObject(PlayButton2);
     }
 
     public static IEnumerator timedDisappear(GameObject go, int time)

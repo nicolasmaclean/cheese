@@ -3360,7 +3360,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_FirstSelected: {fileID: 0}
+  m_FirstSelected: {fileID: 178864391}
   m_sendNavigationEvents: 1
   m_DragThreshold: 10
 --- !u!4 &1195608403
@@ -3716,6 +3716,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Main: {fileID: 533031593}
   Options: {fileID: 233827798}
+  PlayButton1: {fileID: 860083798}
+  PlayButton2: {fileID: 951727749}
   UISlider: {fileID: 1911506421}
   UIDropdown: {fileID: 407880484}
   name1: {fileID: 1558883273}
