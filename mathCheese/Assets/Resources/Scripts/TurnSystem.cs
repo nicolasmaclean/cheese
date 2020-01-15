@@ -54,7 +54,7 @@ public class TurnSystem : MonoBehaviour
         if(currentPlayer >= players.Count)
             currentPlayer = 0;
         updateText();
-
+        Camera.main.GetComponent<CameraMovement>().moveToColony();
         if(ClickSystem.clickHistory[ClickSystem.clickHistory.Count-1].GetComponent<Unit>())
             ClickSystem.clickHistory[ClickSystem.clickHistory.Count-1].GetComponent<Unit>().moveTilesReset();
     }
