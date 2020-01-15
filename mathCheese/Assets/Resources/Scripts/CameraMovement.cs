@@ -8,12 +8,15 @@ public class CameraMovement : MonoBehaviour
     private Quaternion smoothRot, rot;
     private float smoothZoom;
 
+    private bool free;
+
 
     void Start() {
         Camera.main.transform.position = new Vector3(0f, zoom, 0f);
         smoothZoom = zoom;
         rot = Quaternion.Euler(60f,0,0);
         smoothRot = rot;
+        free = true;
     }
 
     void handleInput()
@@ -70,7 +73,21 @@ public class CameraMovement : MonoBehaviour
     
     void FixedUpdate()
     {
-        handleInput();
-        updateTransfrom();
+        if(free) {
+            handleInput();
+            updateTransfrom();
+        }
+        else
+            moveToColony();
+    }
+
+    public void moveToColony()
+    {
+        free = false;
+        Vector2 pos = TurnSystem.players[TurnSystem.currentPlayer].GetComponent<Player>().colonies[0].gridPosition;
+        Vector3 move = new Vector3(16*pos.x, Camera.main.transform.position.y,16*pos.y);
+        Camera.main.transform.position = Vector3.Lerp(Camera.main.transform.position, move, .1f);
+        if((Camera.main.transform.position - move).magnitude <= .5f)
+            free = true;
     }
 }
