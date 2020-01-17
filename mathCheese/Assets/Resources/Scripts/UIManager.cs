@@ -11,24 +11,13 @@ public class UIManager : MonoBehaviour
     public GameObject Options;
     public GameObject PlayButton1;
     public GameObject PlayButton2;
+    public GameObject mapSize;
+    public GameObject playerAmt;
+    public InputField[] nameInput;
+    public GameObject playerCanvas;
 
-    public Slider UISlider;
-    public Dropdown UIDropdown;
-
-    public InputField name1;
-    public  InputField name2;
-    public  InputField name3;
-    public  InputField name4;
-
-    public InputField[] playerNames;
-    public  GameObject Player1;
-    public  GameObject Player2;
-    public  GameObject Player3;
-    public  GameObject Player4;
-
-    public float players = 1;
-    public Text text;
-    public int size = 0;
+    private float players = 2;
+    private int size = 0;
 
     public void quitQame()
     {
@@ -40,11 +29,13 @@ public class UIManager : MonoBehaviour
         TurnSystem.players = new List<Transform>();
         for(int i = 0; i < players; i++) {
             GameObject player = new GameObject();
-            player.name = playerNames[i].text;
+            player.name = nameInput[i].text; // make a player prefab that this can instantiate from
             player.AddComponent<Player>();
             TurnSystem.players.Add(player.transform);
             DontDestroyOnLoad(player);
         }
+        playerAmtSet(2);
+        mapSizeSet(0);
     }
 
     public void startGame()
@@ -59,31 +50,66 @@ public class UIManager : MonoBehaviour
     {
         Main.gameObject.SetActive(false);
         Options.gameObject.SetActive(true);
+
         EventSystem.current.SetSelectedGameObject(PlayButton1);
-        
     }
 
-    public void slide()
+    public void playerAmtSet(int i)
     {
-        players = UISlider.value;
-        text.text = "" + UISlider.value;
+        players = i;
+        if(players > 4)
+            players = 4;
+        else if (players < 2)
+            players = 2;
+            
+        playerAmt.GetComponent<Text>().text = "" + players;
     }
 
-    public void drop()
+    public void mapSizeSet(int i)
     {
-        size = UIDropdown.value;
+        size = i;
+        if(size > 3)
+            size = 3;
+        else if (size < 0)
+            size = 0;
+
+        switch(i) {
+            case 0 : mapSize.GetComponent<Text>().text = "small"; break;
+            case 1 : mapSize.GetComponent<Text>().text = "medium"; break;
+            case 2 : mapSize.GetComponent<Text>().text = "large"; break;
+        }
+    }
+
+    void OnGUI() {
+        Event e = Event.current;
+        GameObject go = EventSystem.current.currentSelectedGameObject;
+
+        if(Event.current.isKey && go != null) {
+            if(e.type == EventType.KeyDown && e.keyCode == KeyCode.LeftArrow) {
+                if(go.Equals(playerAmt)) {
+                    playerAmtSet((int)players-1);
+                } else if(go.Equals(mapSize)) {
+                    mapSizeSet(size-1);
+                }
+            } else if (e.type == EventType.KeyDown && e.keyCode == KeyCode.RightArrow) {
+                if(go.Equals(playerAmt)) {
+                    playerAmtSet((int)players+1);
+                } else if(go.Equals(mapSize)) {
+                    mapSizeSet(size+1);
+                }
+            }
+        }
     }
 
     public void play2()
     {
         Options.SetActive(false);
-        GameObject[] Players = {Player1, Player2, Player3, Player4};
-        playerNames = new InputField[] {name1, name2, name3, name4};
-        for(int i = 0; i < players; i++)
-        {
-            Players[i].SetActive(true);
+        playerCanvas.SetActive(true); // for loop and set active each player/input field necessary
+        for(int i = 0; i < players; i++) {
+            nameInput[i].transform.parent.gameObject.SetActive(true);
         }
-        EventSystem.current.SetSelectedGameObject(PlayButton2);
+
+        EventSystem.current.SetSelectedGameObject(nameInput[0].gameObject); // also figure out to improve the event system navigation between input fields
     }
 
     public static IEnumerator timedDisappear(GameObject go, int time)
