@@ -6,12 +6,12 @@ public class UIGameManager : MonoBehaviour
 {
     public GameObject canvas;
 
-    public void update()
+    public void Update()
     {
         GameObject clicked = ClickSystem.clickHistory[ClickSystem.clickHistory.Count-1];
-        if(clicked.GetType() == typeof(TileColony))
+        if(clicked.GetComponent<TileColony>())
         {
-            
+            canvas.transform.GetChild(4).gameObject.SetActive(true);
         }
     }
 }
