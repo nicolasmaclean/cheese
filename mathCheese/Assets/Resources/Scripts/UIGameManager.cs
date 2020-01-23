@@ -13,5 +13,10 @@ public class UIGameManager : MonoBehaviour
         {
             canvas.transform.GetChild(4).gameObject.SetActive(true);
         }
+        else 
+        {
+            for(int i = 4; i < canvas.transform.childCount; i++)
+                canvas.transform.GetChild(i).gameObject.SetActive(false);
+        }
     }
 }
