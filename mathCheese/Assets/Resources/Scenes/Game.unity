@@ -1411,6 +1411,7 @@ MonoBehaviour:
   yMax: 100
   yMin: 10
   zoom: 50
+  distFromTarget: 30
 --- !u!45 &963194230
 Skybox:
   m_ObjectHideFlags: 0

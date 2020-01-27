@@ -2,9 +2,9 @@
 
 public class CameraMovement : MonoBehaviour
 {
-    public int speed, rotationSpeed, zoomSpeed, yMax, yMin, zoom;
+    public int speed, rotationSpeed, zoomSpeed, yMax, yMin, zoom, distFromTarget;
 
-    private Vector3 velocity;
+    private Vector3 velocity, goalPosition;
     private Quaternion smoothRot, rot;
     private float smoothZoom;
     private bool free;
@@ -76,16 +76,28 @@ public class CameraMovement : MonoBehaviour
             updateTransfrom();
         }
         else
-            moveToColony();
+            movingToColony();
     }
 
     public void moveToColony()
     {
         free = false;
         Vector2 pos = TurnSystem.players[TurnSystem.currentPlayer].GetComponent<Player>().colonies[0].gridPosition;
-        Vector3 move = new Vector3(16*pos.x, Camera.main.transform.position.y,16*pos.y);
-        Camera.main.transform.position = Vector3.Lerp(Camera.main.transform.position, move, .1f);
-        if((Camera.main.transform.position - move).magnitude <= .5f)
+        goalPosition = new Vector3(TileMapGenerator.tileSize*pos.x, Camera.main.transform.position.y,TileMapGenerator.tileSize*pos.y);
+
+        Vector3 ang = Camera.main.transform.rotation.eulerAngles;
+
+        goalPosition.x -= Mathf.Sin(ang.y * Mathf.Deg2Rad) * distFromTarget;
+        goalPosition.z -= Mathf.Cos(ang.y * Mathf.Deg2Rad) * distFromTarget;
+
+        movingToColony();
+    }
+
+    private void movingToColony()
+    {
+        Camera.main.transform.position = Vector3.Lerp(Camera.main.transform.position, goalPosition, .1f);
+
+        if((Camera.main.transform.position - goalPosition).magnitude <= .5f)
             free = true;
     }
 }
