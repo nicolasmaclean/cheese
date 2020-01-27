@@ -15,12 +15,10 @@ public class UIPauseManager : MonoBehaviour
         paused = false;    
     }
 
-    void Update()
+    public void pauseGame()
     {
-        if(Input.GetKeyDown("escape")){
-            canvas.SetActive(!canvas.activeInHierarchy);
-            paused = !paused;
-        }
+        canvas.SetActive(!canvas.activeInHierarchy);
+        paused = !paused;
     }
 
     public void continueGame()

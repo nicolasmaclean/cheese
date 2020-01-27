@@ -1321,6 +1321,7 @@ GameObject:
   - component: {fileID: 963194226}
   - component: {fileID: 963194229}
   - component: {fileID: 963194230}
+  - component: {fileID: 963194231}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1411,7 +1412,6 @@ MonoBehaviour:
   yMax: 100
   yMin: 10
   zoom: 50
-  distFromTarget: 30
 --- !u!45 &963194230
 Skybox:
   m_ObjectHideFlags: 0
@@ -1421,6 +1421,19 @@ Skybox:
   m_GameObject: {fileID: 963194225}
   m_Enabled: 1
   m_CustomSkybox: {fileID: 2100000, guid: 04b054c3f27fa41bf923c2bdf24b857c, type: 2}
+--- !u!114 &963194231
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963194225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 655d84c0a48ff754d86885b65e029f63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clickSystem: {fileID: 984110549}
 --- !u!1 &984110548
 GameObject:
   m_ObjectHideFlags: 0
@@ -1431,8 +1444,6 @@ GameObject:
   m_Component:
   - component: {fileID: 984110552}
   - component: {fileID: 984110549}
-  - component: {fileID: 984110551}
-  - component: {fileID: 984110550}
   m_Layer: 0
   m_Name: ClickSystem
   m_TagString: Untagged
@@ -1459,44 +1470,6 @@ MonoBehaviour:
   activeSelectionTextPublic: {fileID: 591612282}
   healthHeaderPublic: {fileID: 701284284}
   healthTextPublic: {fileID: 1773069752}
---- !u!114 &984110550
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 984110548}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_IgnoreReversedGraphics: 1
-  m_BlockingObjects: 0
-  m_BlockingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
---- !u!223 &984110551
-Canvas:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 984110548}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_RenderMode: 2
-  m_Camera: {fileID: 0}
-  m_PlaneDistance: 100
-  m_PixelPerfect: 0
-  m_ReceivesEvents: 1
-  m_OverrideSorting: 0
-  m_OverridePixelPerfect: 0
-  m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 0
-  m_SortingLayerID: 0
-  m_SortingOrder: 0
-  m_TargetDisplay: 0
 --- !u!224 &984110552
 RectTransform:
   m_ObjectHideFlags: 0
