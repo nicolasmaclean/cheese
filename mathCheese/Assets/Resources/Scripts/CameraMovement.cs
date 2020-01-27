@@ -2,7 +2,7 @@
 
 public class CameraMovement : MonoBehaviour
 {
-    public int speed, rotationSpeed, zoomSpeed, yMax, yMin, zoom, distFromTarget;
+    public int speed, rotationSpeed, zoomSpeed, yMax, yMin, zoom;
 
     private Vector3 velocity, goalPosition;
     private Quaternion smoothRot, rot;
@@ -17,35 +17,32 @@ public class CameraMovement : MonoBehaviour
         free = true;
     }
 
-    void handleInput()
+    public void move(int dir)
     {
-        //moves camera
-        if(Input.GetKey(KeyCode.W)) {
-            velocity += new Vector3(0, 0, speed * Time.deltaTime);
-
-        } if(Input.GetKey(KeyCode.S)) {
-            velocity -= new Vector3(0, 0, speed * Time.deltaTime);
-
-        } if(Input.GetKey(KeyCode.A)) {
-            velocity -= new Vector3(speed * Time.deltaTime, 0, 0);
-
-        } if(Input.GetKey(KeyCode.D)) {
-            velocity += new Vector3(speed * Time.deltaTime, 0, 0);
+        switch(dir) {
+            case 0 : velocity += new Vector3(0, 0, speed * Time.deltaTime); break;
+            case 1 : velocity -= new Vector3(0, 0, speed * Time.deltaTime); break;
+            case 2 : velocity -= new Vector3(speed * Time.deltaTime, 0, 0); break;
+            case 3 : velocity += new Vector3(speed * Time.deltaTime, 0, 0); break;
         }
+    }
 
-        //Rotating the Camera
-        if(Input.GetKey(KeyCode.Q)){
-            float angle = rotationSpeed * Time.deltaTime;
-            rot = Quaternion.AngleAxis(angle, Vector3.down) * rot;
+    public void rotate(int dir)
+    {
+        float angle;
+        switch(dir) {
+            case 0 : angle = rotationSpeed * Time.deltaTime;
+                rot = Quaternion.AngleAxis(angle, Vector3.down) * rot;
+                break;
+            case 1 : angle = rotationSpeed * Time.deltaTime;
+                rot = Quaternion.AngleAxis(angle, Vector3.up) * rot;
+                break;
         }
-        if(Input.GetKey(KeyCode.E)){
-            float angle = rotationSpeed * Time.deltaTime;
-            rot = Quaternion.AngleAxis(angle, Vector3.up) * rot;
-        }
+    }
 
-        //Zooming the Camera
-        if(Input.GetAxis("Mouse ScrollWheel") != 0)
-            zoom += (int) (Input.GetAxis("Mouse ScrollWheel") * zoomSpeed * Time.deltaTime);
+    public void zoomCamera()
+    {
+        zoom += (int) (Input.GetAxis("Mouse ScrollWheel") * zoomSpeed * Time.deltaTime);
 
         if(zoom > yMax)
             zoom = yMax;
@@ -72,7 +69,6 @@ public class CameraMovement : MonoBehaviour
     void LateUpdate()
     {
         if(free) {
-            handleInput();
             updateTransfrom();
         }
         else
@@ -87,8 +83,8 @@ public class CameraMovement : MonoBehaviour
 
         Vector3 ang = Camera.main.transform.rotation.eulerAngles;
 
-        goalPosition.x -= Mathf.Sin(ang.y * Mathf.Deg2Rad) * distFromTarget;
-        goalPosition.z -= Mathf.Cos(ang.y * Mathf.Deg2Rad) * distFromTarget;
+        goalPosition.x -= Mathf.Sin(ang.y * Mathf.Deg2Rad) * (zoom * 6 / 10);
+        goalPosition.z -= Mathf.Cos(ang.y * Mathf.Deg2Rad) * (zoom * 6 / 10);
 
         movingToColony();
     }

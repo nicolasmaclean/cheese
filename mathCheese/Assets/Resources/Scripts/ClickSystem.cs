@@ -76,19 +76,21 @@ public class ClickSystem : MonoBehaviour
         }
     }
 
-    void addUnit()
+    public void addUnit()
     {
-        if(clickHistory.Count > 0)
+        if(clickHistory.Count > 0) {
             lastClicked = clickHistory[clickHistory.Count-1];
-        if(lastClicked != null && lastClicked.GetComponent<Tile>() && Input.GetKeyDown("p")){
+            if(lastClicked != null && lastClicked.GetComponent<Tile>())
             TurnSystem.players[TurnSystem.currentPlayer].gameObject.GetComponent<Player>().addUnit(Species.getRandomUnitTransform(), lastClicked.GetComponent<Tile>().gridPosition, new Quaternion(-1,0,0,1));
         }
     }
 
-    void checkBuildColony()
+    public void buildColony()
     {
-        if(lastClicked != null && lastClicked.GetComponent<UnitQueen>() && Input.GetKey(KeyCode.B)) {
-            lastClicked.GetComponent<UnitQueen>().makeColony();
+        if(clickHistory.Count > 0) {
+            lastClicked = clickHistory[clickHistory.Count-1];
+            if(lastClicked != null && lastClicked.GetComponent<UnitQueen>())
+                lastClicked.GetComponent<UnitQueen>().makeColony();
         }
     }
 
@@ -110,10 +112,6 @@ public class ClickSystem : MonoBehaviour
     void Update()
     {
         if(!UIPauseManager.paused){
-            addUnit();
-
-            checkBuildColony();
-
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             Physics.Raycast(ray, out hitInfo, 200);
         }
