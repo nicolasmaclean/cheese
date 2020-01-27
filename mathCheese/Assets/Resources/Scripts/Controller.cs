@@ -7,7 +7,7 @@ public class Controller : MonoBehaviour
     private CameraMovement cam;
 
     void Start() {
-        cam = GetComponent<CameraMovement>();
+        cam = Camera.main.GetComponent<CameraMovement>();
     }
 
     // mouse input is inside of mouseover

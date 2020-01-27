@@ -7,14 +7,13 @@ public class CameraMovement : MonoBehaviour
     private Vector3 velocity, goalPosition;
     private Quaternion smoothRot, rot;
     private float smoothZoom;
-    private bool free;
+    private bool free = true;
 
     void Start() {
         Camera.main.transform.position = new Vector3(0f, zoom, 0f);
         smoothZoom = zoom;
         rot = Quaternion.Euler(60f,0,0);
         smoothRot = rot;
-        free = true;
     }
 
     public void move(int dir)
@@ -78,7 +77,9 @@ public class CameraMovement : MonoBehaviour
     public void moveToColony()
     {
         free = false;
-        Vector2 pos = TurnSystem.players[TurnSystem.currentPlayer].GetComponent<Player>().colonies[0].gridPosition;
+
+        System.Collections.Generic.List<Tile> colonies = TurnSystem.players[TurnSystem.currentPlayer].GetComponent<Player>().colonies;
+        Vector2 pos = colonies[colonies.Count-1].gridPosition;
         goalPosition = new Vector3(TileMapGenerator.tileSize*pos.x, Camera.main.transform.position.y,TileMapGenerator.tileSize*pos.y);
 
         Vector3 ang = Camera.main.transform.rotation.eulerAngles;
@@ -91,9 +92,9 @@ public class CameraMovement : MonoBehaviour
 
     private void movingToColony()
     {
-        Camera.main.transform.position = Vector3.Lerp(Camera.main.transform.position, goalPosition, .1f);
+        transform.position = Vector3.Lerp(transform.position, goalPosition, .1f);
 
-        if((Camera.main.transform.position - goalPosition).magnitude <= .5f)
+        if((transform.position - goalPosition).magnitude <= .5f)
             free = true;
     }
 }
