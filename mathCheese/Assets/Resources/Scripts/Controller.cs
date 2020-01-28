@@ -11,26 +11,24 @@ public class Controller : MonoBehaviour
     }
 
     // mouse input is inside of mouseover
-    void LateUpdate() {
+    void FixedUpdate() {
         //moves the camera
-        if(Input.GetKey(KeyCode.W))
-            cam.move(0);
-        if(Input.GetKey(KeyCode.S))
-            cam.move(1);
-        if(Input.GetKey(KeyCode.A))
-            cam.move(2);
-        if(Input.GetKey(KeyCode.D))
-            cam.move(3);
+        if(Input.GetAxisRaw("Vertical") != 0)
+            cam.move(Input.GetAxis("Vertical") > 0 ? 0 : 1);
+        if(Input.GetAxisRaw("Horizontal") != 0)
+            cam.move(Input.GetAxis("Horizontal") < 0 ? 2 : 3);
 
         //rotates the camera
-        if(Input.GetKey(KeyCode.Q))
+        if(Input.GetKey(KeyCode.Q)) // use right horizontal for rotation and make an axis for q and e keys
             cam.rotate(0);
         if(Input.GetKey(KeyCode.E))
             cam.rotate(1);
 
         //zooms the camera
-        if(Input.GetAxis("Mouse ScrollWheel") != 0)
-            cam.zoomCamera();
+        if(Input.GetAxisRaw("RightVertical") != 0) // might switch to use right/left bumpers through scroll wheel virtual axis
+            cam.zoomCamera(Input.GetAxis("RightVerical"));
+        else if(Input.GetAxis("Mouse ScrollWheel") != 0)
+            cam.zoomCamera(Input.GetAxis("Mouse ScrollWheel"));
 
         //keyboard input
         if(Input.GetKeyDown(KeyCode.P))

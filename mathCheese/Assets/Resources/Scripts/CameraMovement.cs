@@ -9,7 +9,8 @@ public class CameraMovement : MonoBehaviour
     private float smoothZoom;
     private bool free = true;
 
-    void Start() {
+    void Start()
+    {
         Camera.main.transform.position = new Vector3(0f, zoom, 0f);
         smoothZoom = zoom;
         rot = Quaternion.Euler(60f,0,0);
@@ -18,6 +19,7 @@ public class CameraMovement : MonoBehaviour
 
     public void move(int dir)
     {
+        if(!free) return;
         switch(dir) {
             case 0 : velocity += new Vector3(0, 0, speed * Time.deltaTime); break;
             case 1 : velocity -= new Vector3(0, 0, speed * Time.deltaTime); break;
@@ -28,6 +30,7 @@ public class CameraMovement : MonoBehaviour
 
     public void rotate(int dir)
     {
+        if(!free) return;
         float angle;
         switch(dir) {
             case 0 : angle = rotationSpeed * Time.deltaTime;
@@ -39,9 +42,9 @@ public class CameraMovement : MonoBehaviour
         }
     }
 
-    public void zoomCamera()
+    public void zoomCamera(float delta)
     {
-        zoom += (int) (Input.GetAxis("Mouse ScrollWheel") * zoomSpeed * Time.deltaTime);
+        zoom += (int) (delta * zoomSpeed * Time.deltaTime);
 
         if(zoom > yMax)
             zoom = yMax;
