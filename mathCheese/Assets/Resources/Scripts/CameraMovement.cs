@@ -28,22 +28,16 @@ public class CameraMovement : MonoBehaviour
         }
     }
 
-    public void rotate(int dir)
+    public void rotate(float delta)
     {
         if(!free) return;
-        float angle;
-        switch(dir) {
-            case 0 : angle = rotationSpeed * Time.deltaTime;
-                rot = Quaternion.AngleAxis(angle, Vector3.down) * rot;
-                break;
-            case 1 : angle = rotationSpeed * Time.deltaTime;
-                rot = Quaternion.AngleAxis(angle, Vector3.up) * rot;
-                break;
-        }
+        float angle = rotationSpeed * Time.deltaTime;
+        rot = Quaternion.AngleAxis(angle, new Vector3(0, delta, 0)) * rot;
     }
 
     public void zoomCamera(float delta)
     {
+        if(!free) return;
         zoom += (int) (delta * zoomSpeed * Time.deltaTime);
 
         if(zoom > yMax)

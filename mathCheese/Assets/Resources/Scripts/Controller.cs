@@ -12,30 +12,29 @@ public class Controller : MonoBehaviour
 
     // mouse input is inside of mouseover
     void FixedUpdate() {
-        //moves the camera
+        // WASD keys or left stick to move camera
         if(Input.GetAxisRaw("Vertical") != 0)
             cam.move(Input.GetAxis("Vertical") > 0 ? 0 : 1);
         if(Input.GetAxisRaw("Horizontal") != 0)
             cam.move(Input.GetAxis("Horizontal") < 0 ? 2 : 3);
 
-        //rotates the camera
-        if(Input.GetKey(KeyCode.Q)) // use right horizontal for rotation and make an axis for q and e keys
-            cam.rotate(0);
-        if(Input.GetKey(KeyCode.E))
-            cam.rotate(1);
+        // QE keys or right stick horizontal movement to rotate
+        if(Input.GetAxisRaw("RightHorizontal") != 0)
+            cam.rotate(Input.GetAxisRaw("RightHorizontal"));
 
-        //zooms the camera
+        // mouse scroll or right stick vertical movement to zoom
         if(Input.GetAxisRaw("RightVertical") != 0) // might switch to use right/left bumpers through scroll wheel virtual axis
             cam.zoomCamera(Input.GetAxis("RightVerical"));
         else if(Input.GetAxis("Mouse ScrollWheel") != 0)
             cam.zoomCamera(Input.GetAxis("Mouse ScrollWheel"));
 
-        //keyboard input
+        // escape key or start button to pause game
         if(Input.GetKeyDown(KeyCode.P))
             clickSystem.addUnit();
         if(Input.GetKeyDown(KeyCode.B))
             clickSystem.buildColony();
-        if(Input.GetKeyDown(KeyCode.Escape))
+        if(Input.GetAxisRaw("Cancel") != 0) {
             pauseManager.pauseGame();
+        }
     }
 }
