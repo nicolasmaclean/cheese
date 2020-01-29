@@ -18,14 +18,12 @@ public class Controller : MonoBehaviour
         if(Input.GetAxisRaw("Horizontal") != 0)
             cam.move(Input.GetAxis("Horizontal") < 0 ? 2 : 3);
 
-        // QE keys or right stick horizontal movement to rotate
+        // QE keys or bumpers movement to rotate
         if(Input.GetAxisRaw("RightHorizontal") != 0)
             cam.rotate(Input.GetAxisRaw("RightHorizontal"));
 
-        // mouse scroll or right stick vertical movement to zoom
-        if(Input.GetAxisRaw("RightVertical") != 0) // might switch to use right/left bumpers through scroll wheel virtual axis
-            cam.zoomCamera(Input.GetAxis("RightVerical"));
-        else if(Input.GetAxis("Mouse ScrollWheel") != 0)
+        // mouse scroll or triggers vertical movement to zoom
+        if(Input.GetAxisRaw("Mouse ScrollWheel") != 0) // maybe switch it back to use right stick to zoom
             cam.zoomCamera(Input.GetAxis("Mouse ScrollWheel"));
 
         // escape key or start button to pause game
@@ -33,7 +31,7 @@ public class Controller : MonoBehaviour
             clickSystem.addUnit();
         if(Input.GetKeyDown(KeyCode.B))
             clickSystem.buildColony();
-        if(Input.GetAxisRaw("Cancel") != 0) {
+        if(Input.GetKeyDown("joystick button 7") || Input.GetKeyDown("escape")) {
             pauseManager.pauseGame();
         }
     }

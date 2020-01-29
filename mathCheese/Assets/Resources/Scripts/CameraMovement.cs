@@ -64,10 +64,10 @@ public class CameraMovement : MonoBehaviour
     
     void LateUpdate()
     {
-        if(free) {
+        if(free && !UIPauseManager.paused) {
             updateTransfrom();
         }
-        else
+        else if(!UIPauseManager.paused)
             movingToColony();
     }
 
