@@ -25,26 +25,46 @@ public class UIManager : MonoBehaviour
         Application.Quit();
     }
 
-    public void prepareGame()
+    public void prepareGame(bool randomNames)
     {
         TurnSystem.players = new List<Transform>();
-        for(int i = 0; i < players; i++) {
-            GameObject player = new GameObject();
-            player.name = nameInput[i].text; // make a player prefab that this can instantiate from
-            player.AddComponent<Player>();
-            TurnSystem.players.Add(player.transform);
-            DontDestroyOnLoad(player);
-        }
+        if(randomNames)
+            pickRandomNames();
+        else
+            for(int i = 0; i < players; i++) {
+                GameObject player = new GameObject();
+                player.name = nameInput[i].text; // make a player prefab that this can instantiate from
+                player.AddComponent<Player>();
+                TurnSystem.players.Add(player.transform);
+                DontDestroyOnLoad(player);
+            }
         playerAmtSet(0);
         mapSizeSet(0);
     }
 
-    public void startGame()
+    public void pickRandomNames()
+    {
+        string path = "names";
+        TextAsset namesText = Resources.Load<TextAsset>(path);
+        string[] namesArr = namesText.text.Split('*');
+        List<string> names = new List<string>(namesArr);
+        for(int i = 0; i < players; i++) {
+            GameObject player = new GameObject();
+            int r = Random.Range(0, names.Count);
+            player.name = names[r]; // make a player prefab that this can instantiate from\
+            names.RemoveAt(r);
+            player.AddComponent<Player>();
+            TurnSystem.players.Add(player.transform);
+            DontDestroyOnLoad(player);
+        }
+    }
+
+    public void startGame(bool randomNames)
     {
         SceneManager.LoadScene("Game");
         TileMapGenerator.mapHeight = (int)(Mathf.Pow(2,size) * 25);
         TileMapGenerator.mapWidth = (int)(Mathf.Pow(2,size) * 25);
-        prepareGame();
+        prepareGame(randomNames);
     }
 
     public void play()
@@ -93,7 +113,7 @@ public class UIManager : MonoBehaviour
         Event e = Event.current;
         GameObject go = EventSystem.current.currentSelectedGameObject;
 
-        if(go != null) {
+        if(go != null && playerCanvas.activeInHierarchy) {
             if(!pressed && Input.GetAxisRaw("Horizontal") == -1) {
                 if(go.Equals(playerAmt)) {
                     playerAmtSet(-1);
