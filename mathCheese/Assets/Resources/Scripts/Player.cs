@@ -4,7 +4,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public List<Transform> units = new List<Transform>();
-    public int larvae = 0;
+    public int larvae = 0, currentColony = 0;
     public List<Tile> colonies = new List<Tile>();
 
     public void updateLarvae()
@@ -24,6 +24,15 @@ public class Player : MonoBehaviour
             tempT.parent = gameObject.transform;
             units.Add(tempT);
         }
+    }
+
+    public void cycleColony(int i)
+    {
+        currentColony += i;
+        if(currentColony < 0)
+            currentColony = colonies.Count-1;
+        else if(currentColony >= colonies.Count)
+            currentColony = 0;
     }
 
     public void removeUnit(GameObject go)

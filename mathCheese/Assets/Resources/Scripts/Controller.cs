@@ -31,6 +31,10 @@ public class Controller : MonoBehaviour
             clickSystem.addUnit();
         if(Input.GetKeyDown(KeyCode.B))
             clickSystem.buildColony();
+        if(Input.GetKeyDown("joystick button 4") || Input.GetKeyDown("x"))
+            Camera.main.GetComponent<CameraMovement>().cycleCamera(-1);
+        if(Input.GetKeyDown("joystick button 5") || Input.GetKeyDown("c"))
+            Camera.main.GetComponent<CameraMovement>().cycleCamera(1);
         if(Input.GetKeyDown("joystick button 7") || Input.GetKeyDown("escape")) {
             pauseManager.pauseGame();
         }

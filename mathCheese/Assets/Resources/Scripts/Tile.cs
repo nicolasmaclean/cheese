@@ -6,8 +6,7 @@ public class Tile : Entity
     public bool isInMoveRange = false;
     public Material defaultMaterial;
     public int resources;
-
-    Transform groundT;
+    public Transform groundT;
 
     public override void initialize(Vector2 gPos)
     {

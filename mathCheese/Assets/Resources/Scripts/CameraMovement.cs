@@ -75,8 +75,8 @@ public class CameraMovement : MonoBehaviour
     {
         free = false;
 
-        System.Collections.Generic.List<Tile> colonies = TurnSystem.players[TurnSystem.currentPlayer].GetComponent<Player>().colonies;
-        Vector2 pos = colonies[colonies.Count-1].gridPosition;
+        Player cur = TurnSystem.players[TurnSystem.currentPlayer].GetComponent<Player>();
+        Vector2 pos = cur.colonies[cur.currentColony].gridPosition;
         goalPosition = new Vector3(TileMapGenerator.tileSize*pos.x, Camera.main.transform.position.y,TileMapGenerator.tileSize*pos.y);
 
         Vector3 ang = Camera.main.transform.rotation.eulerAngles;
@@ -93,5 +93,15 @@ public class CameraMovement : MonoBehaviour
 
         if((transform.position - goalPosition).magnitude <= .5f)
             free = true;
+    }
+
+    public void cycleCamera(int i)
+    {
+        Plane[] planes = GeometryUtility.CalculateFrustumPlanes(Camera.main);
+        Player cur = TurnSystem.players[TurnSystem.currentPlayer].GetComponent<Player>();
+        if(GeometryUtility.TestPlanesAABB(planes, cur.colonies[cur.currentColony].groundT.GetComponent<Renderer>().bounds)) // if the current colony is visible cycle to next
+            TurnSystem.players[TurnSystem.currentPlayer].GetComponent<Player>().cycleColony(i);
+        moveToColony();
+
     }
 }
