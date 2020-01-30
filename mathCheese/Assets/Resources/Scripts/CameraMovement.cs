@@ -9,7 +9,8 @@ public class CameraMovement : MonoBehaviour
     private float smoothZoom;
     private bool free = true;
 
-    void Start() {
+    void Start()
+    {
         Camera.main.transform.position = new Vector3(0f, zoom, 0f);
         smoothZoom = zoom;
         rot = Quaternion.Euler(60f,0,0);
@@ -18,6 +19,7 @@ public class CameraMovement : MonoBehaviour
 
     public void move(int dir)
     {
+        if(!free) return;
         switch(dir) {
             case 0 : velocity += new Vector3(0, 0, speed * Time.deltaTime); break;
             case 1 : velocity -= new Vector3(0, 0, speed * Time.deltaTime); break;
@@ -26,22 +28,17 @@ public class CameraMovement : MonoBehaviour
         }
     }
 
-    public void rotate(int dir)
+    public void rotate(float delta)
     {
-        float angle;
-        switch(dir) {
-            case 0 : angle = rotationSpeed * Time.deltaTime;
-                rot = Quaternion.AngleAxis(angle, Vector3.down) * rot;
-                break;
-            case 1 : angle = rotationSpeed * Time.deltaTime;
-                rot = Quaternion.AngleAxis(angle, Vector3.up) * rot;
-                break;
-        }
+        if(!free) return;
+        float angle = rotationSpeed * Time.deltaTime;
+        rot = Quaternion.AngleAxis(angle, new Vector3(0, delta, 0)) * rot;
     }
 
-    public void zoomCamera()
+    public void zoomCamera(float delta)
     {
-        zoom += (int) (Input.GetAxis("Mouse ScrollWheel") * zoomSpeed * Time.deltaTime);
+        if(!free) return;
+        zoom += (int) (delta * zoomSpeed * Time.deltaTime);
 
         if(zoom > yMax)
             zoom = yMax;
@@ -67,10 +64,10 @@ public class CameraMovement : MonoBehaviour
     
     void LateUpdate()
     {
-        if(free) {
+        if(free && !UIPauseManager.paused) {
             updateTransfrom();
         }
-        else
+        else if(!UIPauseManager.paused)
             movingToColony();
     }
 
@@ -78,8 +75,8 @@ public class CameraMovement : MonoBehaviour
     {
         free = false;
 
-        System.Collections.Generic.List<Tile> colonies = TurnSystem.players[TurnSystem.currentPlayer].GetComponent<Player>().colonies;
-        Vector2 pos = colonies[colonies.Count-1].gridPosition;
+        Player cur = TurnSystem.players[TurnSystem.currentPlayer].GetComponent<Player>();
+        Vector2 pos = cur.colonies[cur.currentColony].gridPosition;
         goalPosition = new Vector3(TileMapGenerator.tileSize*pos.x, Camera.main.transform.position.y,TileMapGenerator.tileSize*pos.y);
 
         Vector3 ang = Camera.main.transform.rotation.eulerAngles;
@@ -96,5 +93,15 @@ public class CameraMovement : MonoBehaviour
 
         if((transform.position - goalPosition).magnitude <= .5f)
             free = true;
+    }
+
+    public void cycleCamera(int i)
+    {
+        Plane[] planes = GeometryUtility.CalculateFrustumPlanes(Camera.main);
+        Player cur = TurnSystem.players[TurnSystem.currentPlayer].GetComponent<Player>();
+        if(GeometryUtility.TestPlanesAABB(planes, cur.colonies[cur.currentColony].groundT.GetComponent<Renderer>().bounds)) // if the current colony is visible cycle to next
+            TurnSystem.players[TurnSystem.currentPlayer].GetComponent<Player>().cycleColony(i);
+        moveToColony();
+
     }
 }

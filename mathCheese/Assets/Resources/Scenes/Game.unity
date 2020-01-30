@@ -1482,7 +1482,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 20
   rotationSpeed: 120
-  zoomSpeed: 7000
+  zoomSpeed: 4000
   yMax: 100
   yMin: 10
   zoom: 50

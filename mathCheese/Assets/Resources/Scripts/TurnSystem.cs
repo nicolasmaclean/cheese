@@ -44,7 +44,7 @@ public class TurnSystem : MonoBehaviour
         updateText();
 
         createInitialColonies();
-        Camera.main.GetComponent<CameraMovement>().moveToColony(); // this is not working
+        Camera.main.GetComponent<CameraMovement>().moveToColony();
     }
 
     public void nextTurn()

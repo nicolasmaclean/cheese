@@ -11,33 +11,32 @@ public class Controller : MonoBehaviour
     }
 
     // mouse input is inside of mouseover
-    void LateUpdate() {
-        //moves the camera
-        if(Input.GetKey(KeyCode.W))
-            cam.move(0);
-        if(Input.GetKey(KeyCode.S))
-            cam.move(1);
-        if(Input.GetKey(KeyCode.A))
-            cam.move(2);
-        if(Input.GetKey(KeyCode.D))
-            cam.move(3);
+    void FixedUpdate() {
+        // WASD keys or left stick to move camera
+        if(Input.GetAxisRaw("Vertical") != 0)
+            cam.move(Input.GetAxis("Vertical") > 0 ? 0 : 1);
+        if(Input.GetAxisRaw("Horizontal") != 0)
+            cam.move(Input.GetAxis("Horizontal") < 0 ? 2 : 3);
 
-        //rotates the camera
-        if(Input.GetKey(KeyCode.Q))
-            cam.rotate(0);
-        if(Input.GetKey(KeyCode.E))
-            cam.rotate(1);
+        // QE keys or bumpers movement to rotate
+        if(Input.GetAxisRaw("RightHorizontal") != 0)
+            cam.rotate(Input.GetAxisRaw("RightHorizontal"));
 
-        //zooms the camera
-        if(Input.GetAxis("Mouse ScrollWheel") != 0)
-            cam.zoomCamera();
+        // mouse scroll or triggers vertical movement to zoom
+        if(Input.GetAxisRaw("Mouse ScrollWheel") != 0) // maybe switch it back to use right stick to zoom
+            cam.zoomCamera(Input.GetAxis("Mouse ScrollWheel"));
 
-        //keyboard input
+        // escape key or start button to pause game
         if(Input.GetKeyDown(KeyCode.P))
             clickSystem.addUnit();
         if(Input.GetKeyDown(KeyCode.B))
             clickSystem.buildColony();
-        if(Input.GetKeyDown(KeyCode.Escape))
+        if(Input.GetKeyDown("joystick button 4") || Input.GetKeyDown("x"))
+            Camera.main.GetComponent<CameraMovement>().cycleCamera(-1);
+        if(Input.GetKeyDown("joystick button 5") || Input.GetKeyDown("c"))
+            Camera.main.GetComponent<CameraMovement>().cycleCamera(1);
+        if(Input.GetKeyDown("joystick button 7") || Input.GetKeyDown("escape")) {
             pauseManager.pauseGame();
+        }
     }
 }

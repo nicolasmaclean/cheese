@@ -18,6 +18,7 @@ public class UIManager : MonoBehaviour
 
     private float players = 2;
     private int size = 0;
+    private bool pressed = false;
 
     public void quitQame()
     {
@@ -34,7 +35,7 @@ public class UIManager : MonoBehaviour
             TurnSystem.players.Add(player.transform);
             DontDestroyOnLoad(player);
         }
-        playerAmtSet(2);
+        playerAmtSet(0);
         mapSizeSet(0);
     }
 
@@ -56,7 +57,11 @@ public class UIManager : MonoBehaviour
 
     public void playerAmtSet(int i)
     {
-        players = i;
+        if(i == 1)
+            players++;
+        if(i == -1)
+            players--;
+
         if(players > 4)
             players = 4;
         else if (players < 2)
@@ -67,13 +72,17 @@ public class UIManager : MonoBehaviour
 
     public void mapSizeSet(int i)
     {
-        size = i;
-        if(size > 3)
-            size = 3;
+        if(i == 1)
+            size++;
+        if(i == -1)
+            size--;
+
+        if(size > 2)
+            size = 2;
         else if (size < 0)
             size = 0;
-
-        switch(i) {
+        
+        switch(size) {
             case 0 : mapSize.GetComponent<Text>().text = "small"; break;
             case 1 : mapSize.GetComponent<Text>().text = "medium"; break;
             case 2 : mapSize.GetComponent<Text>().text = "large"; break;
@@ -84,20 +93,24 @@ public class UIManager : MonoBehaviour
         Event e = Event.current;
         GameObject go = EventSystem.current.currentSelectedGameObject;
 
-        if(Event.current.isKey && go != null) {
-            if(e.type == EventType.KeyDown && e.keyCode == KeyCode.LeftArrow) {
+        if(go != null) {
+            if(!pressed && Input.GetAxisRaw("Horizontal") == -1) {
                 if(go.Equals(playerAmt)) {
-                    playerAmtSet((int)players-1);
+                    playerAmtSet(-1);
                 } else if(go.Equals(mapSize)) {
-                    mapSizeSet(size-1);
+                    mapSizeSet(-1);
                 }
-            } else if (e.type == EventType.KeyDown && e.keyCode == KeyCode.RightArrow) {
+                pressed = true;
+            } else if (!pressed && Input.GetAxisRaw("Horizontal") == 1) {
                 if(go.Equals(playerAmt)) {
-                    playerAmtSet((int)players+1);
+                    playerAmtSet(1);
                 } else if(go.Equals(mapSize)) {
-                    mapSizeSet(size+1);
+                    mapSizeSet(1);
                 }
+                pressed = true;
             }
+            if(Input.GetAxis("Horizontal") == 0)
+                pressed = false;
         }
     }
 
