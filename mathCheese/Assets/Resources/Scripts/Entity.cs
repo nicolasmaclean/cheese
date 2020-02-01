@@ -43,20 +43,20 @@ public class Entity : MonoBehaviour
         updated = true;
     }
 
-    public virtual void clicked(System.Collections.Generic.List<GameObject> clickHistory)
+    public virtual void clicked()
     {
-        if(clickHistory.Count == 0 || clickHistory.IndexOf(gameObject) != clickHistory.Count-1){
+        if(ClickSystem.clickHistory.Count == 0 || ClickSystem.clickHistory.IndexOf(gameObject) != ClickSystem.clickHistory.Count-1){
             clickState = ClickSystem.ClickState.click;
-            clickHistory.Add(gameObject);
+            ClickSystem.clickHistory.Add(gameObject);
 
-        } else if(clickHistory.IndexOf(gameObject) == clickHistory.Count-1) {
+        } else if(ClickSystem.clickHistory.IndexOf(gameObject) == ClickSystem.clickHistory.Count-1) {
             clickState = ClickSystem.ClickState.none;
         }
 
         updated = false;
     }
 
-    public virtual void hovered(System.Collections.Generic.List<GameObject> clickHistory)
+    public virtual void hovered()
     {
         if(clickState != ClickSystem.ClickState.hover){
             clickState = ClickSystem.ClickState.hover;
@@ -64,7 +64,7 @@ public class Entity : MonoBehaviour
         }
     }
 
-    public virtual void inactive(System.Collections.Generic.List<GameObject> clickHistory)
+    public virtual void inactive()
     {
         if(clickState != ClickSystem.ClickState.none){
             clickState = ClickSystem.ClickState.none;

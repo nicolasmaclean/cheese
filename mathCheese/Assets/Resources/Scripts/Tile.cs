@@ -57,9 +57,9 @@ public class Tile : Entity
         updated = true;
     }
 
-    public override void clicked(System.Collections.Generic.List<GameObject> clickHistory)
+    public override void clicked()
     {
-        base.clicked(clickHistory);
+        base.clicked();
         ClickSystem.checkClickMoveUnit();
     }
 

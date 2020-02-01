@@ -7,6 +7,7 @@ public class ClickSystem : MonoBehaviour
 {
     public static List<GameObject> clickHistory;
     public static RaycastHit hitInfo;
+
     public Transform tempUnitTransform;
     public enum ClickState {none, hover, click};
     public GameObject infoPanelPublic;
@@ -109,11 +110,28 @@ public class ClickSystem : MonoBehaviour
         }
     }
 
-    void Update()
+    static bool checkCollision(Collider collideComponent)
     {
-        if(!UIPauseManager.paused){
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            Physics.Raycast(ray, out hitInfo, 200);
+        if(collideComponent != null && hitInfo.collider != null && hitInfo.collider.Equals(collideComponent)) {
+            return true;
+        }
+        return false;
+    }
+
+    public static void updateHover(Vector2 mousePos)
+    {
+        if(UIPauseManager.paused && EventSystem.current.IsPointerOverGameObject()) return;
+
+        Ray ray = Camera.main.ScreenPointToRay(mousePos);
+        Physics.Raycast(ray, out hitInfo, 200);
+
+        Entity[] entities = FindObjectsOfType<Entity>();
+        foreach(Entity cur in entities) {
+            if(checkCollision(cur.getCollider())) {
+                cur.hovered();
+            } else if(cur.clickState == ClickState.hover) { // resets old hover tiles to defualt state
+                cur.inactive();
+            }
         }
     }
 }

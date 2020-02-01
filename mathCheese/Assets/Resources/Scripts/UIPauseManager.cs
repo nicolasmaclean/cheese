@@ -1,8 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
 public class UIPauseManager : MonoBehaviour
 {
@@ -18,12 +16,15 @@ public class UIPauseManager : MonoBehaviour
     public void pauseGame()
     {
         canvas.SetActive(!canvas.activeInHierarchy);
+        if(canvas.activeInHierarchy)
+            EventSystem.current.SetSelectedGameObject(canvas.transform.Find("menuPanel").Find("continueButton").gameObject);
         paused = !paused;
     }
 
     public void continueGame()
     {
         canvas.SetActive(false);
+        EventSystem.current.SetSelectedGameObject(null);
         paused = false;
     }
 
