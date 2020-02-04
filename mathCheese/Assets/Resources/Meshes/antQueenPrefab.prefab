@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2366066490851211789}
   - component: {fileID: 6741592121539231803}
   - component: {fileID: 1059044358472400066}
+  - component: {fileID: 1665028145782279502}
   - component: {fileID: 9045182252815028685}
   - component: {fileID: 8314210294207941391}
   m_Layer: 0
@@ -84,6 +85,18 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &1665028145782279502
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1625426967559063582}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0269a63280ef47309b3e7e37b4652cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &9045182252815028685
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -100,13 +113,10 @@ MonoBehaviour:
   clickState: 0
   updated: 0
   borderRenderer: {fileID: 0}
-  entityName: Entity
   moveRange: 1
   maxHealth: 100
   health: 0
   damage: 1
-  level: 1
-  levelMult: 1.1
 --- !u!135 &8314210294207941391
 SphereCollider:
   m_ObjectHideFlags: 0

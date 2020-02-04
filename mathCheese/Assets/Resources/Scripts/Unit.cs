@@ -3,7 +3,6 @@
 public class Unit : Entity
 {
     public static bool[,] unitPositions;
-    public static System.Collections.Generic.List<GameObject> clickHistory;
     public int moveRange = 0;
     public int maxHealth = 1;
     public int health = 1;
@@ -13,12 +12,15 @@ public class Unit : Entity
 
     public override void initialize(Vector2 gPos)
     {
-        if(clickHistory == null)
-            clickHistory = ClickSystem.clickHistory;
         unitPositions[(int)gPos.y, (int)gPos.x] = true;
         health = maxHealth;
 
         base.initialize(gPos);
+    }
+
+    public override void Update() {
+        // checkDeath();
+        base.Update();
     }
 
     public override void clickClickState()
@@ -37,7 +39,7 @@ public class Unit : Entity
         }
     }
 
-    public override void clicked()
+    public override void clicked(System.Collections.Generic.List<GameObject> clickHistory)
     {
         if(clickHistory.Count == 0 || clickHistory.IndexOf(gameObject) != clickHistory.Count-1){
             if(clickHistory.Count > 0 && clickHistory[clickHistory.Count-1].GetComponent<Unit>() != null) // resets move tiles when switching selection between units

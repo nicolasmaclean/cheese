@@ -17,22 +17,27 @@ public class CameraMovement : MonoBehaviour
         smoothRot = rot;
     }
 
-    public void move(Vector2 delta)
+    public void move(int dir)
     {
-        if(!free && UIPauseManager.paused) return;
-        velocity += new Vector3(delta.x*speed*Time.deltaTime, 0, delta.y*speed*Time.deltaTime);
+        if(!free) return;
+        switch(dir) {
+            case 0 : velocity += new Vector3(0, 0, speed * Time.deltaTime); break;
+            case 1 : velocity -= new Vector3(0, 0, speed * Time.deltaTime); break;
+            case 2 : velocity -= new Vector3(speed * Time.deltaTime, 0, 0); break;
+            case 3 : velocity += new Vector3(speed * Time.deltaTime, 0, 0); break;
+        }
     }
 
     public void rotate(float delta)
     {
-        if(!free && UIPauseManager.paused) return;
+        if(!free) return;
         float angle = rotationSpeed * Time.deltaTime;
         rot = Quaternion.AngleAxis(angle, new Vector3(0, delta, 0)) * rot;
     }
 
     public void zoomCamera(float delta)
     {
-        if(!free && UIPauseManager.paused) return;
+        if(!free) return;
         zoom += (int) (delta * zoomSpeed * Time.deltaTime);
 
         if(zoom > yMax)
@@ -90,13 +95,12 @@ public class CameraMovement : MonoBehaviour
             free = true;
     }
 
-    public void cycleCamera(float i)
+    public void cycleCamera(int i)
     {
-        if(!free && UIPauseManager.paused) return;
         Plane[] planes = GeometryUtility.CalculateFrustumPlanes(Camera.main);
         Player cur = TurnSystem.players[TurnSystem.currentPlayer].GetComponent<Player>();
         if(GeometryUtility.TestPlanesAABB(planes, cur.colonies[cur.currentColony].groundT.GetComponent<Renderer>().bounds)) // if the current colony is visible cycle to next
-            TurnSystem.players[TurnSystem.currentPlayer].GetComponent<Player>().cycleColony(i > 0 ? 1 : -1);
+            TurnSystem.players[TurnSystem.currentPlayer].GetComponent<Player>().cycleColony(i);
         moveToColony();
 
     }

@@ -714,6 +714,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2760840328681225405}
   - component: {fileID: 6542238830954337187}
+  - component: {fileID: 7715173396238849446}
   - component: {fileID: 3010167518878878422}
   m_Layer: 0
   m_Name: tileWaterPrefab
@@ -764,8 +765,19 @@ MonoBehaviour:
   isInMoveRange: 0
   defaultMaterial: {fileID: 0}
   resources: 0
-  groundT: {fileID: 0}
   queens: 1
+--- !u!114 &7715173396238849446
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8063475206100862048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0269a63280ef47309b3e7e37b4652cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!65 &3010167518878878422
 BoxCollider:
   m_ObjectHideFlags: 0

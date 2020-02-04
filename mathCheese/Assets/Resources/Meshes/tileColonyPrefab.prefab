@@ -88,6 +88,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1840526381334793214}
   - component: {fileID: 7282345702437627104}
+  - component: {fileID: -3113280318913404187}
   - component: {fileID: -7629970574124630635}
   m_Layer: 0
   m_Name: tileColonyPrefab
@@ -132,9 +133,19 @@ MonoBehaviour:
   entityName: Entity
   isInMoveRange: 0
   defaultMaterial: {fileID: 0}
-  resources: 0
-  groundT: {fileID: 0}
   queens: 1
+--- !u!114 &-3113280318913404187
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5781938723602051875}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0269a63280ef47309b3e7e37b4652cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!65 &-7629970574124630635
 BoxCollider:
   m_ObjectHideFlags: 0
