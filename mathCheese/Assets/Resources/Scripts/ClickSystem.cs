@@ -109,11 +109,34 @@ public class ClickSystem : MonoBehaviour
         }
     }
 
+    bool checkCollision(Collider collideComponent)
+    {
+        return collideComponent != null &&  hitInfo.collider == collideComponent;
+    }
+
     void Update()
     {
         if(!UIPauseManager.paused){
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             Physics.Raycast(ray, out hitInfo, 200);
+
+            if(UIPauseManager.paused || EventSystem.current.IsPointerOverGameObject()) return;
+
+            Entity[] entities = FindObjectsOfType<Entity>();
+            foreach(Entity entity in entities) {
+                if(checkCollision(entity.getCollider())){
+                    if(Input.GetMouseButtonDown(0)){ // clicked
+                        entity.clicked(clickHistory);
+                        ClickSystem.updateSelectionText(entity.gameObject); // move this into clicked
+
+                    } else if(clickHistory.Count == 0 || entity.clickState == ClickSystem.ClickState.none) { // hover
+                        entity.hovered(clickHistory); //hover doesn't work if a tile is selected
+                        ClickSystem.updateSelectionText(entity.gameObject);
+                    }
+                } else if(clickHistory.Count == 0 || clickHistory.IndexOf(entity.gameObject) != clickHistory.Count-1) { // default
+                        entity.inactive(clickHistory);
+                }
+            }
         }
     }
 }
