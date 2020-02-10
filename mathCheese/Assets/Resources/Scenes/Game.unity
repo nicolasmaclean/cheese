@@ -605,6 +605,12 @@ MonoBehaviour:
   - {fileID: 7571780184241821909, guid: 9a838add64e4a425daf08ed5322acf13, type: 3}
   - {fileID: 6470418834464017353, guid: 949100036b123402f970bac802738e6d, type: 3}
   - {fileID: 3017790096949164906, guid: 93076333f0c854391a5a0c73f942bbb8, type: 3}
+  - {fileID: 7991252553391839219, guid: 86e13527cafeaa042a6cb7cbe2ec3943, type: 3}
+  tileRates:
+  - 0.3
+  - 0.6
+  - 0.9
+  - 1
   tileColonyPrefab: {fileID: 1840526381334793214, guid: fbd97cc0780e69b4793826da049b2c03,
     type: 3}
   autoUpdate: 0

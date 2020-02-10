@@ -6,6 +6,7 @@ public class TileMapGenerator : MonoBehaviour
     public static int mapWidth = 25, mapHeight = 25;
 
     public Transform[] tilePrefabs;
+    public float[] tileRates;
     public Transform tileColonyPrefab;
     public static float tileSize;
     public bool autoUpdate;
@@ -25,6 +26,20 @@ public class TileMapGenerator : MonoBehaviour
         return tile;
     }
 
+    int getConstrainedRandom(float x)
+    {
+        int num = -1;
+
+        for(int i = 0; i < tileRates.GetLength(0); i++)
+            if(x < tileRates[i]) {
+                num = i;
+                break;
+            }
+        if(num == -1)
+            Debug.Log("tile rates is empty");
+        return num;
+    }
+
     public void buildMap()
     {
         if(mapHeight > 0 && mapWidth > 0){
@@ -33,11 +48,11 @@ public class TileMapGenerator : MonoBehaviour
             Unit.unitPositions = new bool[mapHeight, mapWidth];
 
             Quaternion up = new Quaternion(0,0,0,1);
-            int[,] noiseMap = Noise.GenerateNoiseMap(mapWidth, mapHeight, tilePrefabs.Length);
+            float[,] noiseMap = Noise.GenerateNoiseMap(mapWidth, mapHeight, tilePrefabs.Length);
             
             for(int z = 0; z < mapHeight; z++) {
                 for(int x = 0; x < mapWidth; x++) {
-                    tiles[z, x] = createTile(z, x, up, tilePrefabs[noiseMap[z,x]]);
+                    tiles[z, x] = createTile(z, x, up, tilePrefabs[getConstrainedRandom(noiseMap[z, x])]);
                     tiles[z, x].transform.parent = gameObject.transform;
                 }
             }

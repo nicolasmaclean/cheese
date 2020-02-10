@@ -2,13 +2,13 @@
 
 public class Noise
 {
-    public static int[,] GenerateNoiseMap(int width, int height, int choiceAmt)
+    public static float[,] GenerateNoiseMap(int width, int height, int choiceAmt)
     {
-        int[,] noiseMap = new int[height, width];
+        float[,] noiseMap = new float[height, width];
 
         for(int y = 0; y < height; y++){
             for(int x = 0; x < width; x++){
-               noiseMap[y,x] = Random.Range(0, choiceAmt);
+               noiseMap[y,x] = Random.Range(0f, 1f);
             }
         }
 
