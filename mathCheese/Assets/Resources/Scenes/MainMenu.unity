@@ -326,7 +326,6 @@ GameObject:
   - component: {fileID: 43158937}
   - component: {fileID: 43158936}
   - component: {fileID: 43158935}
-  - component: {fileID: 43158934}
   m_Layer: 0
   m_Name: backgroundPlane
   m_TagString: Untagged
@@ -334,20 +333,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!64 &43158934
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 43158933}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 0
-  m_CookingOptions: 14
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &43158935
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -3222,7 +3207,7 @@ MonoBehaviour:
   - {fileID: 1803330342}
   - {fileID: 1189524386}
   - {fileID: 1158762650}
-  playerCanvas: {fileID: 1150979681}
+  playerCanvas: {fileID: 233827798}
 --- !u!4 &1333557770
 Transform:
   m_ObjectHideFlags: 0
