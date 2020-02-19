@@ -60,6 +60,11 @@ public class TurnSystem : MonoBehaviour
         updateText();
         if(ClickSystem.clickHistory.Count > 0 && ClickSystem.clickHistory[ClickSystem.clickHistory.Count-1].GetComponent<Unit>())
             ClickSystem.clickHistory[ClickSystem.clickHistory.Count-1].GetComponent<Unit>().moveTilesReset();
+
+        foreach(Transform h in players[currentPlayer].GetComponent<Player>().units) {
+            if(h.GetComponent<UnitHarvester>())
+                players[currentPlayer].GetComponent<Player>().updateResources(h.GetComponent<UnitHarvester>().harvest());
+        }
     }
 
     public void updateText()
