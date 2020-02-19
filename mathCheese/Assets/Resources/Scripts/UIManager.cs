@@ -10,10 +10,8 @@ public class UIManager : MonoBehaviour
     public GameObject Main;
     public GameObject Options;
     public GameObject PlayButton1;
-    public GameObject PlayButton2;
     public GameObject mapSize;
     public GameObject playerAmt;
-    public InputField[] nameInput;
     public GameObject playerCanvas;
 
     private float players = 2;
@@ -25,19 +23,12 @@ public class UIManager : MonoBehaviour
         Application.Quit();
     }
 
-    public void prepareGame(bool randomNames)
+    public void prepareGame()
     {
         TurnSystem.players = new List<Transform>();
-        if(randomNames)
-            pickRandomNames();
-        else
-            for(int i = 0; i < players; i++) {
-                GameObject player = new GameObject();
-                player.name = nameInput[i].text; // make a player prefab that this can instantiate from
-                player.AddComponent<Player>();
-                TurnSystem.players.Add(player.transform);
-                DontDestroyOnLoad(player);
-            }
+
+        pickRandomNames();
+
         playerAmtSet(0);
         mapSizeSet(0);
     }
@@ -59,12 +50,12 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void startGame(bool randomNames)
+    public void startGame()
     {
         SceneManager.LoadScene("Game");
         TileMapGenerator.mapHeight = (int)(Mathf.Pow(2,size) * 25);
         TileMapGenerator.mapWidth = (int)(Mathf.Pow(2,size) * 25);
-        prepareGame(randomNames);
+        prepareGame();
     }
 
     public void play()
@@ -132,17 +123,6 @@ public class UIManager : MonoBehaviour
             if(Input.GetAxis("Horizontal") == 0)
                 pressed = false;
         }
-    }
-
-    public void play2()
-    {
-        Options.SetActive(false);
-        playerCanvas.SetActive(true); // for loop and set active each player/input field necessary
-        for(int i = 0; i < players; i++) {
-            nameInput[i].transform.parent.gameObject.SetActive(true);
-        }
-
-        EventSystem.current.SetSelectedGameObject(nameInput[0].gameObject); // also figure out to improve the event system navigation between input fields
     }
 
     public static IEnumerator timedDisappear(GameObject go, int time)

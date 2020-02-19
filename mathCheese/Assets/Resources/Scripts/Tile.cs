@@ -5,14 +5,16 @@ public class Tile : Entity
 {
     public bool isInMoveRange = false;
     public Material defaultMaterial;
-    public int resources;
+    public int gold;
+    public int water;
+    public int food;
     public Transform groundT;
 
     public override void initialize(Vector2 gPos)
     {
         groundT = gameObject.transform.Find("Ground");
         defaultMaterial = groundT.GetComponent<Renderer>().sharedMaterial;
-        resources = 1;
+        gold = 0; water = 0; food = 0;
 
         base.initialize(gPos);
         gameObject.name = entityName + ": (" + (int)gridPosition.x + ", " + (int)gridPosition.y + ")";

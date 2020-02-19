@@ -1,10 +1,10 @@
-﻿public class TileWater : Tile
+﻿public class TileGold : Tile
 {
     public override void initialize(UnityEngine.Vector2 gPos)
     {
-        entityName = "Water Tile";
+        entityName = "Grass Tile";
 
         base.initialize(gPos);
-        water = 3;
+        gold = 5;
     }
 }
