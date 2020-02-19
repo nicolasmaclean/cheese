@@ -4,14 +4,14 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public List<Transform> units = new List<Transform>();
-    public int larvae = 0, currentColony = 0, level = 2;
+    public int larvae = 0, currentColony = 0;
     public float gold = 0, water = 0, food = 0;
-    public List<Tile> colonies = new List<Tile>();
+    public List<TileColony> colonies = new List<TileColony>();
 
     public void updateLarvae()
     {
-        foreach(Tile unit in colonies) {
-            larvae += level;
+        foreach(TileColony colony in colonies) {
+            larvae += colony.level;
         }
     }
 
