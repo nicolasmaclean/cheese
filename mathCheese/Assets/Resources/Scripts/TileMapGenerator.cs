@@ -68,7 +68,7 @@ public class TileMapGenerator : MonoBehaviour
                 tiles[y, x].delete();
             
             tiles[y, x] = createTile(y, x, new Quaternion(0, 0, 0, 1), Resources.Load<Transform>("Meshes/tileColonyPrefab"));
-            TurnSystem.players[player].GetComponent<Player>().colonies.Add(tiles[y, x]);
+            TurnSystem.players[player].GetComponent<Player>().colonies.Add(tiles[y, x].GetComponent<TileColony>());
             Unit.unitPositions[y, x] = true;
             return true;
         }

@@ -12,15 +12,17 @@ public class UnitHarvester : Unit
         base.initialize(gPos);
     }
 
-    public int harvestTile()
+    public float[] harvest()
     {
-        int harvest = 0;
+        float[] resources = new float[3];
 
         Tile temp = TileMapGenerator.tiles[(int)gridPosition.y, (int)gridPosition.x];
-        if(temp != null) {
-            harvest += temp.resources;
+        if(temp) {
+            resources[0] = temp.food;
+            resources[1] = temp.water;
+            resources[2] = temp.gold;
         }
         
-        return harvest;
+        return resources;
     }
 }

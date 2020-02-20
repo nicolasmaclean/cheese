@@ -5,15 +5,21 @@ public class Player : MonoBehaviour
 {
     public List<Transform> units = new List<Transform>();
     public int larvae = 0, currentColony = 0;
-    public List<Tile> colonies = new List<Tile>();
+    public float gold = 0, water = 0, food = 0;
+    public List<TileColony> colonies = new List<TileColony>();
 
     public void updateLarvae()
     {
-        foreach(Transform unit in units) {
-            if(unit.GetComponent<UnitHarvester>() != null) {
-                larvae += unit.GetComponent<UnitHarvester>().harvestTile();
-            }
+        foreach(TileColony colony in colonies) {
+            larvae += colony.level;
         }
+    }
+
+    public void updateResources(float[] resources)
+    {
+        food += resources[0];
+        water += resources[1];
+        gold += resources[2];
     }
 
     public void addUnit(Transform mesh, Vector2 pos, Quaternion up)

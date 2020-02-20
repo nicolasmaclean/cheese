@@ -38,22 +38,26 @@ public class TurnSystem : MonoBehaviour
             devStart();
         #endif
 
-        if(players.Count > 0)
-            currentPlayer = 0;
+        currentPlayer = 0;
+        createInitialColonies();
+        players[currentPlayer].GetComponent<Player>().updateLarvae();
             
         updateText();
 
-        createInitialColonies();
         Camera.main.GetComponent<CameraMovement>().moveToColony();
     }
 
     public void nextTurn()
     {
-        players[currentPlayer].GetComponent<Player>().updateLarvae();
-
         currentPlayer++;
         if(currentPlayer >= players.Count)
             currentPlayer = 0;
+
+        players[currentPlayer].GetComponent<Player>().updateLarvae();
+        foreach(Transform h in players[currentPlayer].GetComponent<Player>().units) {
+            if(h.GetComponent<UnitHarvester>())
+                players[currentPlayer].GetComponent<Player>().updateResources(h.GetComponent<UnitHarvester>().harvest());
+        }
 
         Camera.main.GetComponent<CameraMovement>().moveToColony();
 
