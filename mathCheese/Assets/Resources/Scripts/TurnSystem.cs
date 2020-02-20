@@ -8,6 +8,9 @@ public class TurnSystem : MonoBehaviour
     public static int currentPlayer;
     public Text currentPlayerText;
     public Text currentLarvaeText;
+    public Text currentFoodText;
+    public Text currentWaterText;
+    public Text currentGoldText;
 
     void createInitialColonies()
     {
@@ -70,6 +73,9 @@ public class TurnSystem : MonoBehaviour
     {
         currentPlayerText.text = players[currentPlayer].name;
         currentLarvaeText.text = "" + players[currentPlayer].GetComponent<Player>().larvae;
+        currentFoodText.text = "" + players[currentPlayer].GetComponent<Player>().food;
+        currentWaterText.text = "" + players[currentPlayer].GetComponent<Player>().water;
+        currentGoldText.text = "" + players[currentPlayer].GetComponent<Player>().gold;
     }
 
     public void reset()
