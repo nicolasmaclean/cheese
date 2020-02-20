@@ -19,4 +19,10 @@ public class UIGameManager : MonoBehaviour
             }
         }
     }
+
+    public void buildAnt() {
+        if(TurnSystem.players[TurnSystem.currentPlayer].GetComponent<Player>().larvae > 5)
+            //ant
+            ;
+    }
 }
