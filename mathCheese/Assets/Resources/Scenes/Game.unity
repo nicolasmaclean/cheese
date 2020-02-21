@@ -1413,7 +1413,7 @@ RectTransform:
   - {fileID: 1243713268}
   - {fileID: 1454103177}
   m_Father: {fileID: 942893747}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1627,8 +1627,8 @@ RectTransform:
   - {fileID: 2061474072}
   - {fileID: 1742852943}
   - {fileID: 1605934956}
-  - {fileID: 906420728}
   - {fileID: 1340307318}
+  - {fileID: 906420728}
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1668,7 +1668,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentPlayerText: {fileID: 2080413599}
-  currentLarvaeText: {fileID: 2025609018}
+  currentLarvaeText: {fileID: 1197892584}
+  currentFoodText: {fileID: 1296387039}
+  currentWaterText: {fileID: 1101000968}
+  currentGoldText: {fileID: 2136059442}
 --- !u!4 &954724754
 Transform:
   m_ObjectHideFlags: 0
@@ -2825,7 +2828,7 @@ RectTransform:
   - {fileID: 1773827856}
   - {fileID: 2136059441}
   m_Father: {fileID: 942893747}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
