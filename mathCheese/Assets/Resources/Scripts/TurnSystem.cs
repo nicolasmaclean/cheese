@@ -59,7 +59,7 @@ public class TurnSystem : MonoBehaviour
         players[currentPlayer].GetComponent<Player>().updateLarvae();
         foreach(Transform h in players[currentPlayer].GetComponent<Player>().units) {
             if(h.GetComponent<UnitHarvester>())
-                players[currentPlayer].GetComponent<Player>().updateResources(h.GetComponent<UnitHarvester>().harvest());
+                players[currentPlayer].GetComponent<Player>().updateResources(h.GetComponent<UnitHarvester>().harvest(players[currentPlayer].GetComponent<Player>().colonies));
         }
 
         Camera.main.GetComponent<CameraMovement>().moveToColony();
