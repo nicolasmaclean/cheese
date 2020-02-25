@@ -1,3 +1,4 @@
+using UnityEngine;
 public class TileColony : Tile
 {
     public int queens = 1;
@@ -8,5 +9,11 @@ public class TileColony : Tile
         entityName = "Colony Tile";
 
         base.initialize(gPos);
+    }
+
+    public override void clicked(System.Collections.Generic.List<GameObject> clickHistory) 
+    {
+        base.clicked(clickHistory);
+        UIGameManager.openMenu();
     }
 }
