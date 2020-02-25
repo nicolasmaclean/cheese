@@ -63,6 +63,7 @@ public class Tile : Entity
     {
         base.clicked(clickHistory);
         ClickSystem.checkClickMoveUnit();
+        UIGameManager.closeMenu();
     }
 
     public List<Tile> getAdjacentTiles()
@@ -74,7 +75,7 @@ public class Tile : Entity
         for(int y = -1; y < 2; y++)
             for(int x = -1; x < 2; x++)
                 if(x != 0 && y != 0 & gridPosition.x + x < width && gridPosition.x + x > -1 && gridPosition.y + y < height && gridPosition.y + y > -1)
-                    adjTiles.Add(TileMapGenerator.tiles[y, x]);
+                    adjTiles.Add(TileMapGenerator.tiles[(int)gridPosition.y+ y, (int)gridPosition.x + x]);
 
         return adjTiles;
     }
