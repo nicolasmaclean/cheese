@@ -43,7 +43,7 @@ public class Tile : Entity
 
     public override void hoverClickState()
     {
-        groundT.GetComponent<Renderer>().material.color = Color.green;
+        groundT.GetComponent<Renderer>().material.color = UIGameManager.assign? Color.yellow: Color.green;
         base.hoverClickState();
     }
     
@@ -63,7 +63,6 @@ public class Tile : Entity
     {
         base.clicked(clickHistory);
         ClickSystem.checkClickMoveUnit();
-        UIGameManager.closeMenu();
     }
 
     public List<Tile> getAdjacentTiles()

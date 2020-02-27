@@ -43,7 +43,12 @@ public class ClickSystem : MonoBehaviour
             GameObject cl1 = clickHistory[clickHistory.Count-1];
             if(cl0.GetComponent<Unit>() != null && cl1.GetComponent<Tile>() != null){
                 if(cl0.transform.parent == TurnSystem.players[TurnSystem.currentPlayer].gameObject.transform) {
-                    cl0.GetComponent<Unit>().move(cl1.GetComponent<Tile>().gridPosition);
+                    if(UIGameManager.assign) {
+                        cl0.GetComponent<UnitHarvester>().assignedTile = cl1.GetComponent<Tile>();
+                        UIGameManager.assign = false;
+                    }
+                    else
+                        cl0.GetComponent<Unit>().move(cl1.GetComponent<Tile>().gridPosition);
                 } else {
                     if(!messagePanel.activeInHierarchy) {
                         messagePanel.SetActive(true);

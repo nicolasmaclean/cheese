@@ -4,6 +4,8 @@ using System.Collections.Generic;
 public class UnitHarvester : Unit
 {
     public float harvestRange = 2;
+
+    public Tile assignedTile;
     public override void initialize(Vector2 gPos)
     {
         maxHealth = 100;
@@ -43,5 +45,11 @@ public class UnitHarvester : Unit
         }
 
         return (int)Mathf.Sqrt(i);
+    }
+
+    public override void clicked(System.Collections.Generic.List<GameObject> clickHistory) 
+    {
+        base.clicked(clickHistory);
+        UIGameManager.openMenu("Harvester");
     }
 }
