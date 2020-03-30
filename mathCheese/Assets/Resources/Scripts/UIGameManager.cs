@@ -89,4 +89,8 @@ public class UIGameManager : MonoBehaviour
         assign = true;
         ClickSystem.clickHistory[ClickSystem.clickHistory.Count-1].GetComponent<Unit>().moveTilesReset();
     }
+    public void removeAssigned()
+    {
+        ClickSystem.clickHistory[ClickSystem.clickHistory.Count-1].GetComponent<UnitHarvester>().assignedTile = null;
+    }
 }
