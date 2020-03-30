@@ -6,6 +6,8 @@ public class UnitHarvester : Unit
     public float harvestRange = 2;
 
     public Tile assignedTile;
+
+    public Stack<Tile> path;
     public override void initialize(Vector2 gPos)
     {
         maxHealth = 100;
@@ -51,5 +53,30 @@ public class UnitHarvester : Unit
     {
         base.clicked(clickHistory);
         UIGameManager.openMenu("Harvester");
+    }
+
+    public void getPath(Tile start, Tile end)
+    {
+        Node s = new Node((int)start.gridPosition.x, (int)start.gridPosition.y);
+        Node e = new Node((int)end.gridPosition.x, (int)end.gridPosition.y);
+
+        PathFinder.findPath(s, e);
+        List<Node> nodePath = PathFinder.path;
+
+        Debug.Log(nodePath.Count);
+
+        List<Tile> tilePath = new List<Tile>();
+
+        foreach(Node n in nodePath)
+        {
+            tilePath.Add(TileMapGenerator.tiles[n.x,n.y]);
+        }
+
+        path = new Stack<Tile>();
+        foreach(Tile t in tilePath)
+        {
+            Debug.Log("bruh 2.0");
+            path.Push(t);
+        }
     }
 }
