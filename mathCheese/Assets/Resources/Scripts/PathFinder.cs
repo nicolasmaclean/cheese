@@ -57,7 +57,7 @@ public class PathFinder : MonoBehaviour
             }
             foreach(Node n in adjacent)
             {
-                if(!Unit.unitPositions[n.x,n.y] && !closedList.Contains(n))
+                if(!blocked(n.x,n.y) && !closedList.Contains(n))
                 {
                     double cost = current.gCost + getDistance(current, n);
 
@@ -93,5 +93,10 @@ public class PathFinder : MonoBehaviour
     public static double getDistance(Node start, Node end)
     {
         return Mathf.Sqrt(Mathf.Pow(Mathf.Abs(start.x-end.x),2) + Mathf.Pow(Mathf.Abs(start.y-end.y),2));
+    }
+
+    public static bool blocked(int x, int y)
+    {
+        return Unit.isTileFilled(new Vector2(x,y));
     }
 }

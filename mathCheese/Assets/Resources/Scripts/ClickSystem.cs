@@ -87,6 +87,7 @@ public class ClickSystem : MonoBehaviour
             lastClicked = clickHistory[clickHistory.Count-1];
             if(lastClicked != null && lastClicked.GetComponent<Tile>())
             TurnSystem.players[TurnSystem.currentPlayer].gameObject.GetComponent<Player>().addUnit(Species.getRandomUnitTransform(), lastClicked.GetComponent<Tile>().gridPosition, new Quaternion(-1,0,0,1));
+            Unit.unitPositions[(int)lastClicked.GetComponent<Tile>().gridPosition.x,(int)lastClicked.GetComponent<Tile>().gridPosition.y] = true;
         }
     }
 

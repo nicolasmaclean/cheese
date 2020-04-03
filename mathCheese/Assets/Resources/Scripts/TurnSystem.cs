@@ -68,7 +68,11 @@ public class TurnSystem : MonoBehaviour
                 if(h.GetComponent<UnitHarvester>().path != null)
                 {
                     Tile m = h.GetComponent<UnitHarvester>().path.Pop();
-                    Debug.Log(m.gridPosition.x + " " + m.gridPosition.y);
+                    if(PathFinder.blocked((int)m.gridPosition.x, (int)m.gridPosition.y))
+                    {
+                        h.GetComponent<UnitHarvester>().getPath(TileMapGenerator.tiles[(int)h.GetComponent<UnitHarvester>().gridPosition.x, (int)h.GetComponent<UnitHarvester>().gridPosition.y], h.GetComponent<UnitHarvester>().path.Pop());
+                        m = h.GetComponent<UnitHarvester>().path.Pop();
+                    }
                     h.GetComponent<UnitHarvester>().move(m.gridPosition);
                 }
             }
