@@ -41,6 +41,7 @@ public class Unit : Entity
 
     public override void clicked(System.Collections.Generic.List<GameObject> clickHistory)
     {
+        base.clicked(clickHistory);
         if(clickHistory.Count == 0 || clickHistory.IndexOf(gameObject) != clickHistory.Count-1){
             if(clickHistory.Count > 0 && clickHistory[clickHistory.Count-1].GetComponent<Unit>() != null) // resets move tiles when switching selection between units
                 clickHistory[clickHistory.Count-1].GetComponent<Unit>().moveTilesReset();
@@ -113,7 +114,7 @@ public class Unit : Entity
     public bool takeDamage(int damage)
     {
         health -= damage;
-        return checkDeath();;
+        return checkDeath();
     }
 
     public int heal(int healAmt)
