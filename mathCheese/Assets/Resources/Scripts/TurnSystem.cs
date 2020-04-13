@@ -59,7 +59,23 @@ public class TurnSystem : MonoBehaviour
         players[currentPlayer].GetComponent<Player>().updateLarvae();
         foreach(Transform h in players[currentPlayer].GetComponent<Player>().units) {
             if(h.GetComponent<UnitHarvester>())
+            {
                 players[currentPlayer].GetComponent<Player>().updateResources(h.GetComponent<UnitHarvester>().harvest(players[currentPlayer].GetComponent<Player>().colonies));
+                if((h.GetComponent<UnitHarvester>().path == null || h.GetComponent<UnitHarvester>().path.Count == 0) && h.GetComponent<UnitHarvester>().assignedTile != null)
+                {
+                    h.GetComponent<UnitHarvester>().getPath(TileMapGenerator.tiles[(int)h.GetComponent<UnitHarvester>().gridPosition.x, (int)h.GetComponent<UnitHarvester>().gridPosition.y], h.GetComponent<UnitHarvester>().assignedTile);
+                }
+                if(h.GetComponent<UnitHarvester>().path != null)
+                {
+                    Tile m = h.GetComponent<UnitHarvester>().path.Pop();
+                    if(PathFinder.blocked((int)m.gridPosition.x, (int)m.gridPosition.y))
+                    {
+                        h.GetComponent<UnitHarvester>().getPath(TileMapGenerator.tiles[(int)h.GetComponent<UnitHarvester>().gridPosition.x, (int)h.GetComponent<UnitHarvester>().gridPosition.y], h.GetComponent<UnitHarvester>().path.Pop());
+                        m = h.GetComponent<UnitHarvester>().path.Pop();
+                    }
+                    h.GetComponent<UnitHarvester>().move(m.gridPosition);
+                }
+            }
         }
 
         Camera.main.GetComponent<CameraMovement>().moveToColony();

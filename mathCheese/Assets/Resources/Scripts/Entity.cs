@@ -54,6 +54,7 @@ public class Entity : MonoBehaviour
         }
 
         updated = false;
+        UIGameManager.closeMenu();
     }
 
     public virtual void hovered(System.Collections.Generic.List<GameObject> clickHistory)

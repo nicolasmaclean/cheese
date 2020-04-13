@@ -43,7 +43,7 @@ public class Tile : Entity
 
     public override void hoverClickState()
     {
-        groundT.GetComponent<Renderer>().material.color = Color.green;
+        groundT.GetComponent<Renderer>().material.color = UIGameManager.assign? Color.yellow: Color.green;
         base.hoverClickState();
     }
     
@@ -73,8 +73,8 @@ public class Tile : Entity
         int height = TileMapGenerator.mapHeight;
         for(int y = -1; y < 2; y++)
             for(int x = -1; x < 2; x++)
-                if(x != 0 && y != 0 & gridPosition.x + x < width && gridPosition.x + x > -1 && gridPosition.y + y < height && gridPosition.y + y > -1)
-                    adjTiles.Add(TileMapGenerator.tiles[y, x]);
+                if(gridPosition.x+x >= 0 && gridPosition.y+y >= 0 & gridPosition.x + x < width && gridPosition.x + x > -1 && gridPosition.y + y < height && gridPosition.y + y > -1)
+                    adjTiles.Add(TileMapGenerator.tiles[(int)gridPosition.y+ y, (int)gridPosition.x + x]);
 
         return adjTiles;
     }
