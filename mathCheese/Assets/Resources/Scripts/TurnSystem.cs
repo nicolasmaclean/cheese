@@ -56,25 +56,24 @@ public class TurnSystem : MonoBehaviour
         if(currentPlayer >= players.Count)
             currentPlayer = 0;
 
-        players[currentPlayer].GetComponent<Player>().updateLarvae();
-        foreach(Transform h in players[currentPlayer].GetComponent<Player>().units) {
-            if(h.GetComponent<UnitHarvester>())
+        Player curPlayer = players[currentPlayer].GetComponent<Player>();
+        curPlayer.updateLarvae();
+        foreach(UnitHarvester h in curPlayer.GetComponentsInChildren<UnitHarvester>()) {
+
+            curPlayer.updateResources(h.harvest(curPlayer.colonies));
+            if((h.path == null || h.path.Count == 0) && h.assignedTile != null)
             {
-                players[currentPlayer].GetComponent<Player>().updateResources(h.GetComponent<UnitHarvester>().harvest(players[currentPlayer].GetComponent<Player>().colonies));
-                if((h.GetComponent<UnitHarvester>().path == null || h.GetComponent<UnitHarvester>().path.Count == 0) && h.GetComponent<UnitHarvester>().assignedTile != null)
+                h.getPath(TileMapGenerator.tiles[(int)h.gridPosition.x, (int)h.gridPosition.y], h.assignedTile);
+            }
+            if(h.path != null)
+            {
+                Tile m = h.path.Pop();
+                if(PathFinder.blocked((int)m.gridPosition.x, (int)m.gridPosition.y))
                 {
-                    h.GetComponent<UnitHarvester>().getPath(TileMapGenerator.tiles[(int)h.GetComponent<UnitHarvester>().gridPosition.x, (int)h.GetComponent<UnitHarvester>().gridPosition.y], h.GetComponent<UnitHarvester>().assignedTile);
+                    h.getPath(TileMapGenerator.tiles[(int)h.gridPosition.x, (int)h.gridPosition.y], h.path.Pop());
+                    m = h.path.Pop();
                 }
-                if(h.GetComponent<UnitHarvester>().path != null)
-                {
-                    Tile m = h.GetComponent<UnitHarvester>().path.Pop();
-                    if(PathFinder.blocked((int)m.gridPosition.x, (int)m.gridPosition.y))
-                    {
-                        h.GetComponent<UnitHarvester>().getPath(TileMapGenerator.tiles[(int)h.GetComponent<UnitHarvester>().gridPosition.x, (int)h.GetComponent<UnitHarvester>().gridPosition.y], h.GetComponent<UnitHarvester>().path.Pop());
-                        m = h.GetComponent<UnitHarvester>().path.Pop();
-                    }
-                    h.GetComponent<UnitHarvester>().move(m.gridPosition);
-                }
+                h.move(m.gridPosition);
             }
         }
 
