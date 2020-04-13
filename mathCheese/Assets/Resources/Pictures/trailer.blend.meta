@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: ac4d1e3a78d304f0b945939e85bc6ca2
+guid: b2e2c433a9c36b9429852ac0e0bfb19a
 ModelImporter:
   serializedVersion: 26
   internalIDToNameTable:
@@ -18,6 +18,9 @@ ModelImporter:
   - first:
       74: -1748938623720134809
     second: Ant|TextAction
+  - first:
+      74: 3248125372518856682
+    second: Title|TextAction
   externalObjects: {}
   materials:
     importMaterials: 1
