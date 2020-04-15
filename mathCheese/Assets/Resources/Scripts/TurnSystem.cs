@@ -65,7 +65,7 @@ public class TurnSystem : MonoBehaviour
             {
                 h.getPath(TileMapGenerator.tiles[(int)h.gridPosition.x, (int)h.gridPosition.y], h.assignedTile);
             }
-            if(h.path != null)
+            if(h.path != null && h.path.Count > 0) // checks count to prevent error when ant makes it to end of path
             {
                 Tile m = h.path.Pop();
                 if(PathFinder.blocked((int)m.gridPosition.x, (int)m.gridPosition.y))
@@ -86,11 +86,11 @@ public class TurnSystem : MonoBehaviour
 
     public void updateText()
     {
-        currentPlayerText.text = players[currentPlayer].name;
-        currentLarvaeText.text = "" + players[currentPlayer].GetComponent<Player>().larvae;
-        currentFoodText.text = "" + players[currentPlayer].GetComponent<Player>().food;
-        currentWaterText.text = "" + players[currentPlayer].GetComponent<Player>().water;
-        currentGoldText.text = "" + players[currentPlayer].GetComponent<Player>().gold;
+        currentPlayerText.text = "Current Player " + players[currentPlayer].name;
+        currentLarvaeText.text = "" + players[currentPlayer].GetComponent<Player>().larvae + " Larvae";
+        currentFoodText.text = "" + players[currentPlayer].GetComponent<Player>().food + " Food";
+        currentWaterText.text = "" + players[currentPlayer].GetComponent<Player>().water + " Water";
+        currentGoldText.text = "" + players[currentPlayer].GetComponent<Player>().gold + " Gold";
     }
 
     public void reset()
