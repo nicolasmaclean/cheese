@@ -3,6 +3,7 @@ using System.Collections.Generic;
 public class UIGameManager : MonoBehaviour
 {
     public GameObject canvasPublic;
+    public TurnSystem turnSystem;
     static GameObject canvas;
 
     public static bool assign;
@@ -39,6 +40,7 @@ public class UIGameManager : MonoBehaviour
                     placed = true;
                 }
             }
+            turnSystem.updateText();
         }
     }
 
@@ -60,6 +62,7 @@ public class UIGameManager : MonoBehaviour
                     placed = true;
                 }
             }
+            turnSystem.updateText();
         }
     }
     public void buildQueen() 
@@ -81,6 +84,7 @@ public class UIGameManager : MonoBehaviour
                     placed = true;
                 }
             }
+            turnSystem.updateText();
         }
     }
 
