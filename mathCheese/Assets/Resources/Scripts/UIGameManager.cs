@@ -20,14 +20,14 @@ public class UIGameManager : MonoBehaviour
 
     public static void closeMenu()
     {
-        canvas.transform.Find("Colony").gameObject.SetActive(false);
-        canvas.transform.Find("Harvester").gameObject.SetActive(false);
+        canvas.transform.Find("UnitCreation").gameObject.SetActive(false);
+        canvas.transform.Find("HarvesterAssignment").gameObject.SetActive(false);
     }
 
     public void buildAnt() 
     {
         bool placed = false;
-        if(TurnSystem.players[TurnSystem.currentPlayer].GetComponent<Player>().larvae > 5)
+        if(TurnSystem.players[TurnSystem.currentPlayer].GetComponent<Player>().larvae >= 5)
         {
             Tile c = ClickSystem.clickHistory[ClickSystem.clickHistory.Count-1].GetComponent<Tile>();
             List<Tile> tiles = c.getAdjacentTiles();
@@ -47,7 +47,7 @@ public class UIGameManager : MonoBehaviour
     public void buildSoldier() 
     {
         bool placed = false;
-        if(TurnSystem.players[TurnSystem.currentPlayer].GetComponent<Player>().larvae > 50 && TurnSystem.players[TurnSystem.currentPlayer].GetComponent<Player>().food > 20 && TurnSystem.players[TurnSystem.currentPlayer].GetComponent<Player>().water > 10)
+        if(TurnSystem.players[TurnSystem.currentPlayer].GetComponent<Player>().larvae >= 50 && TurnSystem.players[TurnSystem.currentPlayer].GetComponent<Player>().food >= 20 && TurnSystem.players[TurnSystem.currentPlayer].GetComponent<Player>().water >= 10)
         {
             Tile c = ClickSystem.clickHistory[ClickSystem.clickHistory.Count-1].GetComponent<Tile>();
             List<Tile> tiles = c.getAdjacentTiles();
@@ -68,7 +68,7 @@ public class UIGameManager : MonoBehaviour
     public void buildQueen() 
     {
         bool placed = false;
-        if(TurnSystem.players[TurnSystem.currentPlayer].GetComponent<Player>().larvae > 50 && TurnSystem.players[TurnSystem.currentPlayer].GetComponent<Player>().food > 100 && TurnSystem.players[TurnSystem.currentPlayer].GetComponent<Player>().water > 100 && TurnSystem.players[TurnSystem.currentPlayer].GetComponent<Player>().gold > 20)
+        if(TurnSystem.players[TurnSystem.currentPlayer].GetComponent<Player>().larvae >= 50 && TurnSystem.players[TurnSystem.currentPlayer].GetComponent<Player>().food >= 100 && TurnSystem.players[TurnSystem.currentPlayer].GetComponent<Player>().water >= 100 && TurnSystem.players[TurnSystem.currentPlayer].GetComponent<Player>().gold >= 20)
         {
             Tile c = ClickSystem.clickHistory[ClickSystem.clickHistory.Count-1].GetComponent<Tile>();
             List<Tile> tiles = c.getAdjacentTiles();

@@ -4,7 +4,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public List<Transform> units = new List<Transform>();
-    public int larvae = 0, currentColony = 0;
+    public int larvae = 3, currentColony = 0;
     public float gold = 0, water = 0, food = 0;
     public List<TileColony> colonies = new List<TileColony>();
 

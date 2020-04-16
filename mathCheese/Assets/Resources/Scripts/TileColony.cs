@@ -14,6 +14,6 @@ public class TileColony : Tile
     public override void clicked(System.Collections.Generic.List<GameObject> clickHistory) 
     {
         base.clicked(clickHistory);
-        UIGameManager.openMenu("Colony");
+        UIGameManager.openMenu("UnitCreation");
     }
 }

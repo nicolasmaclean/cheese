@@ -23,7 +23,7 @@ public class UnitHarvester : Unit
         float[] resources = new float[3];
 
         Tile temp = TileMapGenerator.tiles[(int)gridPosition.y, (int)gridPosition.x];
-        if(temp) {
+        if(temp && temp == assignedTile) {
             resources[0] = temp.food;
             resources[1] = temp.water;
             resources[2] = temp.gold;
@@ -52,7 +52,7 @@ public class UnitHarvester : Unit
     public override void clicked(System.Collections.Generic.List<GameObject> clickHistory) 
     {
         base.clicked(clickHistory);
-        UIGameManager.openMenu("Harvester");
+        UIGameManager.openMenu("HarvesterAssignment");
     }
 
     public void getPath(Tile start, Tile end)

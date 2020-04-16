@@ -7,19 +7,16 @@ public class ClickSystem : MonoBehaviour
 {
     public static List<GameObject> clickHistory;
     public static RaycastHit hitInfo;
-    public Transform tempUnitTransform;
     public enum ClickState {none, hover, click};
     public GameObject infoPanelPublic;
     public GameObject messagePanelPublic;
     public Text activeSelectionTextPublic;
     public Text healthHeaderPublic;
-    public Text healthTextPublic;
 
     static RectTransform infoPanel;
     static GameObject messagePanel;
     static Text activeSelectionText;
     static Text healthHeader;
-    static Text healthText;
     GameObject lastClicked;
     static ClickSystem clickSystemRef;
 
@@ -32,7 +29,6 @@ public class ClickSystem : MonoBehaviour
         messagePanel = messagePanelPublic;
         activeSelectionText = activeSelectionTextPublic;
         healthHeader = healthHeaderPublic;
-        healthText = healthTextPublic;
     }
 
     //checks the the last 2 clicked items and moves the unit if applicable
@@ -104,11 +100,11 @@ public class ClickSystem : MonoBehaviour
     {
         activeSelectionText.text = go.GetComponent<Entity>().entityName;
         if(go.GetComponent<Unit>() != null){
-            infoPanel.sizeDelta = new Vector2(infoPanel.sizeDelta.x, (float)225);
+            infoPanel.sizeDelta = new Vector2((float)390, infoPanel.sizeDelta.y);
             healthHeader.gameObject.SetActive(true);
-            healthText.text = "" + go.GetComponent<Unit>().health;
+            healthHeader.text = "Health: " + go.GetComponent<Unit>().health + "/" + go.GetComponent<Unit>().maxHealth;
         } else {
-            infoPanel.sizeDelta = new Vector2(infoPanel.sizeDelta.x, (float)155);
+            infoPanel.sizeDelta = new Vector2((float)170, infoPanel.sizeDelta.y);
             healthHeader.gameObject.SetActive(false);
         }
     }
@@ -124,7 +120,7 @@ public class ClickSystem : MonoBehaviour
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             Physics.Raycast(ray, out hitInfo, 200);
 
-            if(UIPauseManager.paused || EventSystem.current.IsPointerOverGameObject()) return;
+            if(UIPauseManager.paused || EventSystem.current.IsPointerOverGameObject()) return; //this bit makes ui block mouse
 
             Entity[] entities = FindObjectsOfType<Entity>();
             foreach(Entity entity in entities) {
