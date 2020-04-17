@@ -52,6 +52,8 @@ public class TurnSystem : MonoBehaviour
 
     public void nextTurn()
     {
+        foreach(Transform t in players[currentPlayer].GetComponent<Player>().units)
+            t.GetComponent<Unit>().moves = 1;
         currentPlayer++;
         if(currentPlayer >= players.Count)
             currentPlayer = 0;

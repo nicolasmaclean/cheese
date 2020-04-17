@@ -72,6 +72,7 @@ public class ClickSystem : MonoBehaviour
                         cl0.GetComponent<Unit>().levelUp();
                         cl0.GetComponent<Unit>().move(tPos);
                     }
+                    cl0.GetComponent<Unit>().moves--;
                 }
             }
         }
@@ -83,7 +84,7 @@ public class ClickSystem : MonoBehaviour
             lastClicked = clickHistory[clickHistory.Count-1];
             if(lastClicked != null && lastClicked.GetComponent<Tile>())
             TurnSystem.players[TurnSystem.currentPlayer].gameObject.GetComponent<Player>().addUnit(Species.getRandomUnitTransform(), lastClicked.GetComponent<Tile>().gridPosition, new Quaternion(-1,0,0,1));
-            Unit.unitPositions[(int)lastClicked.GetComponent<Tile>().gridPosition.x,(int)lastClicked.GetComponent<Tile>().gridPosition.y] = true;
+            Unit.unitPositions[(int)lastClicked.GetComponent<Tile>().gridPosition.y,(int)lastClicked.GetComponent<Tile>().gridPosition.x] = true;
         }
     }
 
@@ -124,7 +125,7 @@ public class ClickSystem : MonoBehaviour
 
             Entity[] entities = FindObjectsOfType<Entity>();
             foreach(Entity entity in entities) {
-                if(checkCollision(entity.getCollider())){
+                if(checkCollision(entity.getCollider()) && (entity.GetComponent<Unit>() == null || entity.GetComponent<Unit>().moves > 0)){
                     if(Input.GetMouseButtonDown(0)){ // clicked
                         entity.clicked(clickHistory);
                         ClickSystem.updateSelectionText(entity.gameObject); // move this into clicked

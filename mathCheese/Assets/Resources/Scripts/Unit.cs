@@ -10,6 +10,8 @@ public class Unit : Entity
     public int level = 1;
     public double levelMult = 1.1;
 
+    public int moves = 1;
+
     public override void initialize(Vector2 gPos)
     {
         unitPositions[(int)gPos.y, (int)gPos.x] = true;
@@ -41,7 +43,7 @@ public class Unit : Entity
 
     public override void clicked(System.Collections.Generic.List<GameObject> clickHistory)
     {
-        base.clicked(clickHistory);
+        //base.clicked(clickHistory);
         if(clickHistory.Count == 0 || clickHistory.IndexOf(gameObject) != clickHistory.Count-1){
             if(clickHistory.Count > 0 && clickHistory[clickHistory.Count-1].GetComponent<Unit>() != null) // resets move tiles when switching selection between units
                 clickHistory[clickHistory.Count-1].GetComponent<Unit>().moveTilesReset();
@@ -79,6 +81,7 @@ public class Unit : Entity
 
             gridPosition = nPos;
             gameObject.transform.position = new Vector3(gridPosition.x * TileMapGenerator.tileSize, 0, gridPosition.y * TileMapGenerator.tileSize);
+            moves--;
         }
     }
 
