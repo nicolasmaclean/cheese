@@ -64,6 +64,7 @@ MeshRenderer:
   - {fileID: -4262996574493526963, guid: 7a6a8ae239aae46ac8852f5f2a6b5b1e, type: 3}
   - {fileID: 4835078630258379571, guid: 7a6a8ae239aae46ac8852f5f2a6b5b1e, type: 3}
   - {fileID: 3511325375820423461, guid: 7a6a8ae239aae46ac8852f5f2a6b5b1e, type: 3}
+  - {fileID: 2100000, guid: 002b0cdb6df5d1c4f885d79889cd79cf, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -107,6 +108,7 @@ MonoBehaviour:
   damage: 1
   level: 1
   levelMult: 1.1
+  moves: 1
 --- !u!135 &8314210294207941391
 SphereCollider:
   m_ObjectHideFlags: 0

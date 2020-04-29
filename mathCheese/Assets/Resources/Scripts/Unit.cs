@@ -9,26 +9,45 @@ public class Unit : Entity
     public int damage = 1;
     public int level = 1;
     public double levelMult = 1.1;
-
     public int moves = 1;
+    public int teamMaterialIndex;
+    public bool canMove = true;
+
+    static Material borderDefaultMaterial;
+    static Material borderNoStamMaterial;
 
     public override void initialize(Vector2 gPos)
     {
+        if(borderDefaultMaterial == null) {
+            borderDefaultMaterial = transform.Find("Border").GetComponent<Renderer>().material;
+        }
+        if(borderNoStamMaterial == null) {
+            borderNoStamMaterial = Resources.Load("Materials/Player 1") as Material;
+        }
+
         unitPositions[(int)gPos.y, (int)gPos.x] = true;
         health = maxHealth;
 
         base.initialize(gPos);
     }
 
-    public override void Update() {
-        // checkDeath();
-        base.Update();
+    public virtual void initialize(Vector2 gPos, Material teamMaterial)
+    {
+        if(teamMaterialIndex > 0 && teamMaterialIndex < GetComponent<Renderer>().materials.GetLength(0) && teamMaterial != null) {
+            Renderer renderer = GetComponent<Renderer>();
+            Material[] mats = renderer.materials; 
+            mats[teamMaterialIndex] = teamMaterial; 
+            renderer.materials = mats;
+        } else {
+            Debug.Log("something wrong with team material assignment");
+        }
+        initialize(gPos);
     }
 
     public override void clickClickState()
     {
         base.clickClickState();
-        if(gameObject.transform.parent == TurnSystem.players[TurnSystem.currentPlayer]){ // player check
+        if(gameObject.transform.parent == TurnSystem.players[TurnSystem.currentPlayer] && canMove){ // player check
             for(int z = -moveRange; z <= moveRange; z++){
                 for(int x = -moveRange; x <= moveRange; x++){
                     if((int)gridPosition.y + z > -1 && (int)gridPosition.y + z < TileMapGenerator.tiles.GetLength(0) && (int)gridPosition.x + x > -1 && (int)gridPosition.x + x < TileMapGenerator.tiles.GetLength(1)){
@@ -43,7 +62,6 @@ public class Unit : Entity
 
     public override void clicked(System.Collections.Generic.List<GameObject> clickHistory)
     {
-        //base.clicked(clickHistory);
         if(clickHistory.Count == 0 || clickHistory.IndexOf(gameObject) != clickHistory.Count-1){
             if(clickHistory.Count > 0 && clickHistory[clickHistory.Count-1].GetComponent<Unit>() != null) // resets move tiles when switching selection between units
                 clickHistory[clickHistory.Count-1].GetComponent<Unit>().moveTilesReset();
@@ -52,7 +70,7 @@ public class Unit : Entity
 
             clickHistory.Add(gameObject);
 
-        } else if(clickHistory.Count > 0 && clickHistory.IndexOf(gameObject) == clickHistory.Count-1) {
+        } else if(clickHistory.Count > 0 && clickHistory.IndexOf(gameObject) == clickHistory.Count-1) { // double click to deselect
             clickState = ClickSystem.ClickState.none;
 
             if(gameObject.GetComponent<Unit>() != null)
@@ -62,7 +80,8 @@ public class Unit : Entity
 
         updated = false;
 
-        ClickSystem.checkUnitAttack();
+        if(canMove)
+            ClickSystem.checkUnitAttack();
     }
 
     public static bool isTileFilled(Vector2 gPos)
@@ -81,7 +100,8 @@ public class Unit : Entity
 
             gridPosition = nPos;
             gameObject.transform.position = new Vector3(gridPosition.x * TileMapGenerator.tileSize, 0, gridPosition.y * TileMapGenerator.tileSize);
-            moves--;
+            // moves--;
+            decreaseMoves(1);
         }
     }
 
@@ -161,6 +181,34 @@ public class Unit : Entity
             } else {
                 adjTiles.RemoveAt(r);
             }
+        }
+    }
+
+    public void decreaseMoves(int i)
+    {
+        moves -= i;
+        if(moves <= 0) {
+            canMove = false;
+            updateCanMove();
+        }
+    }
+
+    public void resetMoves()
+    {
+        moves = 1;
+        if(!canMove) {
+            canMove = true;
+            updateCanMove();
+        }
+    }
+
+    public void updateCanMove()
+    {
+        Renderer borderRenderer = transform.Find("Border").GetComponent<Renderer>();
+        if(canMove) {
+            borderRenderer.material = borderDefaultMaterial;
+        } else {
+            borderRenderer.material = borderNoStamMaterial;
         }
     }
 }

@@ -38,7 +38,10 @@ public class ClickSystem : MonoBehaviour
             GameObject cl0 = clickHistory[clickHistory.Count-2];
             GameObject cl1 = clickHistory[clickHistory.Count-1];
             if(cl0.GetComponent<Unit>() != null && cl1.GetComponent<Tile>() != null){
-                if(cl0.transform.parent == TurnSystem.players[TurnSystem.currentPlayer].gameObject.transform) {
+                if(!cl0.GetComponent<Unit>().canMove) {
+                    //display a message, that the unit is out of stamina
+                }
+                else if(cl0.transform.parent == TurnSystem.players[TurnSystem.currentPlayer].gameObject.transform) {
                     if(UIGameManager.assign) {
                         cl0.GetComponent<UnitHarvester>().assignedTile = cl1.GetComponent<Tile>();
                         UIGameManager.assign = false;
@@ -72,7 +75,8 @@ public class ClickSystem : MonoBehaviour
                         cl0.GetComponent<Unit>().levelUp();
                         cl0.GetComponent<Unit>().move(tPos);
                     }
-                    cl0.GetComponent<Unit>().moves--;
+                    // cl0.GetComponent<Unit>().moves--;
+                    cl0.GetComponent<Unit>().decreaseMoves(1);
                 }
             }
         }
@@ -125,7 +129,7 @@ public class ClickSystem : MonoBehaviour
 
             Entity[] entities = FindObjectsOfType<Entity>();
             foreach(Entity entity in entities) {
-                if(checkCollision(entity.getCollider()) && (entity.GetComponent<Unit>() == null || entity.GetComponent<Unit>().moves > 0)){
+                if(checkCollision(entity.getCollider())) {// && (entity.GetComponent<Unit>() == null || entity.GetComponent<Unit>().moves > 0)){
                     if(Input.GetMouseButtonDown(0)){ // clicked
                         entity.clicked(clickHistory);
                         ClickSystem.updateSelectionText(entity.gameObject); // move this into clicked

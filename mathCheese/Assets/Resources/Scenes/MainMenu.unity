@@ -1923,6 +1923,11 @@ MonoBehaviour:
   mapSize: {fileID: 36620247}
   playerAmt: {fileID: 1589666617}
   playerCanvas: {fileID: 233827798}
+  teamMaterials:
+  - {fileID: 2100000, guid: b6c6c752c7b87b84492f0865a4aba95d, type: 2}
+  - {fileID: 2100000, guid: ec82efee40aee7f47a0a0e7685292857, type: 2}
+  - {fileID: 2100000, guid: d88ecf55236936b48a87dacc443fa462, type: 2}
+  - {fileID: 2100000, guid: f2c766e4acb65ab41a0c2ffa4839873e, type: 2}
 --- !u!4 &1333557770
 Transform:
   m_ObjectHideFlags: 0

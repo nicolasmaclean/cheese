@@ -7,6 +7,8 @@ public class Player : MonoBehaviour
     public int larvae = 3, currentColony = 0;
     public float gold = 0, water = 0, food = 0;
     public List<TileColony> colonies = new List<TileColony>();
+    public Material teamMaterial;
+    public bool unlimitedMoney;
 
     public void updateLarvae()
     {
@@ -26,7 +28,7 @@ public class Player : MonoBehaviour
     {
         if(!Unit.isTileFilled(pos)){
             Transform tempT = Instantiate(mesh, new Vector3(pos.x * TileMapGenerator.tileSize, 0, pos.y * TileMapGenerator.tileSize), up);
-            tempT.gameObject.GetComponent<Unit>().initialize(pos);
+            tempT.gameObject.GetComponent<Unit>().initialize(pos, teamMaterial);
             tempT.parent = gameObject.transform;
             units.Add(tempT);
         }

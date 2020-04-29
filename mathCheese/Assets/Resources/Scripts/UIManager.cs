@@ -13,6 +13,7 @@ public class UIManager : MonoBehaviour
     public GameObject mapSize;
     public GameObject playerAmt;
     public GameObject playerCanvas;
+    public Material[] teamMaterials;
 
     private float players = 2;
     private int size = 0;
@@ -45,6 +46,11 @@ public class UIManager : MonoBehaviour
             player.name = names[r]; // make a player prefab that this can instantiate from\
             names.RemoveAt(r);
             player.AddComponent<Player>();
+            if(i < teamMaterials.GetLength(0)) {
+                player.GetComponent<Player>().teamMaterial = teamMaterials[i];
+            } else {
+                Debug.Log("get some juicy team materials in teh UI Manager!");
+            }
             TurnSystem.players.Add(player.transform);
             DontDestroyOnLoad(player);
         }

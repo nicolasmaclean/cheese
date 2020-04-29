@@ -2,14 +2,15 @@ using UnityEngine;
 
 public class UnitQueen : Unit
 {
-    public override void initialize(Vector2 gPos)
+    public override void initialize(Vector2 gPos, Material teamMaterial)
     {
         maxHealth = 75;
         moveRange = 3;
         damage = 20;
         entityName = "Queen Ant";
+        teamMaterialIndex = 4;
         
-        base.initialize(gPos);
+        base.initialize(gPos, teamMaterial);
     }
 
     public void makeColony()

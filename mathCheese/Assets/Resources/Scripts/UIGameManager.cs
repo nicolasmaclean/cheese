@@ -26,8 +26,9 @@ public class UIGameManager : MonoBehaviour
 
     public void buildAnt() 
     {
+        Player currentPlayer = TurnSystem.players[TurnSystem.currentPlayer].GetComponent<Player>();
         bool placed = false;
-        if(TurnSystem.players[TurnSystem.currentPlayer].GetComponent<Player>().larvae >= 5)
+        if(currentPlayer.larvae >= 5 || currentPlayer.unlimitedMoney)
         {
             Tile c = ClickSystem.clickHistory[ClickSystem.clickHistory.Count-1].GetComponent<Tile>();
             List<Tile> tiles = c.getAdjacentTiles();
@@ -35,8 +36,10 @@ public class UIGameManager : MonoBehaviour
             {
                 if(!Unit.isTileFilled(t.gridPosition) && !placed)
                 {
-                    TurnSystem.players[TurnSystem.currentPlayer].GetComponent<Player>().addUnit(Species.unitType[0],t.gridPosition,new Quaternion(-1,0,0,1));
-                    TurnSystem.players[TurnSystem.currentPlayer].GetComponent<Player>().larvae -= 5;
+                    currentPlayer.addUnit(Species.unitType[0],t.gridPosition,new Quaternion(-1,0,0,1));
+                    if(!currentPlayer.unlimitedMoney) {
+                        currentPlayer.larvae -= 5;
+                    }
                     placed = true;
                 }
             }
@@ -46,8 +49,9 @@ public class UIGameManager : MonoBehaviour
 
     public void buildSoldier() 
     {
+        Player currentPlayer = TurnSystem.players[TurnSystem.currentPlayer].GetComponent<Player>();
         bool placed = false;
-        if(TurnSystem.players[TurnSystem.currentPlayer].GetComponent<Player>().larvae >= 50 && TurnSystem.players[TurnSystem.currentPlayer].GetComponent<Player>().food >= 20 && TurnSystem.players[TurnSystem.currentPlayer].GetComponent<Player>().water >= 10)
+        if((currentPlayer.larvae >= 50 && currentPlayer.food >= 20 && currentPlayer.water >= 10) || currentPlayer.unlimitedMoney)
         {
             Tile c = ClickSystem.clickHistory[ClickSystem.clickHistory.Count-1].GetComponent<Tile>();
             List<Tile> tiles = c.getAdjacentTiles();
@@ -55,10 +59,12 @@ public class UIGameManager : MonoBehaviour
             {
                 if(!Unit.isTileFilled(t.gridPosition) && !placed)
                 {
-                    TurnSystem.players[TurnSystem.currentPlayer].GetComponent<Player>().addUnit(Species.unitType[1],t.gridPosition,new Quaternion(-1,0,0,1));
-                    TurnSystem.players[TurnSystem.currentPlayer].GetComponent<Player>().larvae -= 50;
-                    TurnSystem.players[TurnSystem.currentPlayer].GetComponent<Player>().food -= 20;
-                    TurnSystem.players[TurnSystem.currentPlayer].GetComponent<Player>().water -= 10;
+                    currentPlayer.addUnit(Species.unitType[2],t.gridPosition,new Quaternion(-1,0,0,1));
+                    if(!currentPlayer.unlimitedMoney) {
+                        currentPlayer.larvae -= 50;
+                        currentPlayer.food -= 20;
+                        currentPlayer.water -= 10;
+                    }
                     placed = true;
                 }
             }
@@ -67,8 +73,9 @@ public class UIGameManager : MonoBehaviour
     }
     public void buildQueen() 
     {
+        Player currentPlayer = TurnSystem.players[TurnSystem.currentPlayer].GetComponent<Player>();
         bool placed = false;
-        if(TurnSystem.players[TurnSystem.currentPlayer].GetComponent<Player>().larvae >= 50 && TurnSystem.players[TurnSystem.currentPlayer].GetComponent<Player>().food >= 100 && TurnSystem.players[TurnSystem.currentPlayer].GetComponent<Player>().water >= 100 && TurnSystem.players[TurnSystem.currentPlayer].GetComponent<Player>().gold >= 20)
+        if((currentPlayer.larvae >= 50 && currentPlayer.food >= 100 && currentPlayer.water >= 100 && currentPlayer.gold >= 20) || currentPlayer.unlimitedMoney)
         {
             Tile c = ClickSystem.clickHistory[ClickSystem.clickHistory.Count-1].GetComponent<Tile>();
             List<Tile> tiles = c.getAdjacentTiles();
@@ -76,11 +83,13 @@ public class UIGameManager : MonoBehaviour
             {
                 if(!Unit.isTileFilled(t.gridPosition) && !placed)
                 {
-                    TurnSystem.players[TurnSystem.currentPlayer].GetComponent<Player>().addUnit(Species.unitType[2],t.gridPosition,new Quaternion(-1,0,0,1));
-                    TurnSystem.players[TurnSystem.currentPlayer].GetComponent<Player>().larvae -= 50;
-                    TurnSystem.players[TurnSystem.currentPlayer].GetComponent<Player>().food -= 100;
-                    TurnSystem.players[TurnSystem.currentPlayer].GetComponent<Player>().water -= 100;
-                    TurnSystem.players[TurnSystem.currentPlayer].GetComponent<Player>().gold -= 20;
+                    currentPlayer.addUnit(Species.unitType[1],t.gridPosition,new Quaternion(-1,0,0,1));
+                    if(!currentPlayer.unlimitedMoney) {
+                        currentPlayer.larvae -= 50;
+                        currentPlayer.food -= 100;
+                        currentPlayer.water -= 100;
+                        currentPlayer.gold -= 20;
+                    }
                     placed = true;
                 }
             }

@@ -4,18 +4,18 @@ using System.Collections.Generic;
 public class UnitHarvester : Unit
 {
     public float harvestRange = 2;
-
     public Tile assignedTile;
-
     public Stack<Tile> path;
-    public override void initialize(Vector2 gPos)
+
+    public override void initialize(Vector2 gPos, Material teamMaterial)
     {
         maxHealth = 100;
         moveRange = 1;
         damage = 40;
         entityName = "Harvester Ant";
+        teamMaterialIndex = 2;
         
-        base.initialize(gPos);
+        base.initialize(gPos, teamMaterial);
     }
 
     public float[] harvest(List<TileColony> colonies)

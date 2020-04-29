@@ -53,7 +53,7 @@ public class TurnSystem : MonoBehaviour
     public void nextTurn()
     {
         foreach(Transform t in players[currentPlayer].GetComponent<Player>().units)
-            t.GetComponent<Unit>().moves = 1;
+            t.GetComponent<Unit>().resetMoves();
         currentPlayer++;
         if(currentPlayer >= players.Count)
             currentPlayer = 0;
@@ -107,12 +107,16 @@ public class TurnSystem : MonoBehaviour
         GameObject player1 = new GameObject();
         player1.name = "dev1";
         player1.AddComponent<Player>();
+        player1.GetComponent<Player>().teamMaterial = Resources.Load("Materials/Player 0") as Material;
+        player1.GetComponent<Player>().unlimitedMoney = true;
         players.Add(player1.transform);
         DontDestroyOnLoad(player1);
 
         GameObject player2 = new GameObject();
         player2.name = "dev2";
         player2.AddComponent<Player>();
+        player2.GetComponent<Player>().teamMaterial = Resources.Load("Materials/Player 1") as Material;
+        player1.GetComponent<Player>().unlimitedMoney = true;
         players.Add(player2.transform);
         DontDestroyOnLoad(player2);
     }

@@ -140,6 +140,7 @@ MeshRenderer:
   m_Materials:
   - {fileID: 2100000, guid: fd18818876e0a49c59c5df82fc62a7e1, type: 2}
   - {fileID: 3511325375820423461, guid: 8249d45f7d83c45b1b858b698f0f5944, type: 3}
+  - {fileID: 2100000, guid: 002b0cdb6df5d1c4f885d79889cd79cf, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -183,6 +184,7 @@ MonoBehaviour:
   damage: 1
   level: 1
   levelMult: 1.1
+  moves: 1
 --- !u!135 &8643187007828825300
 SphereCollider:
   m_ObjectHideFlags: 0

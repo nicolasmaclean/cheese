@@ -7,13 +7,35 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: Eye.001
+    second: {fileID: 3511325375820423461, guid: 14bf3a7b5e22745c5b062c979f74a434,
+      type: 3}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: Fuzzy Metal
     second: {fileID: 2100000, guid: dd42b74184a23441f9d43347e5cc099f, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: Material
+    second: {fileID: 2100000, guid: 002b0cdb6df5d1c4f885d79889cd79cf, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: Metal
     second: {fileID: 2100000, guid: dd42b74184a23441f9d43347e5cc099f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Red
+    second: {fileID: 2100000, guid: ec82efee40aee7f47a0a0e7685292857, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Skin.001
+    second: {fileID: 4835078630258379571, guid: 14bf3a7b5e22745c5b062c979f74a434,
+      type: 3}
   materials:
     importMaterials: 1
     materialName: 0

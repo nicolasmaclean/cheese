@@ -140,6 +140,7 @@ MeshRenderer:
   m_Materials:
   - {fileID: 4835078630258379571, guid: 14bf3a7b5e22745c5b062c979f74a434, type: 3}
   - {fileID: 3511325375820423461, guid: 14bf3a7b5e22745c5b062c979f74a434, type: 3}
+  - {fileID: 2100000, guid: 002b0cdb6df5d1c4f885d79889cd79cf, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -183,6 +184,9 @@ MonoBehaviour:
   damage: 1
   level: 1
   levelMult: 1.1
+  moves: 1
+  harvestRange: 2
+  assignedTile: {fileID: 0}
 --- !u!135 &5797828400971374621
 SphereCollider:
   m_ObjectHideFlags: 0
