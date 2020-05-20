@@ -57,6 +57,7 @@ public class TurnSystem : MonoBehaviour
         currentPlayer++;
         if(currentPlayer >= players.Count)
             currentPlayer = 0;
+            UIGameManager.closeMenu();
 
         Player curPlayer = players[currentPlayer].GetComponent<Player>();
         curPlayer.updateLarvae();

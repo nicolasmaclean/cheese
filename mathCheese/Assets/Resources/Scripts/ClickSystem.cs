@@ -10,11 +10,13 @@ public class ClickSystem : MonoBehaviour
     public enum ClickState {none, hover, click};
     public GameObject infoPanelPublic;
     public GameObject messagePanelPublic;
+    public GameObject messagePanelPublic2;
     public Text activeSelectionTextPublic;
     public Text healthHeaderPublic;
 
     static RectTransform infoPanel;
     static GameObject messagePanel;
+    static GameObject messagePanel2;
     static Text activeSelectionText;
     static Text healthHeader;
     GameObject lastClicked;
@@ -27,6 +29,7 @@ public class ClickSystem : MonoBehaviour
 
         infoPanel = infoPanelPublic.GetComponent<RectTransform>();
         messagePanel = messagePanelPublic;
+        messagePanel2 = messagePanelPublic2;
         activeSelectionText = activeSelectionTextPublic;
         healthHeader = healthHeaderPublic;
     }
@@ -41,10 +44,16 @@ public class ClickSystem : MonoBehaviour
                 if(!cl0.GetComponent<Unit>().canMove) {
                     //display a message, that the unit is out of stamina
                 }
-                else if(cl0.transform.parent == TurnSystem.players[TurnSystem.currentPlayer].gameObject.transform) {
+                if(cl0.transform.parent == TurnSystem.players[TurnSystem.currentPlayer].gameObject.transform) {
                     if(UIGameManager.assign) {
                         cl0.GetComponent<UnitHarvester>().assignedTile = cl1.GetComponent<Tile>();
                         UIGameManager.assign = false;
+                    }
+                    else if(!cl0.GetComponent<Unit>().canMove) {
+                        if(!messagePanel2.activeInHierarchy) {
+                            messagePanel2.SetActive(true);
+                            clickSystemRef.disappearCoroutine(3);
+                        }
                     }
                     else
                         cl0.GetComponent<Unit>().move(cl1.GetComponent<Tile>().gridPosition);
