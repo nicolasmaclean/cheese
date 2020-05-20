@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class TurnSystem : MonoBehaviour
 {
@@ -52,6 +53,13 @@ public class TurnSystem : MonoBehaviour
 
     public void nextTurn()
     {
+        for(int i = 0; i < players.Count; i++)
+            if(players[i].GetComponent<Player>().colonies.Count == 0) {
+                players.RemoveAt(i--);
+            }
+        if(players.Count == 1)
+            Application.Quit();
+
         foreach(Transform t in players[currentPlayer].GetComponent<Player>().units)
             t.GetComponent<Unit>().resetMoves();
         currentPlayer++;
@@ -79,7 +87,6 @@ public class TurnSystem : MonoBehaviour
                 h.move(m.gridPosition);
             }
         }
-
         Camera.main.GetComponent<CameraMovement>().moveToColony();
 
         updateText();

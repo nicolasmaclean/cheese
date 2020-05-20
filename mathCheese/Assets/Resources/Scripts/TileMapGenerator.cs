@@ -19,7 +19,7 @@ public class TileMapGenerator : MonoBehaviour
         buildMap();
     }
 
-    static Tile createTile(int z, int x, Quaternion q, Transform t)
+    public static Tile createTile(int z, int x, Quaternion q, Transform t)
     {
         Tile tile = Instantiate(t, new Vector3(x*tileSize, 0, z*tileSize), q).GetComponent<Tile>();
         tile.initialize(new Vector2(x, z));

@@ -27,8 +27,8 @@ public class Controller : MonoBehaviour
             cam.zoomCamera(Input.GetAxis("Mouse ScrollWheel"));
 
         // escape key or start button to pause game
-        if(Input.GetKeyDown(KeyCode.P))
-            clickSystem.addUnit();
+        //if(Input.GetKeyDown(KeyCode.P))
+            //clickSystem.addUnit();
         if(Input.GetKeyDown(KeyCode.B))
             clickSystem.buildColony();
         if(Input.GetKeyDown("joystick button 4") || Input.GetKeyDown("x"))
