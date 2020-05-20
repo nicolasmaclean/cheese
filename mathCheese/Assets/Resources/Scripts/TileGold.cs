@@ -2,7 +2,7 @@
 {
     public override void initialize(UnityEngine.Vector2 gPos)
     {
-        entityName = "Grass Tile";
+        entityName = "Gold Tile";
 
         base.initialize(gPos);
         gold = 5;

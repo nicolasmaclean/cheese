@@ -67,6 +67,7 @@ public class ClickSystem : MonoBehaviour
     void disappearCoroutine(int time)
     {
         StartCoroutine(UIManager.timedDisappear(messagePanel, time));
+        StartCoroutine(UIManager.timedDisappear(messagePanel2, time));
     }
 
     public static void checkUnitAttack()
