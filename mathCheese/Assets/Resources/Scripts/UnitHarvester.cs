@@ -52,7 +52,8 @@ public class UnitHarvester : Unit
     public override void clicked(System.Collections.Generic.List<GameObject> clickHistory) 
     {
         base.clicked(clickHistory);
-        UIGameManager.openMenu("HarvesterAssignment");
+        if(this.transform.parent == TurnSystem.players[TurnSystem.currentPlayer])
+            UIGameManager.openMenu("HarvesterAssignment");
     }
 
     public void getPath(Tile start, Tile end)

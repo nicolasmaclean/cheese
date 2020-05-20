@@ -41,9 +41,6 @@ public class ClickSystem : MonoBehaviour
             GameObject cl0 = clickHistory[clickHistory.Count-2];
             GameObject cl1 = clickHistory[clickHistory.Count-1];
             if(cl0.GetComponent<Unit>() != null && cl1.GetComponent<Tile>() != null){
-                if(!cl0.GetComponent<Unit>().canMove) {
-                    //display a message, that the unit is out of stamina
-                }
                 if(cl0.transform.parent == TurnSystem.players[TurnSystem.currentPlayer].gameObject.transform) {
                     if(UIGameManager.assign) {
                         cl0.GetComponent<UnitHarvester>().assignedTile = cl1.GetComponent<Tile>();
@@ -80,7 +77,28 @@ public class ClickSystem : MonoBehaviour
             if(cl0 != null && cl1 != null){ // add another if the tile under an enemy unit is selected
                 if(cl0.GetComponent<Unit>() != null && cl1.GetComponent<Unit>() != null && cl0.transform.parent != cl1.transform.parent && cl0.transform.parent == TurnSystem.players[TurnSystem.currentPlayer]){
                     Vector2 tPos = cl1.GetComponent<Unit>().gridPosition;
-                    if(cl1.GetComponent<Unit>().takeDamage(cl0.GetComponent<Unit>().damage)){
+                    if(!cl0.GetComponent<Unit>().canMove) {
+                        if(!messagePanel2.activeInHierarchy) {
+                            messagePanel2.SetActive(true);
+                            clickSystemRef.disappearCoroutine(3);
+                        }
+                    }
+                    else if(cl1.GetComponent<Unit>().takeDamage(cl0.GetComponent<Unit>().damage)){
+                        cl0.GetComponent<Unit>().levelUp();
+                        cl0.GetComponent<Unit>().move(tPos);
+                    }
+                    // cl0.GetComponent<Unit>().moves--;
+                    cl0.GetComponent<Unit>().decreaseMoves(1);
+                }
+                if(cl0.GetComponent<Unit>() != null && cl1.GetComponent<TileColony>() != null && cl0.transform.parent != cl1.GetComponent<TileColony>().owner.transform && cl0.transform.parent == TurnSystem.players[TurnSystem.currentPlayer]){
+                    Vector2 tPos = cl1.GetComponent<TileColony>().gridPosition;
+                    if(!cl0.GetComponent<Unit>().canMove) {
+                        if(!messagePanel2.activeInHierarchy) {
+                            messagePanel2.SetActive(true);
+                            clickSystemRef.disappearCoroutine(3);
+                        }
+                    }
+                    else if(cl1.GetComponent<TileColony>().takeDamage(cl0.GetComponent<Unit>().damage)){
                         cl0.GetComponent<Unit>().levelUp();
                         cl0.GetComponent<Unit>().move(tPos);
                     }
@@ -117,6 +135,10 @@ public class ClickSystem : MonoBehaviour
             infoPanel.sizeDelta = new Vector2((float)390, infoPanel.sizeDelta.y);
             healthHeader.gameObject.SetActive(true);
             healthHeader.text = "Health: " + go.GetComponent<Unit>().health + "/" + go.GetComponent<Unit>().maxHealth;
+        } else if(go.GetComponent<TileColony>() != null) {
+            infoPanel.sizeDelta = new Vector2((float)390, infoPanel.sizeDelta.y);
+            healthHeader.gameObject.SetActive(true);
+            healthHeader.text = "Health: " + go.GetComponent<TileColony>().health + "/" + go.GetComponent<TileColony>().maxHealth;
         } else {
             infoPanel.sizeDelta = new Vector2((float)170, infoPanel.sizeDelta.y);
             healthHeader.gameObject.SetActive(false);

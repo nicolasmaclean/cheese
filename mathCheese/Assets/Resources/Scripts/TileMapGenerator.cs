@@ -19,7 +19,7 @@ public class TileMapGenerator : MonoBehaviour
         buildMap();
     }
 
-    static Tile createTile(int z, int x, Quaternion q, Transform t)
+    public static Tile createTile(int z, int x, Quaternion q, Transform t)
     {
         Tile tile = Instantiate(t, new Vector3(x*tileSize, 0, z*tileSize), q).GetComponent<Tile>();
         tile.initialize(new Vector2(x, z));
@@ -70,7 +70,10 @@ public class TileMapGenerator : MonoBehaviour
             tiles[y, x] = createTile(y, x, new Quaternion(0, 0, 0, 1), Resources.Load<Transform>("Meshes/tileColonyPrefab"));
             TurnSystem.players[player].GetComponent<Player>().colonies.Add(tiles[y, x].GetComponent<TileColony>());
             Unit.unitPositions[y, x] = true;
+
+            tiles[y,x].GetComponent<TileColony>().setOwner();
             return true;
+
         }
         return false;
     }
