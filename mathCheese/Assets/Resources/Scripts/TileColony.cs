@@ -6,6 +6,8 @@ public class TileColony : Tile
     public int maxHealth = 100;
     public int health = 100;
 
+    public Player owner;
+
     public override void initialize(UnityEngine.Vector2 gPos)
     {
         entityName = "Colony Tile";
@@ -13,11 +15,18 @@ public class TileColony : Tile
         base.initialize(gPos);
     }
 
+    public void setOwner() {
+        foreach(Transform p in TurnSystem.players)
+        {
+            if(p.GetComponent<Player>().colonies.Contains(this))
+                owner = p.GetComponent<Player>();
+        }
+    }
     public override void clicked(System.Collections.Generic.List<GameObject> clickHistory) 
     {
         base.clicked(clickHistory);
         ClickSystem.checkUnitAttack();
-        if(this.transform.parent == TurnSystem.players[TurnSystem.currentPlayer])
+        if(owner.Equals(TurnSystem.players[TurnSystem.currentPlayer].GetComponent<Player>()))
             UIGameManager.openMenu("UnitCreation");
     }
 
@@ -30,11 +39,7 @@ public class TileColony : Tile
 
     public void delete(bool block)
     {
-        foreach(Transform p in TurnSystem.players)
-        {
-            if(p.GetComponent<Player>().colonies.Contains(this))
-                p.GetComponent<Player>().colonies.Remove(this);
-        }
+        owner.colonies.Remove(this);
         //TileMapGenerator.tiles = TileMapGenerator.createTile(gridPosition.x, gridPosition.y, up, TileMapGenerator.tile);
         base.delete();
     }

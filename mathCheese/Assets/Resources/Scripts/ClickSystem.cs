@@ -90,7 +90,7 @@ public class ClickSystem : MonoBehaviour
                     // cl0.GetComponent<Unit>().moves--;
                     cl0.GetComponent<Unit>().decreaseMoves(1);
                 }
-                if(cl0.GetComponent<Unit>() != null && cl1.GetComponent<TileColony>() != null && cl0.transform.parent != cl1.transform.parent && cl0.transform.parent == TurnSystem.players[TurnSystem.currentPlayer]){
+                if(cl0.GetComponent<Unit>() != null && cl1.GetComponent<TileColony>() != null && cl0.transform.parent != cl1.GetComponent<TileColony>().owner.transform && cl0.transform.parent == TurnSystem.players[TurnSystem.currentPlayer]){
                     Vector2 tPos = cl1.GetComponent<TileColony>().gridPosition;
                     if(!cl0.GetComponent<Unit>().canMove) {
                         if(!messagePanel2.activeInHierarchy) {
